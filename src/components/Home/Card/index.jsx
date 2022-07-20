@@ -1,26 +1,39 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-// import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
+import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
+import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import {Component} from "react";
-import Grid from "@mui/material/Grid";
+import { Button, CardActionArea, CardActions } from '@mui/material';
+import {Link} from "react-router-dom";
 
-class Card extends Component{
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        return(
-            <Card sx={{ minWidth: 275 }}>
+export default function MultiActionAreaCard() {
+    return (
+        <Card sx={{ maxWidth: 345 }}>
+            <CardActionArea>
+                <CardMedia
+                    component="img"
+                    height="140"
+                    image="src/assets/img/not_found.jpg"
+                    alt="green iguana"
+                />
                 <CardContent>
-                       <h2>Hello</h2>
+                    <Typography gutterBottom variant="h5" component="div">
+                        Lizard
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        Lizards are a widespread group of squamate reptiles, with over 6,000
+                        species, ranging across all continents except Antarctica
+                    </Typography>
                 </CardContent>
+            </CardActionArea>
+            <CardActions>
+                <Link to={"/user"}>
+                    <Button size="small" color="primary">
+                        Booking
+                    </Button>
+                </Link>
 
-            </Card>
-        )
-    }
+            </CardActions>
+        </Card>
+    );
 }
-export default  Card;
