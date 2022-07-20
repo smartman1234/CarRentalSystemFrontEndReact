@@ -12,6 +12,7 @@ import AdminService from "../../services/AdminService";
 import Card from "@mui/material/Card";
 import Paper from "@mui/material/Paper";
 import styled from "@mui/material/styles/styled";
+import MultiActionAreaCard from "../../components/Home/Card";
 
 
 class Admin extends Component {
@@ -115,7 +116,7 @@ class Admin extends Component {
 
         const Item = styled(Paper)(({ theme }) => ({
             // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-            backgroundColor: theme.palette.mode === 'light' ? '#76DBA8' : '#fff',
+            backgroundColor: theme.palette.mode === 'light' ? '#BBDEFB' : '#fff',
             ...theme.typography.body2,
             padding: theme.spacing(1),
             textAlign: 'left',
@@ -132,6 +133,25 @@ class Admin extends Component {
 
                 <Grid Grid container spacing={2} item xs={8} sx={{ mb: 2 }}>
                     <Grid item lg={6} md={6} sm={6} xm={6} spacing={2} texta>
+                        <div>
+                            <Card variant="outlined">
+                                <Typography className={classes.column} variant={"h5"}>
+                                    <Item>Daily Rent</Item>
+                                </Typography>
+                                <Typography className={classes.column} variant={"h5"}>
+                                    <Item>Monthly Rent</Item>
+                            </Typography>
+                                <Typography className={classes.column} variant={"h5"}>
+                                    <Item>Daily Income</Item>
+                            </Typography>
+                                <Typography className={classes.column} variant={"h5"}>
+                                    <Item>Monthly Income</Item>
+                            </Typography>
+                            </Card>
+                        </div>
+                    </Grid>
+
+                    <Grid item lg={4} md={6} sm={6} xm={6} spacing={2} justifyContent={"Right"} texta>
                         <div>
                             <Card variant="outlined">
                                 <Typography className={classes.column} variant={"h5"}>
