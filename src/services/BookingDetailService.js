@@ -1,11 +1,11 @@
 import axios from "axios";
 
 
-class CarService {
+class BookingDetailService {
     createPost = async (data) => {
         console.log("form data: " + data)
         const promise = new Promise((resolve, reject) => {
-            axios.post('http://localhost:8080/car_rental_02_war/api/v1/car', data)   //10s
+            axios.post('http://localhost:8080/car_rental_02_war/api/v1/bookingDetails', data)   //10s
                 .then((res) => {
                     return resolve(res)
                 })
@@ -19,7 +19,7 @@ class CarService {
 
     fetchPosts = async () => {
         const promise = new Promise((resolve, reject) => {
-            axios.get('http://localhost:8080/car_rental_02_war/api/v1/car')
+            axios.get('http://localhost:8080/car_rental_02_war/api/v1/bookingDetails')
                 .then((res) => {
                     return resolve(res)
                 })
@@ -31,4 +31,4 @@ class CarService {
     }
 }
 
-export default new CarService()
+export default new BookingDetailService()

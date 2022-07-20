@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import GDSEButton from "../../components/common/button";
 import AppBar from "../../components/common/NavBar";
+import Grid from "@mui/material/Grid";
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -10,13 +11,14 @@ class Home extends Component {
     return (
       <div>
         <AppBar/>
-        <h1>Hello</h1>
-        <GDSEButton variant="contained" label="Back to home page" />
-        <h1>Haai</h1>
-       
+
+        <Grid container spacing={2} className={"row"}>
+
+        </Grid>
       </div>
     );
   }
 }
 
-export default Home;
+export default Home
+
