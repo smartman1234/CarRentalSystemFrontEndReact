@@ -2,22 +2,23 @@ import React, {Component, Fragment} from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
 import {styleSheet} from "./style";
 import {withStyles} from '@mui/styles';
-import CarService from "../../services/CarService";
 import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
 import GDSEDataTable from "../../components/common/Table";
 import GDSESnackBar from "../../components/common/snackBar";
 import AdminService from "../../services/AdminService";
+import Card from "@mui/material/Card";
+import Paper from "@mui/material/Paper";
+import styled from "@mui/material/styles/styled";
 
 
 class Admin extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            formData:{
+            formData: {
                 aid: '',
                 password: '',
                 username: '',
@@ -66,6 +67,7 @@ class Admin extends Component {
                 },
             ]
         }
+
     }
 
     async loadData() {
@@ -107,13 +109,48 @@ class Admin extends Component {
         }
     }
 
+
     render() {
         const {classes} = this.props;
+
+        const Item = styled(Paper)(({ theme }) => ({
+            // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+            backgroundColor: theme.palette.mode === 'light' ? '#76DBA8' : '#fff',
+            ...theme.typography.body2,
+            padding: theme.spacing(1),
+            textAlign: 'left',
+            color: theme.palette.text.secondary,
+
+        }));
+
         return (
             <Fragment>
                 <Typography className={classes.columnHeaderTitleContainer} variant={"h4"}>
                     Admin Manager
                 </Typography>
+
+
+                <Grid Grid container spacing={2} item xs={8} sx={{ mb: 2 }}>
+                    <Grid item lg={6} md={6} sm={6} xm={6} spacing={2} texta>
+                        <div>
+                            <Card variant="outlined">
+                                <Typography className={classes.column} variant={"h5"}>
+                                    <Item>Daily Rent</Item>
+                                </Typography>
+                                <Typography className={classes.column} variant={"h5"}>
+                                    <Item>Monthly Rent</Item>
+                            </Typography>
+                                <Typography className={classes.column} variant={"h5"}>
+                                    <Item>Daily Income</Item>
+                            </Typography>
+                                <Typography className={classes.column} variant={"h5"}>
+                                    <Item>Monthly Income</Item>
+                            </Typography>
+                            </Card>
+                        </div>
+                    </Grid>
+
+                </Grid>
 
                 <ValidatorForm
                     ref="form"
@@ -132,9 +169,9 @@ class Admin extends Component {
                                            onChange={(e) => {
                                                let formData = this.state.formData
                                                formData.aid = e.target.value
-                                               this.setState({ formData })
+                                               this.setState({formData})
                                            }}
-                                           style={{ width: '100%' }}
+                                           style={{width: '100%'}}
                                            validators={['required',]}
                             />
 
@@ -150,9 +187,9 @@ class Admin extends Component {
                                            onChange={(e) => {
                                                let formData = this.state.formData
                                                formData.numberOfPassengers = e.target.value
-                                               this.setState({ formData })
+                                               this.setState({formData})
                                            }}
-                                           style={{ width: '100%' }}
+                                           style={{width: '100%'}}
                                            validators={['required',]}
 
                             />
@@ -169,9 +206,9 @@ class Admin extends Component {
                                        onChange={(e) => {
                                            let formData = this.state.formData
                                            formData.color = e.target.value
-                                           this.setState({ formData })
+                                           this.setState({formData})
                                        }}
-                                       style={{ width: '100%' }}
+                                       style={{width: '100%'}}
                                        validators={['required',]}
 
                             />
@@ -187,9 +224,9 @@ class Admin extends Component {
                                        onChange={(e) => {
                                            let formData = this.state.formData
                                            formData.registrationNumber = e.target.value
-                                           this.setState({ formData })
+                                           this.setState({formData})
                                        }}
-                                       style={{ width: '100%' }}
+                                       style={{width: '100%'}}
                                        validators={['required',]}
                             />
                         </Grid>
@@ -204,9 +241,9 @@ class Admin extends Component {
                                        onChange={(e) => {
                                            let formData = this.state.formData
                                            formData.brand = e.target.value
-                                           this.setState({ formData })
+                                           this.setState({formData})
                                        }}
-                                       style={{ width: '100%' }}
+                                       style={{width: '100%'}}
                                        validators={['required',]}
                             />
                         </Grid>
@@ -222,9 +259,9 @@ class Admin extends Component {
                                        onChange={(e) => {
                                            let formData = this.state.formData
                                            formData.status = e.target.value
-                                           this.setState({ formData })
+                                           this.setState({formData})
                                        }}
-                                       style={{ width: '100%' }}
+                                       style={{width: '100%'}}
                                        validators={['required',]}
                             />
                         </Grid>
@@ -254,7 +291,7 @@ class Admin extends Component {
 
                     </Grid>
                 </ValidatorForm>
-                <Grid container style={{ height: 400, width: '100%', marginTop: '50px' }}>
+                <Grid container style={{height: 400, width: '100%', marginTop: '40px'}}>
                     {/* <BasicPostTable data={this.state.data} /> */}
                     <GDSEDataTable
                         columns={this.state.columns}
@@ -267,7 +304,7 @@ class Admin extends Component {
                 <GDSESnackBar
                     open={this.state.alert}
                     onClose={() => {
-                        this.setState({ open: false })
+                        this.setState({open: false})
                     }}
                     message={this.state.message}
                     autoHideDuration={3000}
