@@ -13,6 +13,9 @@ import Card from "@mui/material/Card";
 import Paper from "@mui/material/Paper";
 import styled from "@mui/material/styles/styled";
 import MultiActionAreaCard from "../../components/Home/Card";
+import Car from "../Car";
+import Driver from "../Driver";
+import {Link} from "react-router-dom";
 
 
 class Admin extends Component {
@@ -126,13 +129,14 @@ class Admin extends Component {
 
         return (
             <Fragment>
-                <Typography className={classes.columnHeaderTitleContainer} variant={"h4"}>
+                <Typography className={classes.columnHeaderTitleContainer} variant={"h4"} sx={{ mb: 3 }}>
                     Admin Manager
                 </Typography>
 
 
+
                 <Grid Grid container spacing={2} item xs={8} sx={{ mb: 2 }}>
-                    <Grid item lg={6} md={6} sm={6} xm={6} spacing={2} texta>
+                    <Grid item lg={6} md={6} sm={6} xm={6} spacing={2} texta >
                         <div>
                             <Card variant="outlined">
                                 <Typography className={classes.column} variant={"h5"}>
@@ -151,21 +155,23 @@ class Admin extends Component {
                         </div>
                     </Grid>
 
-                    <Grid item lg={4} md={6} sm={6} xm={6} spacing={2} justifyContent={"Right"} texta>
+                    <Grid item lg={11} md={12} sm={12} xm={12} style={{display: 'flex'}} justifyContent="flex-start"
+                          spacing-xs-6>
                         <div>
                             <Card variant="outlined">
-                                <Typography className={classes.column} variant={"h5"}>
-                                    <Item>Daily Rent</Item>
-                                </Typography>
-                                <Typography className={classes.column} variant={"h5"}>
-                                    <Item>Monthly Rent</Item>
-                            </Typography>
-                                <Typography className={classes.column} variant={"h5"}>
-                                    <Item>Daily Income</Item>
-                            </Typography>
-                                <Typography className={classes.column} variant={"h5"}>
-                                    <Item>Monthly Income</Item>
-                            </Typography>
+
+                                   <Link to={"/car"}>
+                                       <Button variant="outlined" color="error">
+                                           Car
+                                       </Button>
+                                   </Link>
+
+
+                                    <Link to={"/driver"}>
+                                        <Button variant="outlined" color="error">
+                                            Driver
+                                        </Button>
+                                    </Link>
                             </Card>
                         </div>
                     </Grid>
@@ -331,7 +337,11 @@ class Admin extends Component {
                     severity={this.state.severity}
                     variant="filled"
                 />
+
+                <Car/>
+                <Driver/>
             </Fragment>
+
         )
     }
 }
