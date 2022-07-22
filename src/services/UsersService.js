@@ -1,34 +1,56 @@
-import axios from "axios";
-
+import axios from "../axios";
 
 class UsersService {
-    createPost = async (data) => {
-        console.log("form data: " + data)
+    postUser = async (data) => {
         const promise = new Promise((resolve, reject) => {
-            axios.post('http://localhost:8080/car_rental_02_war/api/v1/user', data)   //10s
-                .then((res) => {
-                    return resolve(res)
+            axios.post('user', data).then((res) => {
+                return resolve(res)
+            })
+                .catch((err) => {
+                    return resolve(err)
                 })
-                .catch((er) => {
-                    console.log('error: ' + er);
-                    return resolve(er)
-                })
-        })
-        return await promise
+        });
+        return promise;
     }
 
-    fetchPosts = async () => {
+    fetchUser = async () => {
         const promise = new Promise((resolve, reject) => {
-            axios.get('http://localhost:8080/car_rental_02_war/api/v1/user')
+            axios.get('user')
                 .then((res) => {
                     return resolve(res)
                 })
-                .catch((er) => {
-                    return resolve(er)
+                .catch((err) => {
+                    return resolve(err)
                 })
         })
-        return await promise
+
+        return await promise;
     }
+    putUser = async (data) => {
+        const promise = new Promise(((resolve, reject) => {
+                axios.put('user', data).then((res) => {
+                    return resolve(res)
+                })
+                    .catch((err) => {
+                        return resolve(err)
+                    })
+            })
+        )
+        return await promise;
+    }
+
+    deleteUser = async (params) => {
+        const promise = new Promise((resolve, reject) => {
+            axios.delete('user',{params:params}).
+            then((res)=>{
+                return resolve(res)
+            })
+                .catch((err)=>{
+                    return resolve (err)
+                })
+        })
+        return await promise;
+    };
 }
 
-export default new UsersService()
+export default new UsersService();

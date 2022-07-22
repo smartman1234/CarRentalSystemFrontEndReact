@@ -1,34 +1,57 @@
-import axios from "axios";
-
+import axios from "../axios";
 
 class DriverDetailsService {
-    createPost = async (data) => {
-        console.log("form data: " + data)
+    postDriverDetails = async (data) => {
         const promise = new Promise((resolve, reject) => {
-            axios.post('http://localhost:8080/car_rental_02_war/api/v1/driverDetails', data)   //10s
+            axios.post('driverDetails', data)    // 20s
                 .then((res) => {
                     return resolve(res)
                 })
-                .catch((er) => {
-                    console.log('error: ' + er);
-                    return resolve(er)
+                .catch((err) => {
+                    return resolve(err)
                 })
-        })
-        return await promise
+        });
+
+        return await promise;
     }
 
-    fetchPosts = async () => {
+    fetchDriverDetails = async () => {
         const promise = new Promise((resolve, reject) => {
-            axios.get('http://localhost:8080/car_rental_02_war/api/v1/driverDetails')
+            axios.get('driverDetails')
                 .then((res) => {
                     return resolve(res)
                 })
-                .catch((er) => {
-                    return resolve(er)
+                .catch((err) => {
+                    return resolve(err)
                 })
         })
-        return await promise
+        return await promise;
     }
+
+    putDriverDetails = async (data) => {
+        const promise = new Promise((resolve, reject) => {
+            axios.put('driverDetails', data)
+                .then((res) => {
+                    return resolve(res)
+                })
+                .catch((err) => {
+                    return resolve(err)
+                })
+        })
+        return await promise;
+    };
+
+    deleteDriverDetails = async (params) => {
+        const promise = new Promise((resolve, reject) => {
+            axios.delete('driverDetails', {params: params})
+                .then((res) => {
+                    return resolve(res)
+                })
+                .catch((err) => {
+                    return resolve(err)
+                })
+        })
+        return await promise;
+    };
 }
-
-export default new DriverDetailsService()
+export default new DriverDetailsService();

@@ -1,121 +1,180 @@
 import React, {Component, Fragment} from "react";
-import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
+import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import GDSEButton from "../../components/common/button";
 import UsersService from "../../services/UsersService";
-import Button from "@mui/material/Button";
-import GDSEDataTable from "../../components/common/Table";
 import GDSESnackBar from "../../components/common/snackBar";
-import BasicTable from "../../components/Car";
 
-class User extends Component{
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+
+import EditIcon from '@mui/icons-material/Edit';
+
+class User extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            formData:{
-                uid: "",
-                userName: "",
-                userEmail: "",
-                userAddress: "",
-                userContactNo: "",
-                userIdentityCardImg: "",
-                userDrivingLicenceImg: "",
+            formData: {
+                uid: '',
+                userName: '',
+                userEmail: '',
+                userAddress: '',
+                userContactNo: '',
+                userIdentityCardImg: '',
+                userDrivingLicenceImg: '',
 
             },
             alert: false,
-            message: "",
-            severity: "",
-
+            message: '',
+            severity: '',
 
             data: [],
-            loaded: false,
+            btnLabel:'Save',
+            btnColor:"primary"
 
-            //for data table
-            columns: [
-                {
-                    field: 'uid',
-                    headerName: 'User Id',
-                    width: 120
-                },
-                {
-                    field: 'userName',
-                    headerName: 'userName',
-                    width: 200
-                },
-                {
-                    field: 'userEmail',
-                    headerName: 'userEmail',
-                    width: 200
-                },
-                {
-                    field: 'userAddress',
-                    headerName: 'userAddress',
-                    width: 250
-                },
-                {
-                    field: 'userContactNo',
-                    headerName: 'userContactNo',
-                    width: 250
-                },
-                {
-                    field: 'userIdentityCardImg',
-                    headerName: 'userIdentityCardImg',
-                    width: 250
-                },
-                {
-                    field: 'userDrivingLicenceImg',
-                    headerName: 'userDrivingLicenceImg',
-                    width: 250
-                },
-            ]
+
+        }
+    }
+    deleteUser=async (uid)=>{
+        let params={
+            uid:uid
+        }
+       let res=await UsersService.deleteUser(params);
+       if (res.status===200){
+           this.setState({
+               alert: true,
+               message: res.data.message,
+               severity: "success"
+           })
+           this.loadData();
+       }else {
+           this.setState({
+               alert: true,
+               message: res.response.data.message,
+               severity: "error"
+           });
+       }
+    }
+
+    updateUser = (data) => {
+        console.log(data);
+        this.setState({
+            btnLabel:"update",
+            btnColor:"success",
+            formData: {
+                uid: data.uid,
+                userName: data.userName,
+                userEmail: data.userEmail,
+                userAddress: data.userAddress,
+                userContactNo: data.userContactNo,
+                userIdentityCardImg: data.userIdentityCardImg,
+                userDrivingLicenceImg: data.userDrivingLicenceImg,
+
+            }
+        })
+    };
+
+    clearFields = (e) => {
+        this.setState({
+            formData: {
+                uid: '',
+                userName: '',
+                userEmail: '',
+                userAddress: '',
+                userContactNo: '',
+                userIdentityCardImg: '',
+                userDrivingLicenceImg: '',
+
+            }
+        });
+    }
+
+    submitUser = async () => {
+        let formData = this.state.formData;
+        if (this.state.btnLabel==="Save"){
+            let res = await UsersService.postUser(formData);
+            console.log(res);
+
+            if (res.status === 201) {
+                this.setState({
+                    alert: true,
+                    message: res.data.message,
+                    severity: "success"
+                });
+                this.clearFields();
+                this.loadData();
+            } else {
+                this.setState({
+                    alert: true,
+                    message: res.response.data.message,
+                    severity: "error"
+                });
+        }
+
+        }else {
+            let res=await UsersService.putUser(formData);
+            if (res.status===200){
+                this.setState({
+                    alert: true,
+                    message: res.data.message,
+                    severity: "success",
+                    btnLabel:"Save",
+                    btnColor:"primary"
+                });
+                this.clearFields();
+                this.loadData();
+            }else {
+                this.setState({
+                    alert: true,
+                    message: res.response.data.message,
+                    severity: "error"
+                });
+            }
         }
     }
 
-    async loadData() {
-        let res = await UsersService.fetchPosts();
-        console.log("row response: " + JSON.stringify(res))
+    exampleForMap = () => {
+        this.state.data.map((value, index) => {
+            // console.log(value.userName)
+            // console.log(index)
+            console.log(value)
+
+            // this.state.data[index].id="U00_002"
+
+        })
+    }
+
+    loadData = async () => {
+        let res = await UsersService.fetchUser();
         if (res.status === 200) {
             this.setState({
-                loaded: true,
-                data: res.data
+                data: res.data.data
             })
-            // console.log("res: " + JSON.stringify(res.data))
-
-        } else {
-            console.log("fetching error: " + res)
         }
+        console.log(this.state.data)
+        this.exampleForMap();
     }
+
     componentDidMount() {
-        console.log('Post Screen Mounted!');
         this.loadData();
 
         console.log(this.state.data)
     }
 
-    handleSubmit = async () => {
-        console.log('save button clicked!!')
-        console.log(this.state.formData)
-        let formData = this.state.formData  // not compulsory
-        let response = await UsersService.createPost(formData);
-        if (response.status === 201) {
-            this.setState({
-                alert: true,
-                message: 'Post created succesfully!',
-                severity: 'success'
-            })
-        } else {
-            this.setState({
-                alert: true,
-                message: 'Post created Unsuccesfully!',
-                severity: 'error'
-            })
-        }
-    }
     render() {
-        const { classes } = this.props;
-        return(
+        const {classes} = this.props;
+        return (
             <Fragment>
                 <Typography variant="h2">User Manage</Typography>
                 <ValidatorForm
@@ -124,23 +183,20 @@ class User extends Component{
                     onSubmit={this.submitUser}
                 >
                     <Grid container className="pt-2" spacing={3}>
-                        {/*<Grid item lg={12} xs={12} sm={12} md={12}>*/}
-                        {/*    <Typography variant="body2">User Id</Typography>*/}
-                        {/*</Grid>*/}
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <Typography variant="body2">User Id</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Customer Id"
+                                placeholder="User Id"
                                 variant="outlined"
                                 size="small"
-                                value={this.state.formData.userId}
+                                value={this.state.formData.uid}
                                 onChange={(e) => {
                                     let formData = this.state.formData
-                                    formData.userId = e.target.value
-                                    this.setState({ formData })
+                                    formData.uid = e.target.value
+                                    this.setState({formData})
                                 }}
-                                style={{ width: '100%' }}
+                                style={{width: '100%'}}
                                 validators={['required',]}
 
                             />
@@ -157,9 +213,9 @@ class User extends Component{
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.userName = e.target.value
-                                    this.setState({ formData })
+                                    this.setState({formData})
                                 }}
-                                style={{ width: '100%' }}
+                                style={{width: '100%'}}
                                 validators={['required',]}
                             />
                         </Grid>
@@ -174,9 +230,9 @@ class User extends Component{
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.userEmail = e.target.value
-                                    this.setState({ formData })
+                                    this.setState({formData})
                                 }}
-                                style={{ width: '100%' }}
+                                style={{width: '100%'}}
                                 validators={['required',]}
                             />
                         </Grid>
@@ -191,9 +247,9 @@ class User extends Component{
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.userAddress = e.target.value
-                                    this.setState({ formData })
+                                    this.setState({formData})
                                 }}
-                                style={{ width: '100%' }}
+                                style={{width: '100%'}}
                                 validators={['required',]}
                             />
                         </Grid>
@@ -208,9 +264,9 @@ class User extends Component{
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.userContactNo = e.target.value
-                                    this.setState({ formData })
+                                    this.setState({formData})
                                 }}
-                                style={{ width: '100%' }}
+                                style={{width: '100%'}}
                                 validators={['required',]}
                             />
                         </Grid>
@@ -225,9 +281,9 @@ class User extends Component{
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.userIdentityCardImg = e.target.value
-                                    this.setState({ formData })
+                                    this.setState({formData})
                                 }}
-                                style={{ width: '100%' }}
+                                style={{width: '100%'}}
                                 validators={['required',]}
                             />
                         </Grid>
@@ -242,59 +298,91 @@ class User extends Component{
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.userDrivingLicenceImg = e.target.value
-                                    this.setState({ formData })
+                                    this.setState({formData})
                                 }}
-                                style={{ width: '100%' }}
+                                style={{width: '100%'}}
                                 validators={['required',]}
                             />
                         </Grid>
-                        <Grid item lg={12} md={12} sm={12} xm={6} style={{display: 'flex'}} justifyContent="flex-end"
-                              spacing-xs-6>
-                            <Button variant="outlined" color="success">
-                                Clear
-                            </Button>
-                            <div style={{width: "10px"}}></div>
-
-                            <Button variant="outlined" color="primary">
-                                Save
-                            </Button>
-
-                            <div style={{width: "10px"}}></div>
-
-                            <Button variant="outlined" color="warning">
-                                Update
-                            </Button>
-                            <div style={{width: "10px"}}></div>
-
-                            <Button variant="outlined" color="error">
-                                Delete
-                            </Button>
+                        <Grid container style={{marginTop: '10px'}} direction="row" justifyContent="flex-end"
+                              alignItems="center">
+                            <GDSEButton label={this.state.btnLabel} type="submit" size="small" color={this.state.btnColor}
+                                        variant="contained"/>
                         </Grid>
-
                     </Grid>
                 </ValidatorForm>
 
-                <Grid container style={{ height: 400, width: '100%', marginTop: '50px' }}>
-                    {/* <BasicPostTable data={this.state.data} /> */}
-                    <GDSEDataTable
-                        columns={this.state.columns}
-                        rows={this.state.data}
-                        rowsPerPageOptions={5}
-                        pageSize={5}
-                        // checkboxSelection={true}
-                    />
+                <Grid container>
+                    <TableContainer component={Paper}>
+                        <Table sx={{minWidth: 650}} aria-label="user table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align="right">User Id</TableCell>
+                                    <TableCell align="right">User Name</TableCell>
+                                    <TableCell align="right">User Email</TableCell>
+                                    <TableCell align="right">User Address</TableCell>
+                                    <TableCell align="right">User Contact No</TableCell>
+                                    <TableCell align="right">User Identity Card Image</TableCell>
+                                    <TableCell align="right">User Driving Licence Image</TableCell>
+                                    <TableCell align="right">Action</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {
+                                    this.state.data.map((row) => (
+                                        <TableRow>
+                                            <TableCell align="right">{row.uid}</TableCell>
+                                            <TableCell align="right">{row.userName}</TableCell>
+                                            <TableCell align="right">{row.userEmail}</TableCell>
+                                            <TableCell align="right">{row.userAddress}</TableCell>
+                                            <TableCell align="right">{row.userContactNo}</TableCell>
+                                            <TableCell align="right">{row.userIdentityCardImg}</TableCell>
+                                            <TableCell align="right">{row.userDrivingLicenceImg}</TableCell>
+                                            <TableCell align="right">
+                                                <Tooltip title="Edit">
+                                                    <IconButton
+                                                        onClick={() => {
+                                                            console.log("edit icon clicked!")
+                                                            this.updateUser(row);
+                                                        }}
+                                                    >
+                                                        <EditIcon color={"primary"}/>
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                <Tooltip title="Delete">
+                                                    <IconButton
+                                                        onClick={() => {
+                                                            console.log("delete icon clicked!")
+                                                            this.deleteUser(row.uid);
+                                                        }}
+                                                    >
+                                                        <DeleteIcon color={"error"}/>
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                }
+
+                            </TableBody>
+                        </Table>
+
+                    </TableContainer>
                 </Grid>
+
                 <GDSESnackBar
                     open={this.state.alert}
                     onClose={() => {
-                        this.setState({ open: false })
+                        this.setState({alert: false})
                     }}
                     message={this.state.message}
                     autoHideDuration={3000}
                     severity={this.state.severity}
                     variant="filled"
-                />
 
+                />
             </Fragment>
 
 
