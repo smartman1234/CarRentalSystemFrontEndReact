@@ -1,34 +1,56 @@
-import axios from "axios";
-
+import axios from "../axios";
 
 class PaymentService {
-    createPost = async (data) => {
-        console.log("form data: " + data)
+    postPayment = async (data) => {
         const promise = new Promise((resolve, reject) => {
-            axios.post('http://localhost:8080/car_rental_02_war/api/v1/payment', data)   //10s
-                .then((res) => {
-                    return resolve(res)
+            axios.post('payment', data).then((res) => {
+                return resolve(res)
+            })
+                .catch((err) => {
+                    return resolve(err)
                 })
-                .catch((er) => {
-                    console.log('error: ' + er);
-                    return resolve(er)
-                })
-        })
-        return await promise
+        });
+        return promise;
     }
 
-    fetchPosts = async () => {
+    fetchPayment = async () => {
         const promise = new Promise((resolve, reject) => {
-            axios.get('http://localhost:8080/car_rental_02_war/api/v1/payment')
+            axios.get('payment')
                 .then((res) => {
                     return resolve(res)
                 })
-                .catch((er) => {
-                    return resolve(er)
+                .catch((err) => {
+                    return resolve(err)
                 })
         })
-        return await promise
+
+        return await promise;
     }
+    putPayment = async (data) => {
+        const promise = new Promise(((resolve, reject) => {
+                axios.put('payment', data).then((res) => {
+                    return resolve(res)
+                })
+                    .catch((err) => {
+                        return resolve(err)
+                    })
+            })
+        )
+        return await promise;
+    }
+
+    deletePayment = async (params) => {
+        const promise = new Promise((resolve, reject) => {
+            axios.delete('payment',{params:params}).
+            then((res)=>{
+                return resolve(res)
+            })
+                .catch((err)=>{
+                    return resolve (err)
+                })
+        })
+        return await promise;
+    };
 }
 
-export default new PaymentService()
+export default new PaymentService();

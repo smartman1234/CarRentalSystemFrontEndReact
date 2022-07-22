@@ -10,6 +10,22 @@ import GDSESnackBar from "../../components/common/snackBar";
 import BasicTable from "../../components/Car";
 import DriverService from "../../services/DriverService";
 
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+
+import EditIcon from '@mui/icons-material/Edit';
+
+
 class Driver extends Component{
     constructor(props) {
         super(props);
@@ -33,99 +49,131 @@ class Driver extends Component{
 
 
             data: [],
-            loaded: false,
+            btnLabel:'Save',
+            btnColor:"primary"
 
-            //for data table
-            columns: [
-                {
-                    field: 'did',
-                    headerName: 'Driver Id',
-                    width: 70
-                },
-                {
-                    field: 'driverName',
-                    headerName: 'driverName',
-                    width: 100
-                },
-                {
-                    field: 'driverAge',
-                    headerName: 'driverAge',
-                    width: 100
-                },
-                {
-                    field: 'driverPassword',
-                    headerName: 'driverPassword',
-                    width: 70
-                },
-                {
-                    field: 'driverLicence',
-                    headerName: 'driverLicence',
-                    width: 100
-                },
-                {
-                    field: 'driverEmail',
-                    headerName: 'driverEmail',
-                    width: 70
-                },
-                {
-                    field: 'driverContactNo',
-                    headerName: 'driverContactNo',
-                    width: 100
-                },
-                {
-                    field: 'driverAddress',
-                    headerName: 'driverAddress',
-                    width: 100
-                },
-                {
-                    field: 'driverStatus',
-                    headerName: 'driverStatus',
-                    width: 100
-                },
-            ]
         }
     }
 
-    async loadData() {
-        let res = await UsersService.fetchPosts();
-        console.log("row response: " + JSON.stringify(res))
+    deleteDriver=async (did)=>{
+        let params={
+            did:did
+        }
+        let res=await DriverService.deleteDriver(params);
+        if (res.status===200){
+            this.setState({
+                alert: true,
+                message: res.data.message,
+                severity: "success"
+            })
+            this.loadData();
+        }else {
+            this.setState({
+                alert: true,
+                message: res.response.data.message,
+                severity: "error"
+            });
+        }
+    }
+
+
+    updateDriver = (data) => {
+        console.log(data);
+        this.setState({
+            btnLabel:"update",
+            btnColor:"success",
+            formData: {
+                did: data.did,
+                driverName: data.driverName,
+                driverAge: data.driverAge,
+                driverPassword: data.driverPassword,
+                driverLicence: data.driverLicence,
+                driverEmail: data.driverEmail,
+                driverContactNo: data.driverContactNo,
+                driverAddress: data.driverAddress,
+                driverStatus: data.driverStatus,
+            }
+        })
+    };
+
+    clearFields = (e) => {
+        this.setState({
+            formData: {
+                did: "",
+                driverName: "",
+                driverAge: "",
+                driverPassword: "",
+                driverLicence: "",
+                driverEmail: "",
+                driverContactNo: "",
+                driverAddress: "",
+                driverStatus: "",
+
+            }
+        });
+    }
+
+
+    submitUser = async () => {
+        let formData = this.state.formData;
+        if (this.state.btnLabel==="Save"){
+            let res = await DriverService.postDriver(formData);
+            console.log(res);
+
+            if (res.status === 201) {
+                this.setState({
+                    alert: true,
+                    message: res.data.message,
+                    severity: "success"
+                });
+                this.clearFields();
+                this.loadData();
+            } else {
+                this.setState({
+                    alert: true,
+                    message: res.response.data.message,
+                    severity: "error"
+                });
+            }
+
+        }else {
+            let res=await DriverService.putDriver(formData);
+            if (res.status===200){
+                this.setState({
+                    alert: true,
+                    message: res.data.message,
+                    severity: "success",
+                    btnLabel:"Save",
+                    btnColor:"primary"
+                });
+                this.clearFields();
+                this.loadData();
+            }else {
+                this.setState({
+                    alert: true,
+                    message: res.response.data.message,
+                    severity: "error"
+                });
+            }
+        }
+    }
+
+    loadData = async () => {
+        let res = await DriverService.fetchDriver();
         if (res.status === 200) {
             this.setState({
-                loaded: true,
-                data: res.data
+                data: res.data.data
             })
-            // console.log("res: " + JSON.stringify(res.data))
-
-        } else {
-            console.log("fetching error: " + res)
         }
+        console.log(this.state.data)
     }
+
     componentDidMount() {
-        console.log('Post Screen Mounted!');
         this.loadData();
 
         console.log(this.state.data)
     }
 
-    handleSubmit = async () => {
-        console.log('save button clicked!!')
-        console.log(this.state.formData)
-        let formData = this.state.formData  // not compulsory
-        let response = await DriverService.createPost(formData);
-        if (response.status === 201) {
-            this.setState({
-                alert: true,
-                message: 'Post created succesfully!',
-                severity: 'success'
-            })
-        } else {
-            this.setState({
-                alert: true,
-                message: 'Post created Unsuccesfully!',
-                severity: 'error'
-            })
-        }
-    }
     render() {
         const { classes } = this.props;
         return(
@@ -166,7 +214,7 @@ class Driver extends Component{
                                 placeholder="Driver Name"
                                 variant="outlined"
                                 size="small"
-                                value={this.state.formData.userName}
+                                value={this.state.formData.driverName}
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.driverName = e.target.value
@@ -217,23 +265,6 @@ class Driver extends Component{
                                 placeholder="Driver Licence"
                                 variant="outlined"
                                 size="small"
-                                value={this.state.formData.driverPassword}
-                                onChange={(e) => {
-                                    let formData = this.state.formData
-                                    formData.driverPassword = e.target.value
-                                    this.setState({ formData })
-                                }}
-                                style={{ width: '100%' }}
-                                validators={['required',]}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="subtitle1">Driver Licence</Typography>
-                            <TextValidator
-                                id="outlinedbasic"
-                                placeholder="Driver Licence"
-                                variant="outlined"
-                                size="small"
                                 value={this.state.formData.driverLicence}
                                 onChange={(e) => {
                                     let formData = this.state.formData
@@ -244,6 +275,23 @@ class Driver extends Component{
                                 validators={['required',]}
                             />
                         </Grid>
+                        {/*<Grid item xs={12} sm={12} md={6} lg={6}>*/}
+                        {/*    <Typography variant="subtitle1">Driver Licence</Typography>*/}
+                        {/*    <TextValidator*/}
+                        {/*        id="outlinedbasic"*/}
+                        {/*        placeholder="Driver Licence"*/}
+                        {/*        variant="outlined"*/}
+                        {/*        size="small"*/}
+                        {/*        value={this.state.formData.driverLicence}*/}
+                        {/*        onChange={(e) => {*/}
+                        {/*            let formData = this.state.formData*/}
+                        {/*            formData.driverLicence = e.target.value*/}
+                        {/*            this.setState({ formData })*/}
+                        {/*        }}*/}
+                        {/*        style={{ width: '100%' }}*/}
+                        {/*        validators={['required',]}*/}
+                        {/*    />*/}
+                        {/*</Grid>*/}
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <Typography variant="subtitle1">Driver Email</Typography>
                             <TextValidator
@@ -312,53 +360,135 @@ class Driver extends Component{
                                 validators={['required',]}
                             />
                         </Grid>
-                        <Grid item lg={12} md={12} sm={12} xm={6} style={{display: 'flex'}} justifyContent="flex-end"
-                              spacing-xs-6>
-                            <Button variant="outlined" color="success">
-                                Clear
-                            </Button>
-                            <div style={{width: "10px"}}></div>
+                        {/*<Grid item lg={12} md={12} sm={12} xm={6} style={{display: 'flex'}} justifyContent="flex-end"*/}
+                        {/*      spacing-xs-6>*/}
+                        {/*    <Button variant="outlined" color="success">*/}
+                        {/*        Clear*/}
+                        {/*    </Button>*/}
+                        {/*    <div style={{width: "10px"}}></div>*/}
 
-                            <Button variant="outlined" color="primary">
-                                Save
-                            </Button>
+                        {/*    <Button variant="outlined" color="primary">*/}
+                        {/*        Save*/}
+                        {/*    </Button>*/}
 
-                            <div style={{width: "10px"}}></div>
+                        {/*    <div style={{width: "10px"}}></div>*/}
 
-                            <Button variant="outlined" color="warning">
-                                Update
-                            </Button>
-                            <div style={{width: "10px"}}></div>
+                        {/*    <Button variant="outlined" color="warning">*/}
+                        {/*        Update*/}
+                        {/*    </Button>*/}
+                        {/*    <div style={{width: "10px"}}></div>*/}
 
-                            <Button variant="outlined" color="error">
-                                Delete
-                            </Button>
+                        {/*    <Button variant="outlined" color="error">*/}
+                        {/*        Delete*/}
+                        {/*    </Button>*/}
+                        {/*</Grid>*/}
+
+                        <Grid container style={{marginTop: '10px'}} direction="row" justifyContent="flex-end"
+                              alignItems="center">
+                            <GDSEButton label={this.state.btnLabel} type="submit" size="small" color={this.state.btnColor}
+                                        variant="contained"/>
                         </Grid>
 
                     </Grid>
                 </ValidatorForm>
 
-                <Grid container style={{ height: 400, width: '100%', marginTop: '50px' }}>
-                    {/* <BasicPostTable data={this.state.data} /> */}
-                    <GDSEDataTable
-                        columns={this.state.columns}
-                        rows={this.state.data}
-                        rowsPerPageOptions={5}
-                        pageSize={5}
-                        // checkboxSelection={true}
-                    />
+                {/*<Grid container style={{ height: 400, width: '100%', marginTop: '50px' }}>*/}
+                {/*    /!* <BasicPostTable data={this.state.data} /> *!/*/}
+                {/*    <GDSEDataTable*/}
+                {/*        columns={this.state.columns}*/}
+                {/*        rows={this.state.data}*/}
+                {/*        rowsPerPageOptions={5}*/}
+                {/*        pageSize={5}*/}
+                {/*        // checkboxSelection={true}*/}
+                {/*    />*/}
+                {/*</Grid>*/}
+                {/*<GDSESnackBar*/}
+                {/*    open={this.state.alert}*/}
+                {/*    onClose={() => {*/}
+                {/*        this.setState({ open: false })*/}
+                {/*    }}*/}
+                {/*    message={this.state.message}*/}
+                {/*    autoHideDuration={3000}*/}
+                {/*    severity={this.state.severity}*/}
+                {/*    variant="filled"*/}
+                {/*/>*/}
+
+
+                <Grid container>
+                    <TableContainer component={Paper}>
+                        <Table sx={{minWidth: 650}} aria-label="user table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell align="right">Driver Id</TableCell>
+                                    <TableCell align="right">Driver Name</TableCell>
+                                    <TableCell align="right">Driver Age</TableCell>
+                                    <TableCell align="right">Driver Password</TableCell>
+                                    <TableCell align="right">Driver Licence</TableCell>
+                                    <TableCell align="right">Driver Email</TableCell>
+                                    <TableCell align="right">Driver ContactNo</TableCell>
+                                    <TableCell align="right">Driver Address</TableCell>
+                                    <TableCell align="right">Driver Status</TableCell>
+                                    <TableCell align="right">Action</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {
+                                    this.state.data.map((row) => (
+                                        <TableRow>
+                                            <TableCell align="right">{row.did}</TableCell>
+                                            <TableCell align="right">{row.driverName}</TableCell>
+                                            <TableCell align="right">{row.driverAge}</TableCell>
+                                            <TableCell align="right">{row.driverPassword}</TableCell>
+                                            <TableCell align="right">{row.driverLicence}</TableCell>
+                                            <TableCell align="right">{row.driverEmail}</TableCell>
+                                            <TableCell align="right">{row.driverContactNo}</TableCell>
+                                            <TableCell align="right">{row.driverAddress}</TableCell>
+                                            <TableCell align="right">{row.driverStatus}</TableCell>
+                                            <TableCell align="right">
+                                                <Tooltip title="Edit">
+                                                    <IconButton
+                                                        onClick={() => {
+                                                            console.log("edit icon clicked!")
+                                                            this.updateDriver(row);
+                                                        }}
+                                                    >
+                                                        <EditIcon color={"primary"}/>
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                <Tooltip title="Delete">
+                                                    <IconButton
+                                                        onClick={() => {
+                                                            console.log("delete icon clicked!")
+                                                            this.deleteDriver(row.did);
+                                                        }}
+                                                    >
+                                                        <DeleteIcon color={"error"}/>
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                }
+
+                            </TableBody>
+                        </Table>
+
+                    </TableContainer>
                 </Grid>
+
                 <GDSESnackBar
                     open={this.state.alert}
                     onClose={() => {
-                        this.setState({ open: false })
+                        this.setState({alert: false})
                     }}
                     message={this.state.message}
                     autoHideDuration={3000}
                     severity={this.state.severity}
                     variant="filled"
-                />
 
+                />
             </Fragment>
 
 
