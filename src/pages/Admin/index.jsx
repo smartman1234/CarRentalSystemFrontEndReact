@@ -2,19 +2,27 @@ import React, {Component, Fragment} from "react";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import AdminService from "../../services/AdminService";
 import GDSEButton from "../../components/common/button";
-import TableContainer from "@mui/material/TableContainer";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import TableBody from "@mui/material/TableBody";
-import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+
+
+import UsersService from "../../services/UsersService";
+
+import GDSESnackBar from "../../components/common/snackBar";
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+
+import EditIcon from '@mui/icons-material/Edit';
+import AdminService from "../../services/AdminService";
 
 class Admin extends Component {
     constructor(props) {
@@ -29,33 +37,32 @@ class Admin extends Component {
                 email: '',
                 contactNo: '',
 
+
             },
             alert: false,
             message: '',
             severity: '',
 
             data: [],
-            btnLabel: 'Save',
-            btnColor: "primary"
+            btnLabel:'Save',
+            btnColor:"primary"
+
 
         }
-
-
     }
-
-    deleteAdmin = async (aid) => {
-        let params = {
-            aid: aid
+    deleteAdmin=async (aid)=>{
+        let params={
+            aid:aid
         }
-        let res = await AdminService.deleteAdmin(params);
-        if (res.status === 200) {
+        let res=await AdminService.deleteAdmin(params);
+        if (res.status===200){
             this.setState({
                 alert: true,
                 message: res.data.message,
                 severity: "success"
             })
             this.loadData();
-        } else {
+        }else {
             this.setState({
                 alert: true,
                 message: res.response.data.message,
@@ -64,23 +71,23 @@ class Admin extends Component {
         }
     }
 
-    updateUser = (data) => {
+    updateAdmin = (data) => {
         console.log(data);
         this.setState({
             btnLabel:"update",
             btnColor:"success",
             formData: {
                 aid: data.aid,
-                userName: data.userName,
-                userEmail: data.userEmail,
-                userAddress: data.userAddress,
-                userContactNo: data.userContactNo,
-                userIdentityCardImg: data.userIdentityCardImg,
-                userDrivingLicenceImg: data.userDrivingLicenceImg,
+                password: data.password,
+                username: data.username,
+                name: data.name,
+                email: data.email,
+                contactNo: data.contactNo,
 
             }
         })
     };
+
     clearFields = (e) => {
         this.setState({
             formData: {
@@ -91,15 +98,15 @@ class Admin extends Component {
                 email: '',
                 contactNo: '',
 
+
             }
         });
     }
 
-
     submitAdmin = async () => {
         let formData = this.state.formData;
-        if (this.state.btnLabel === "Save") {
-            let res = await AdminService.putAdmin(formData);
+        if (this.state.btnLabel==="Save"){
+            let res = await AdminService.postAdmin(formData);
             console.log(res);
 
             if (res.status === 201) {
@@ -118,19 +125,19 @@ class Admin extends Component {
                 });
             }
 
-        } else {
-            let res = await AdminService.putAdmin(formData);
-            if (res.status === 200) {
+        }else {
+            let res=await AdminService.putAdmin(formData);
+            if (res.status===200){
                 this.setState({
                     alert: true,
                     message: res.data.message,
                     severity: "success",
-                    btnLabel: "Save",
-                    btnColor: "primary"
+                    btnLabel:"Save",
+                    btnColor:"primary"
                 });
                 this.clearFields();
                 this.loadData();
-            } else {
+            }else {
                 this.setState({
                     alert: true,
                     message: res.response.data.message,
@@ -139,7 +146,6 @@ class Admin extends Component {
             }
         }
     }
-
 
     exampleForMap = () => {
         this.state.data.map((value, index) => {
@@ -169,20 +175,17 @@ class Admin extends Component {
         console.log(this.state.data)
     }
 
-
     render() {
         const {classes} = this.props;
         return (
             <Fragment>
-                <Typography variant="h2">Admin Manage</Typography>
+                <Typography variant="h2">User Manage</Typography>
                 <ValidatorForm
                     ref="form"
                     className="pt-2"
-                    onSubmit={this.submitAdmin()}
-
+                    onSubmit={this.submitAdmin}
                 >
                     <Grid container className="pt-2" spacing={3}>
-
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <Typography variant="body2">Admin Id</Typography>
                             <TextValidator
@@ -200,16 +203,13 @@ class Admin extends Component {
                                 validators={['required',]}
 
                             />
-
-
                         </Grid>
 
-
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="body2">Admin Password</Typography>
+                            <Typography variant="subtitle1">Password</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Admin Password"
+                                placeholder="Password"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.password}
@@ -220,17 +220,13 @@ class Admin extends Component {
                                 }}
                                 style={{width: '100%'}}
                                 validators={['required',]}
-
                             />
-
-
                         </Grid>
-
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="body2">username</Typography>
+                            <Typography variant="subtitle1">Username</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="username"
+                                placeholder="Username"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.username}
@@ -241,18 +237,13 @@ class Admin extends Component {
                                 }}
                                 style={{width: '100%'}}
                                 validators={['required',]}
-
                             />
-
-
                         </Grid>
-
-
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="body2">Admin Name</Typography>
+                            <Typography variant="subtitle1">Name</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Admin Name"
+                                placeholder="Name"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.name}
@@ -263,14 +254,10 @@ class Admin extends Component {
                                 }}
                                 style={{width: '100%'}}
                                 validators={['required',]}
-
                             />
-
                         </Grid>
-
-
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="body2">Email</Typography>
+                            <Typography variant="subtitle1">Email</Typography>
                             <TextValidator
                                 id="outlinedbasic"
                                 placeholder="Email"
@@ -284,16 +271,13 @@ class Admin extends Component {
                                 }}
                                 style={{width: '100%'}}
                                 validators={['required',]}
-
                             />
-
                         </Grid>
-
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="body2">Contact No</Typography>
+                            <Typography variant="subtitle1">ContactNo</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Contact No"
+                                placeholder="ContactNo"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.contactNo}
@@ -304,22 +288,16 @@ class Admin extends Component {
                                 }}
                                 style={{width: '100%'}}
                                 validators={['required',]}
-
                             />
-
                         </Grid>
+
                         <Grid container style={{marginTop: '10px'}} direction="row" justifyContent="flex-end"
                               alignItems="center">
                             <GDSEButton label={this.state.btnLabel} type="submit" size="small" color={this.state.btnColor}
                                         variant="contained"/>
                         </Grid>
-
                     </Grid>
-
-
                 </ValidatorForm>
-
-
 
                 <Grid container>
                     <TableContainer component={Paper}>
@@ -350,7 +328,7 @@ class Admin extends Component {
                                                     <IconButton
                                                         onClick={() => {
                                                             console.log("edit icon clicked!")
-                                                            // this.updateAdmin(row);
+                                                            this.updateAdmin(row);
                                                         }}
                                                     >
                                                         <EditIcon color={"primary"}/>
@@ -379,18 +357,22 @@ class Admin extends Component {
                     </TableContainer>
                 </Grid>
 
+                <GDSESnackBar
+                    open={this.state.alert}
+                    onClose={() => {
+                        this.setState({alert: false})
+                    }}
+                    message={this.state.message}
+                    autoHideDuration={3000}
+                    severity={this.state.severity}
+                    variant="filled"
 
-
-
+                />
             </Fragment>
 
 
         )
-
-
     }
-
-
 }
 
-export default Admin
+export default Admin;
