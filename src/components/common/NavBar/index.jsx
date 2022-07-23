@@ -7,7 +7,7 @@ class AppBar extends Component{
     }
     render() {
         return(
-            <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-5 bg-body rounded">
+            <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-5 bg-body rounded" >
                 <span className={"navbar-brand mb-0 h1"}>Car Rental System</span>
                 <ul className={"navbar-nav"}>
                     <li className={"nav-item"}><Link className={"nav-link"} to={"/"}>Home</Link></li>
