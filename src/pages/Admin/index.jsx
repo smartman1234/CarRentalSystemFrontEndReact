@@ -4,9 +4,6 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import GDSEButton from "../../components/common/button";
 
-
-import UsersService from "../../services/UsersService";
-
 import GDSESnackBar from "../../components/common/snackBar";
 
 import Table from '@mui/material/Table';
@@ -25,8 +22,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import AdminService from "../../services/AdminService";
 
 
-import { styleSheet } from "./style";
-import { withStyles } from "@mui/styles";
+import {styleSheet} from "./style";
+import {withStyles} from "@mui/styles";
+import {Link} from "react-router-dom";
+import Button from "@mui/material/Button";
+import CardActionArea from "@mui/material/CardActionArea";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 
 class Admin extends Component {
     constructor(props) {
@@ -48,25 +50,26 @@ class Admin extends Component {
             severity: '',
 
             data: [],
-            btnLabel:'Save',
-            btnColor:"primary"
+            btnLabel: 'Save',
+            btnColor: "primary"
 
 
         }
     }
-    deleteAdmin=async (aid)=>{
-        let params={
-            aid:aid
+
+    deleteAdmin = async (aid) => {
+        let params = {
+            aid: aid
         }
-        let res=await AdminService.deleteAdmin(params);
-        if (res.status===200){
+        let res = await AdminService.deleteAdmin(params);
+        if (res.status === 200) {
             this.setState({
                 alert: true,
                 message: res.data.message,
                 severity: "success"
             })
             this.loadData();
-        }else {
+        } else {
             this.setState({
                 alert: true,
                 message: res.response.data.message,
@@ -78,8 +81,8 @@ class Admin extends Component {
     updateAdmin = (data) => {
         console.log(data);
         this.setState({
-            btnLabel:"update",
-            btnColor:"success",
+            btnLabel: "update",
+            btnColor: "success",
             formData: {
                 aid: data.aid,
                 password: data.password,
@@ -109,7 +112,7 @@ class Admin extends Component {
 
     submitAdmin = async () => {
         let formData = this.state.formData;
-        if (this.state.btnLabel==="Save"){
+        if (this.state.btnLabel === "Save") {
             let res = await AdminService.postAdmin(formData);
             console.log(res);
 
@@ -129,19 +132,19 @@ class Admin extends Component {
                 });
             }
 
-        }else {
-            let res=await AdminService.putAdmin(formData);
-            if (res.status===200){
+        } else {
+            let res = await AdminService.putAdmin(formData);
+            if (res.status === 200) {
                 this.setState({
                     alert: true,
                     message: res.data.message,
                     severity: "success",
-                    btnLabel:"Save",
-                    btnColor:"primary"
+                    btnLabel: "Save",
+                    btnColor: "primary"
                 });
                 this.clearFields();
                 this.loadData();
-            }else {
+            } else {
                 this.setState({
                     alert: true,
                     message: res.response.data.message,
@@ -181,9 +184,75 @@ class Admin extends Component {
 
     render() {
         const {classes} = this.props;
+
+
         return (
             <Fragment>
+
+
+                <Grid container className="pt-7" spacing={2}>
+
+                    <Grid item xs={3} sm={3} md={3} lg={3}>
+                        <Card sx={{maxWidth: 500, maxHeight: 350}}>
+                            <CardActionArea className={classes.container}>
+                                <Typography variant="h5" className={classes.columnHeaderTitleContainer}>Car
+                                    Manage</Typography>
+                                <CardContent>
+                                    <Link to={"/car"}>
+                                        <Button variant="outlined" color="error">
+                                            Car
+                                        </Button>
+                                    </Link>
+                                </CardContent>
+
+                                <Typography variant="h5" className={classes.columnHeaderTitleContainer}>Driver
+                                    Manage</Typography>
+                                <CardContent sx={{mb: 15}}>
+                                    <Link to={"/driver"}>
+                                        <Button variant="outlined" color="error">
+                                            Driver
+                                        </Button>
+                                    </Link>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+
+                    </Grid>
+
+                    <Grid item xs={6} sm={6} md={6} lg={6}>
+                        <Card sx={{maxWidth: 500, maxHeight: 350}}>
+                            <CardActionArea className={classes.container}>
+                                <Typography variant="h5" className={classes.columnHeaderTitleContainer}>Payment  Manage</Typography>
+                                <CardContent>
+                                    <Link to={"/payment"}>
+                                        <Button variant="outlined" color="error">
+                                            Payment
+                                        </Button>
+                                    </Link>
+                                </CardContent>
+
+                                <Typography variant="h5" className={classes.columnHeaderTitleContainer}>
+                                Booking Details
+                                </Typography>
+                                <CardContent sx={{mb: 15}}>
+                                    <Link to={"/bookingDetails"}>
+                                        <Button variant="outlined" color="error">
+                                            Booking Details
+                                        </Button>
+                                    </Link>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+
+                    </Grid>
+
+
+                </Grid>
+
+
                 <Typography variant="h2" className={classes.columnHeaderTitleContainer}>Admin Manage</Typography>
+
+
                 <ValidatorForm
                     ref="form"
                     className="pt-2"
@@ -297,7 +366,8 @@ class Admin extends Component {
 
                         <Grid container style={{marginTop: '10px'}} direction="row" justifyContent="flex-end"
                               alignItems="center">
-                            <GDSEButton label={this.state.btnLabel} type="submit" size="small" color={this.state.btnColor}
+                            <GDSEButton label={this.state.btnLabel} type="submit" size="small"
+                                        color={this.state.btnColor}
                                         variant="contained"/>
                         </Grid>
                     </Grid>
@@ -361,6 +431,7 @@ class Admin extends Component {
                     </TableContainer>
                 </Grid>
 
+
                 <GDSESnackBar
                     open={this.state.alert}
                     onClose={() => {
@@ -372,6 +443,8 @@ class Admin extends Component {
                     variant="filled"
 
                 />
+
+
             </Fragment>
 
 
@@ -379,4 +452,4 @@ class Admin extends Component {
     }
 }
 
-export default  withStyles(styleSheet) (Admin);
+export default withStyles(styleSheet)(Admin);
