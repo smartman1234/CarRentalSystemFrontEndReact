@@ -4,6 +4,8 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import GDSEButton from "../../components/common/button";
 
+import { styleSheet } from "./style";
+import { withStyles } from "@mui/styles";
 
 import UsersService from "../../services/UsersService";
 
@@ -179,11 +181,12 @@ class User extends Component {
         const {classes} = this.props;
         return (
             <Fragment>
-                <Typography variant="h2">User Manage</Typography>
+                <Typography variant="h2" className={classes.columnHeaderTitleContainer}>User Manage</Typography>
                 <ValidatorForm
                     ref="form"
                     className="pt-2"
                     onSubmit={this.submitUser}
+
                 >
                     <Grid container className="pt-2" spacing={3}>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -316,9 +319,9 @@ class User extends Component {
                 </ValidatorForm>
 
                 <Grid container>
-                    <TableContainer component={Paper}>
+                    <TableContainer component={Paper}  className={classes.container}>
                         <Table sx={{minWidth: 650}} aria-label="user table">
-                            <TableHead>
+                            <TableHead className={classes.TableHead}>
                                 <TableRow>
                                     <TableCell align="right">User Id</TableCell>
                                     <TableCell align="right">User Name</TableCell>
@@ -393,4 +396,4 @@ class User extends Component {
     }
 }
 
-export default User;
+export default  withStyles(styleSheet) (User);

@@ -24,6 +24,10 @@ import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
 import AdminService from "../../services/AdminService";
 
+
+import { styleSheet } from "./style";
+import { withStyles } from "@mui/styles";
+
 class Admin extends Component {
     constructor(props) {
         super(props);
@@ -179,7 +183,7 @@ class Admin extends Component {
         const {classes} = this.props;
         return (
             <Fragment>
-                <Typography variant="h2">User Manage</Typography>
+                <Typography variant="h2" className={classes.columnHeaderTitleContainer}>Admin Manage</Typography>
                 <ValidatorForm
                     ref="form"
                     className="pt-2"
@@ -300,9 +304,9 @@ class Admin extends Component {
                 </ValidatorForm>
 
                 <Grid container>
-                    <TableContainer component={Paper}>
+                    <TableContainer component={Paper} className={classes.container}>
                         <Table sx={{minWidth: 650}} aria-label="user table">
-                            <TableHead>
+                            <TableHead className={classes.TableHead}>
                                 <TableRow>
                                     <TableCell align="right">Admin Id</TableCell>
                                     <TableCell align="right">Password</TableCell>
@@ -375,4 +379,4 @@ class Admin extends Component {
     }
 }
 
-export default Admin;
+export default  withStyles(styleSheet) (Admin);

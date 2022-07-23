@@ -26,6 +26,9 @@ import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
 
 
+import { styleSheet } from "./style";
+import { withStyles } from "@mui/styles";
+
 class Driver extends Component{
     constructor(props) {
         super(props);
@@ -178,7 +181,7 @@ class Driver extends Component{
         const { classes } = this.props;
         return(
             <Fragment>
-                <Typography variant="h2">Driver Manage</Typography>
+                <Typography variant="h2" className={classes.columnHeaderTitleContainer} >Driver Manage</Typography>
                 <ValidatorForm
                     ref="form"
                     className="pt-2"
@@ -415,9 +418,9 @@ class Driver extends Component{
 
 
                 <Grid container>
-                    <TableContainer component={Paper}>
+                    <TableContainer component={Paper} className={classes.container}>
                         <Table sx={{minWidth: 650}} aria-label="user table">
-                            <TableHead>
+                            <TableHead className={classes.TableHead}>
                                 <TableRow>
                                     <TableCell align="right">Driver Id</TableCell>
                                     <TableCell align="right">Driver Name</TableCell>
@@ -496,4 +499,4 @@ class Driver extends Component{
     }
 }
 
-export default Driver;
+export default  withStyles(styleSheet) (Driver);

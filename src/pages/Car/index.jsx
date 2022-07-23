@@ -17,6 +17,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import GDSESnackBar from "../../components/common/snackBar";
 
+import { styleSheet } from "./style";
+import { withStyles } from "@mui/styles";
+
 class Car extends Component {
     constructor(props) {
         super(props);
@@ -200,7 +203,7 @@ class Car extends Component {
         const {classes} = this.props;
         return (
             <Fragment>
-                <Typography variant="h2">Car Manage</Typography>
+                <Typography variant="h2" className={classes.columnHeaderTitleContainer}>Car Manage</Typography>
 
                 <ValidatorForm
                     ref="form"
@@ -551,9 +554,9 @@ class Car extends Component {
 
 
                 <Grid container>
-                    <TableContainer component={Paper}>
+                    <TableContainer component={Paper} className={classes.container}>
                         <Table sx={{minWidth: 650}} aria-label="user table">
-                            <TableHead>
+                            <TableHead className={classes.TableHead}>
                                 <TableRow>
                                     <TableCell align="right">Car Id</TableCell>
                                     <TableCell align="right">Number Of Passengers</TableCell>
@@ -646,4 +649,4 @@ class Car extends Component {
     }
 }
 
-export default Car;
+export default  withStyles(styleSheet) (Car) ;
