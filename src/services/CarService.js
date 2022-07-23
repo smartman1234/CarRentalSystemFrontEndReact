@@ -1,34 +1,56 @@
-import axios from "axios";
-
+import axios from "../axios";
 
 class CarService {
-    createPost = async (data) => {
-        console.log("form data: " + data)
+    postCar = async (data) => {
         const promise = new Promise((resolve, reject) => {
-            axios.post('http://localhost:8080/car_rental_02_war/api/v1/car', data)   //10s
-                .then((res) => {
-                    return resolve(res)
+            axios.post('car', data).then((res) => {
+                return resolve(res)
+            })
+                .catch((err) => {
+                    return resolve(err)
                 })
-                .catch((er) => {
-                    console.log('error: ' + er);
-                    return resolve(er)
-                })
-        })
-        return await promise
+        });
+        return promise;
     }
 
-    fetchPosts = async () => {
+    fetchCar = async () => {
         const promise = new Promise((resolve, reject) => {
-            axios.get('http://localhost:8080/car_rental_02_war/api/v1/car')
+            axios.get('car')
                 .then((res) => {
                     return resolve(res)
                 })
-                .catch((er) => {
-                    return resolve(er)
+                .catch((err) => {
+                    return resolve(err)
                 })
         })
-        return await promise
+
+        return await promise;
     }
+    putCar = async (data) => {
+        const promise = new Promise(((resolve, reject) => {
+                axios.put('car', data).then((res) => {
+                    return resolve(res)
+                })
+                    .catch((err) => {
+                        return resolve(err)
+                    })
+            })
+        )
+        return await promise;
+    }
+
+    deleteCar = async (params) => {
+        const promise = new Promise((resolve, reject) => {
+            axios.delete('car',{params:params}).
+            then((res)=>{
+                return resolve(res)
+            })
+                .catch((err)=>{
+                    return resolve (err)
+                })
+        })
+        return await promise;
+    };
 }
 
-export default new CarService()
+export default new CarService();
