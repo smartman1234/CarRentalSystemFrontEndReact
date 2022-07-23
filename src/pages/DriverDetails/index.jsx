@@ -1,7 +1,12 @@
-import React, {Component} from "react";
-import DriverDetailsService from "../../services/DriverDetailsService";
-import {Grid, Typography} from "@mui/material";
+import React, {Component, Fragment} from "react";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import GDSEButton from "../../components/common/button";
+
+
+import GDSESnackBar from "../../components/common/snackBar";
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,132 +14,130 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+
 import EditIcon from '@mui/icons-material/Edit';
-import GDSEButton from "../../components/common/button";
-import GDSESnackBar from "../../components/common/snackBar";
+import DriverDetailsService from "../../services/DriverDetailsService";
+import PaymentService from "../../services/PaymentService";
 
 class DriverDetails extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             formData: {
-                ddid: "",
-                cid: "",
-                driverName: "",
-                driverPassword: "",
-                pickUp: "",
-                dropOff: "",
-                pickUpDate: "",
-                dropOffDate: "",
-                pickUpTime: "",
-                dropOffTime: ""
+                ddid: '',
+                cid: '',
+                did: '',
+                driverName: '',
+                driverPassword: '',
+                pickUp: '',
+                dropOff: '',
+                pickUpDate: '',
+                dropOffDate: '',
+                pickUpTime: '',
+                dropOffTime: '',
+
             },
             alert: false,
-            message: "",
-            severity: "",
+            message: '',
+            severity: '',
 
             data: [],
-            btnLabel: 'save',
-            btnColor: 'primary'
+            btnLabel:'Save',
+            btnColor:"primary"
+
+
         }
     }
-
-    deleteDriverDetails = async (id) => {
+    deleteDriverDetails = async (ddid) => {
         let params = {
-            id: id
+            ddid: ddid
         }
         let res = await DriverDetailsService.deleteDriverDetails(params);
-
         if (res.status === 200) {
             this.setState({
                 alert: true,
                 message: res.data.message,
-                severity: 'success'
-            });
+                severity: "success"
+            })
             this.loadData();
         } else {
             this.setState({
                 alert: true,
-                message: res.data.message,
-                severity: 'error'
+                message: res.response.data.message,
+                severity: "error"
             });
         }
-    };
-    updateDriverDetails = (data) => {
-        console.log(data)
+    }
 
+
+    /*
+    *  ddid: '',
+                cid: '',
+                did: '',
+                driverName: '',
+                driverPassword: '',
+                pickUp: '',
+                dropOff: '',
+                pickUpDate: '',
+                dropOffDate: '',
+                pickUpTime: '',
+                dropOffTime: '',
+    * */
+    updatePayment = (data) => {
+        console.log(data);
         this.setState({
-            btnLabel: 'update',
-            btnColor: 'secondary',
+            btnLabel: "update",
+            btnColor: "success",
             formData: {
                 ddid: data.ddid,
                 cid: data.cid,
+                did: data.did,
                 driverName: data.driverName,
                 driverPassword: data.driverPassword,
                 pickUp: data.pickUp,
                 dropOff: data.dropOff,
                 pickUpDate: data.pickUpDate,
-                dropOffDate: data.dropOff,
+                dropOffDate: data.dropOffDate,
                 pickUpTime: data.pickUpTime,
-                dropOffTime: data.dropOffTime
-            }
-        });
-    };
+                dropOffTime: data.dropOffTime,
 
-    clearFields = () => {
-        this.setState({
-            formData: {
-                ddid: "",
-                cid: "",
-                driverName: "",
-                driverPassword: "",
-                pickUp: "",
-                dropOff: "",
-                pickUpDate: "",
-                dropOffDate: "",
-                pickUpTime: "",
-                dropOffTime: ""
             }
-        });
-    };
-    // ------- React Map function example -------
-    exampleForMap = () => {
-        this.state.data.map((value, index) => {
-            console.log(value)   // access element one by one
         })
     };
 
-    loadData = async () => {
-        let res = await DriverDetailsService.fetchDriverDetails();
+    clearFields = (e) => {
+        this.setState({
+            formData: {
+                ddid: '',
+                cid: '',
+                did: '',
+                driverName: '',
+                driverPassword: '',
+                pickUp: '',
+                dropOff: '',
+                pickUpDate: '',
+                dropOffDate: '',
+                pickUpTime: '',
+                dropOffTime: '',
 
-        if (res.status === 200) {
-            this.setState({
-                data: res.data.data
-            });
-        }
-        console.log(this.state.data)    // print customers array
-
-        this.exampleForMap()
-
-    };
-
+            }
+        });
+    }
     submitDriverDetails = async () => {
         let formData = this.state.formData;
-
-        if (this.state.btnLabel === "save") {
+        if (this.state.btnLabel === "Save") {
             let res = await DriverDetailsService.postDriverDetails(formData);
-
-            console.log(res)    //print the promise
+            console.log(res);
 
             if (res.status === 201) {
                 this.setState({
                     alert: true,
                     message: res.data.message,
-                    severity: 'success'
+                    severity: "success"
                 });
                 this.clearFields();
                 this.loadData();
@@ -142,18 +145,19 @@ class DriverDetails extends Component {
                 this.setState({
                     alert: true,
                     message: res.response.data.message,
-                    severity: 'error'
+                    severity: "error"
                 });
             }
+
         } else {
             let res = await DriverDetailsService.putDriverDetails(formData);
             if (res.status === 200) {
                 this.setState({
                     alert: true,
                     message: res.data.message,
-                    severity: 'success',
-                    btnLabel: 'save',
-                    btnColor: 'primary'
+                    severity: "success",
+                    btnLabel: "Save",
+                    btnColor: "primary"
                 });
                 this.clearFields();
                 this.loadData();
@@ -161,42 +165,70 @@ class DriverDetails extends Component {
                 this.setState({
                     alert: true,
                     message: res.response.data.message,
-                    severity: 'error'
+                    severity: "error"
                 });
             }
         }
-    };
+    }
+
+    exampleForMap = () => {
+        this.state.data.map((value, index) => {
+            // console.log(value.userName)
+            // console.log(index)
+            console.log(value)
+
+            // this.state.data[index].id="U00_002"
+
+        })
+    }
+
+    loadData = async () => {
+        let res = await DriverDetailsService.fetchDriverDetails();
+        if (res.status === 200) {
+            this.setState({
+                data: res.data.data
+            })
+        }
+        console.log(this.state.data)
+        this.exampleForMap();
+    }
 
     componentDidMount() {
         this.loadData();
+
+        console.log(this.state.data)
     }
 
     render() {
+        const {classes} = this.props;
         return (
-            // <Fragment>
-            <>
-                <ValidatorForm ref="form" className="pt-2" onSubmit={this.submitDriverDetails()}>
+            <Fragment>
+                <Typography variant="h2">Driver Details Manage</Typography>
+                <ValidatorForm
+                    ref="form"
+                    className="pt-2"
+                    onSubmit={this.submitDriverDetails}
+                >
                     <Grid container className="pt-2" spacing={3}>
-                        <Grid item lg={12} xs={12} sm={12} md={12}>
-                            <Typography variant="h2">DriverDetails Manage</Typography>
-                        </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="subtitle1">DriverDetails Id</Typography>
+                            <Typography variant="body2">DriverDetails Id</Typography>
                             <TextValidator
                                 id="outlinedbasic"
                                 placeholder="DriverDetails Id"
                                 variant="outlined"
                                 size="small"
-                                style={{width: '100%'}}
                                 value={this.state.formData.ddid}
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.ddid = e.target.value
                                     this.setState({formData})
                                 }}
-                                validators={['required']}
+                                style={{width: '100%'}}
+                                validators={['required',]}
+
                             />
                         </Grid>
+
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <Typography variant="subtitle1">Customer Id</Typography>
                             <TextValidator
@@ -204,14 +236,14 @@ class DriverDetails extends Component {
                                 placeholder="Customer Id"
                                 variant="outlined"
                                 size="small"
-                                style={{width: '100%'}}
                                 value={this.state.formData.cid}
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.cid = e.target.value
                                     this.setState({formData})
                                 }}
-                                validators={['required']}
+                                style={{width: '100%'}}
+                                validators={['required',]}
                             />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -221,18 +253,16 @@ class DriverDetails extends Component {
                                 placeholder="Driver Id"
                                 variant="outlined"
                                 size="small"
-                                style={{width: '100%'}}
                                 value={this.state.formData.did}
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.did = e.target.value
                                     this.setState({formData})
                                 }}
-                                validators={['required']}
+                                style={{width: '100%'}}
+                                validators={['required',]}
                             />
                         </Grid>
-
-
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <Typography variant="subtitle1">Driver Name</Typography>
                             <TextValidator
@@ -240,17 +270,16 @@ class DriverDetails extends Component {
                                 placeholder="Driver Name"
                                 variant="outlined"
                                 size="small"
-                                style={{width: '100%'}}
                                 value={this.state.formData.driverName}
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.driverName = e.target.value
                                     this.setState({formData})
                                 }}
-                                validators={['required']}
+                                style={{width: '100%'}}
+                                validators={['required',]}
                             />
                         </Grid>
-
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <Typography variant="subtitle1">Driver Password</Typography>
                             <TextValidator
@@ -258,168 +287,167 @@ class DriverDetails extends Component {
                                 placeholder="Driver Password"
                                 variant="outlined"
                                 size="small"
-                                style={{width: '100%'}}
                                 value={this.state.formData.driverPassword}
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.driverPassword = e.target.value
                                     this.setState({formData})
                                 }}
-                                validators={['required']}
+                                style={{width: '100%'}}
+                                validators={['required',]}
                             />
                         </Grid>
-
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="subtitle1">pickUp</Typography>
+                            <Typography variant="subtitle1">Pick Up</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="pickUp"
+                                placeholder="Pick Up"
                                 variant="outlined"
                                 size="small"
-                                style={{width: '100%'}}
                                 value={this.state.formData.pickUp}
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.pickUp = e.target.value
                                     this.setState({formData})
                                 }}
-                                validators={['required']}
+                                style={{width: '100%'}}
+                                validators={['required',]}
                             />
                         </Grid>
-
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="subtitle1">dropOff</Typography>
+                            <Typography variant="subtitle1">Drop Off</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="dropOff"
+                                placeholder="Drop Off"
                                 variant="outlined"
                                 size="small"
-                                style={{width: '100%'}}
                                 value={this.state.formData.dropOff}
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.dropOff = e.target.value
                                     this.setState({formData})
                                 }}
-                                validators={['required']}
+                                style={{width: '100%'}}
+                                validators={['required',]}
                             />
                         </Grid>
 
                         <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="subtitle1">pickUpDate</Typography>
+                            <Typography variant="subtitle1">Pick Up Date</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="pickUpDate"
+                                placeholder="Pick Up Date"
                                 variant="outlined"
                                 size="small"
-                                style={{width: '100%'}}
                                 value={this.state.formData.pickUpDate}
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.pickUpDate = e.target.value
                                     this.setState({formData})
                                 }}
-                                validators={['required']}
+                                style={{width: '100%'}}
+                                validators={['required',]}
                             />
                         </Grid>
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="subtitle1">dropOffDate</Typography>
+                         <Grid item xs={12} sm={12} md={6} lg={6}>
+                            <Typography variant="subtitle1">Drop Off Date</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="dropOffDate"
+                                placeholder="Drop Off Date"
                                 variant="outlined"
                                 size="small"
-                                style={{width: '100%'}}
                                 value={this.state.formData.dropOffDate}
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.dropOffDate = e.target.value
                                     this.setState({formData})
                                 }}
-                                validators={['required']}
+                                style={{width: '100%'}}
+                                validators={['required',]}
                             />
                         </Grid>
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="subtitle1">pickUpTime</Typography>
+                         <Grid item xs={12} sm={12} md={6} lg={6}>
+                            <Typography variant="subtitle1">Pick Up Time</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="pickUpTime"
+                                placeholder="Pick Up Time"
                                 variant="outlined"
                                 size="small"
-                                style={{width: '100%'}}
                                 value={this.state.formData.pickUpTime}
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.pickUpTime = e.target.value
                                     this.setState({formData})
                                 }}
-                                validators={['required']}
+                                style={{width: '100%'}}
+                                validators={['required',]}
                             />
                         </Grid>
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="subtitle1">dropOffTime</Typography>
+                         <Grid item xs={12} sm={12} md={6} lg={6}>
+                            <Typography variant="subtitle1">Drop Off Time</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="dropOffTime"
+                                placeholder="Drop Off Time"
                                 variant="outlined"
                                 size="small"
-                                style={{width: '100%'}}
                                 value={this.state.formData.dropOffTime}
                                 onChange={(e) => {
                                     let formData = this.state.formData
                                     formData.dropOffTime = e.target.value
                                     this.setState({formData})
                                 }}
-                                validators={['required']}
+                                style={{width: '100%'}}
+                                validators={['required',]}
                             />
                         </Grid>
 
 
                         <Grid container style={{marginTop: '10px'}} direction="row" justifyContent="flex-end"
                               alignItems="center">
-                            <GDSEButton label={this.state.btnLabel} type="submit" size="small"
-                                        color={this.state.btnColor} variant="contained"/>
+                            <GDSEButton label={this.state.btnLabel} type="submit" size="small" color={this.state.btnColor}
+                                        variant="contained"/>
                         </Grid>
                     </Grid>
                 </ValidatorForm>
-                <Grid contaner style={{marginTop: '15px'}}>
+
+                <Grid container>
                     <TableContainer component={Paper}>
-                        <Table sx={{minWidth: 650}} aria-label="driverDetail table">
+                        <Table sx={{minWidth: 650}} aria-label="user table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell align="left">Driver Details Id</TableCell>
-                                    <TableCell align="left">Customer Id</TableCell>
-                                    <TableCell align="left">Driver Id</TableCell>
-                                    <TableCell align="left">Driver Name</TableCell>
-                                    <TableCell align="left">driverPassword</TableCell>
-                                    <TableCell align="left">pickUp</TableCell>
-                                    <TableCell align="left">dropOff</TableCell>
-                                    <TableCell align="left">pickUpDate</TableCell>
-                                    <TableCell align="left">dropOffDate</TableCell>
-                                    <TableCell align="left">pickUpTime</TableCell>
-                                    <TableCell align="left">dropOffTime</TableCell>
-                                    <TableCell align="left">Action</TableCell>
+                                    <TableCell align="right">DriverDetails Id</TableCell>
+                                    <TableCell align="right">Customer Id</TableCell>
+                                    <TableCell align="right">Driver Id</TableCell>
+                                    <TableCell align="right">Driver Name</TableCell>
+                                    <TableCell align="right">Driver Password</TableCell>
+                                    <TableCell align="right">Pick Up</TableCell>
+                                    <TableCell align="right">Drop Off</TableCell>
+                                    <TableCell align="right">Pick Up Date</TableCell>
+                                    <TableCell align="right">Drop Off Date</TableCell>
+                                    <TableCell align="right">Pick Up Time</TableCell>
+                                    <TableCell align="right">Drop Off Time</TableCell>
+                                    <TableCell align="right">Action</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {
                                     this.state.data.map((row) => (
                                         <TableRow>
-                                            <TableCell align="left">{row.dd}</TableCell>
-                                            <TableCell align="left">{row.cid}</TableCell>
-                                            <TableCell align="left">{row.did}</TableCell>
-                                            <TableCell align="left">{row.driverName}</TableCell>
-                                            <TableCell align="left">{row.driverPassword}</TableCell>
-                                            <TableCell align="left">{row.pickUp}</TableCell>
-                                            <TableCell align="left">{row.dropOff}</TableCell>
-                                            <TableCell align="left">{row.pickUpDate}</TableCell>
-                                            <TableCell align="left">{row.dropOffDate}</TableCell>
-                                            <TableCell align="left">{row.pickUpTime}</TableCell>
-                                            <TableCell align="left">{row.dropOffTime}</TableCell>
-                                            <TableCell align="left">
+                                            <TableCell align="right">{row.ddid}</TableCell>
+                                            <TableCell align="right">{row.cid}</TableCell>
+                                            <TableCell align="right">{row.did}</TableCell>
+                                            <TableCell align="right">{row.driverName}</TableCell>
+                                            <TableCell align="right">{row.driverPassword}</TableCell>
+                                            <TableCell align="right">{row.pickUp}</TableCell>
+                                            <TableCell align="right">{row.dropOff}</TableCell>
+                                            <TableCell align="right">{row.pickUpDate}</TableCell>
+                                            <TableCell align="right">{row.dropOffDate}</TableCell>
+                                            <TableCell align="right">{row.pickUpTime}</TableCell>
+                                            <TableCell align="right">{row.dropOffTime}</TableCell>
+                                            <TableCell align="right">
                                                 <Tooltip title="Edit">
                                                     <IconButton
                                                         onClick={() => {
@@ -427,26 +455,32 @@ class DriverDetails extends Component {
                                                             this.updateDriverDetails(row);
                                                         }}
                                                     >
-                                                        <EditIcon color="primary"/>
+                                                        <EditIcon color={"primary"}/>
                                                     </IconButton>
                                                 </Tooltip>
+                                            </TableCell>
+                                            <TableCell align="right">
                                                 <Tooltip title="Delete">
                                                     <IconButton
                                                         onClick={() => {
-                                                            this.deleteDriverDetails(row.ddid)
+                                                            console.log("delete icon clicked!")
+                                                            this.deleteDriverDetails(row.ddid);
                                                         }}
                                                     >
-                                                        <DeleteIcon color="error"/>
+                                                        <DeleteIcon color={"error"}/>
                                                     </IconButton>
                                                 </Tooltip>
                                             </TableCell>
                                         </TableRow>
                                     ))
                                 }
+
                             </TableBody>
                         </Table>
+
                     </TableContainer>
                 </Grid>
+
                 <GDSESnackBar
                     open={this.state.alert}
                     onClose={() => {
@@ -456,10 +490,12 @@ class DriverDetails extends Component {
                     autoHideDuration={3000}
                     severity={this.state.severity}
                     variant="filled"
+
                 />
-            </>
-            // </Fragment>
-        );
+            </Fragment>
+
+
+        )
     }
 }
 
