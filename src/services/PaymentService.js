@@ -1,6 +1,7 @@
 import axios from "../axios";
 
 class PaymentService {
+
     postPayment = async (data) => {
         const promise = new Promise((resolve, reject) => {
             axios.post('payment', data).then((res) => {
@@ -12,7 +13,6 @@ class PaymentService {
         });
         return promise;
     }
-
     fetchPayment = async () => {
         const promise = new Promise((resolve, reject) => {
             axios.get('payment')
@@ -26,6 +26,7 @@ class PaymentService {
 
         return await promise;
     }
+
     putPayment = async (data) => {
         const promise = new Promise(((resolve, reject) => {
                 axios.put('payment', data).then((res) => {
@@ -53,4 +54,4 @@ class PaymentService {
     };
 }
 
-export default new PaymentService();
+export default new PaymentService()

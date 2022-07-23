@@ -1,17 +1,18 @@
 import axios from "../axios";
 
 class AdminService {
-    // postAdmin = async (data) => {
-    //     const promise = new Promise((resolve, reject) => {
-    //         axios.post('admin', data).then((res) => {
-    //             return resolve(res)
-    //         })
-    //             .catch((err) => {
-    //                 return resolve(err)
-    //             })
-    //     });
-    //     return promise;
-    // }
+
+    postAdmin = async (data) => {
+        const promise = new Promise((resolve, reject) => {
+            axios.post('admin', data).then((res) => {
+                return resolve(res)
+            })
+                .catch((err) => {
+                    return resolve(err)
+                })
+        });
+        return promise;
+    }
 
     fetchAdmin = async () => {
         const promise = new Promise((resolve, reject) => {
@@ -26,6 +27,7 @@ class AdminService {
 
         return await promise;
     }
+
     putAdmin = async (data) => {
         const promise = new Promise(((resolve, reject) => {
                 axios.put('admin', data).then((res) => {
@@ -51,6 +53,7 @@ class AdminService {
         })
         return await promise;
     };
+
 }
 
-export default new AdminService();
+export default new AdminService()

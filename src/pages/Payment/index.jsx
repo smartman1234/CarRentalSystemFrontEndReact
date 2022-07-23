@@ -1,98 +1,65 @@
+import PaymentService from "../../services/PaymentService";
 import React, {Component, Fragment} from "react";
 import Typography from "@mui/material/Typography";
+import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import Button from "@mui/material/Button";
-import BasicTable from "../../components/Car";
-import {styleSheet} from "./style";
-import {withStyles} from '@mui/styles';
-import CarService from "../../services/CarService";
-import {TextValidator, ValidatorForm} from 'react-material-ui-form-validator';
-import GDSEDataTable from "../../components/common/Table";
+import GDSEButton from "../../components/common/button";
+import TableContainer from "@mui/material/TableContainer";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+import TableBody from "@mui/material/TableBody";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import GDSESnackBar from "../../components/common/snackBar";
 
-
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-
-import EditIcon from '@mui/icons-material/Edit';
-import UsersService from "../../services/UsersService";
-import PaymentService from "../../services/PaymentService";
-import AdminService from "../../services/AdminService";
-import GDSEButton from "../../components/common/button";
-
-
-class Car extends Component {
+class Payment extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            formData:{
-                pid: "",
-                dropOffDate: "",
-                dropOffLastDate: "",
-                cid: "",
-                uid: "",
-                did: "",
-                brand: "",
-                carType: "",
-                status: "",
-                img: "",
-                priceForTheExtraKm: "",
-                freeMileageForDay: "",
-                freeMileageForMonth: "",
-                priceForTheDailyRate: "",
-                priceForTheMonthlyRate: "",
-                damageWaver: "",
-                runKm: ""
+            formData: {
+                pid: '',
+                dropOffDate: '',
+                dropOffLastDate: '',
+                cid: '',
+                uid: '',
+                did: '',
+                rentPrice: '',
+                damagingPrice: '',
+                discount: '',
+                totalPrice: ''
             },
             alert: false,
             message: '',
             severity: '',
 
-            transmissionType: [
-                {label: 'Auto'},
-                {label: 'Manual'},
-
-            ],
-            fuelType: [
-                {label: 'Petrol'},
-                {label: 'Desal'},
-            ],
-            carType: [
-                {label: 'Normal'},
-                {label: 'Premium'},
-                {label: 'Luxury'},
-            ],
-
             data: [],
-            btnLabel:'Save',
-            btnColor:"primary"
+            btnLabel: 'Save',
+            btnColor: "primary"
+
 
         }
+
     }
-    deletePayment=async (pid)=>{
-        let params={
-            pid:pid
+
+    deletePayment = async (pid) => {
+        let params = {
+            pid: pid
         }
-        let res=await PaymentService.deletePayment(params);
-        if (res.status===200){
+        let res = await PaymentService.deletePayment(params);
+        if (res.status === 200) {
             this.setState({
                 alert: true,
                 message: res.data.message,
                 severity: "success"
             })
             this.loadData();
-        }else {
+        } else {
             this.setState({
                 alert: true,
                 message: res.response.data.message,
@@ -100,11 +67,12 @@ class Car extends Component {
             });
         }
     }
+
     updatePayment = (data) => {
         console.log(data);
         this.setState({
-            btnLabel:"update",
-            btnColor:"success",
+            btnLabel: "update",
+            btnColor: "success",
             formData: {
                 pid: data.pid,
                 dropOffDate: data.dropOffDate,
@@ -112,40 +80,28 @@ class Car extends Component {
                 cid: data.cid,
                 uid: data.uid,
                 did: data.did,
-                brand: data.brand,
-                carType: data.carType,
-                status: data.status,
-                img: data.img,
-                priceForTheExtraKm: data.priceForTheExtraKm,
-                freeMileageForDay: data.freeMileageForDay,
-                freeMileageForMonth: data.freeMileageForMonth,
-                priceForTheDailyRate: data.priceForTheDailyRate,
-                priceForTheMonthlyRate: data.priceForTheMonthlyRate,
-                damageWaver: data.damageWaver,
-                runKm: data.runKm
+                rentPrice: data.rentPrice,
+                damagingPrice: data.damagingPrice,
+                discount: data.discount,
+                totalPrice: data.totalPrice
+
             }
         })
     };
+
     clearFields = (e) => {
         this.setState({
             formData: {
-                pid: "",
-                dropOffDate: "",
-                dropOffLastDate: "",
-                cid: "",
-                uid: "",
-                did: "",
-                brand: "",
-                carType: "",
-                status: "",
-                img: "",
-                priceForTheExtraKm: "",
-                freeMileageForDay: "",
-                freeMileageForMonth: "",
-                priceForTheDailyRate: "",
-                priceForTheMonthlyRate: "",
-                damageWaver: "",
-                runKm: ""
+                pid: '',
+                dropOffDate: '',
+                dropOffLastDate: '',
+                cid: '',
+                uid: '',
+                did: '',
+                rentPrice: '',
+                damagingPrice: '',
+                discount: '',
+                totalPrice: ''
 
             }
         });
@@ -153,7 +109,7 @@ class Car extends Component {
 
     submitPayment = async () => {
         let formData = this.state.formData;
-        if (this.state.btnLabel==="Save"){
+        if (this.state.btnLabel === "Save") {
             let res = await PaymentService.postPayment(formData);
             console.log(res);
 
@@ -173,19 +129,19 @@ class Car extends Component {
                 });
             }
 
-        }else {
-            let res=await PaymentService.putPayment(formData);
-            if (res.status===200){
+        } else {
+            let res = await PaymentService.putPayment(formData);
+            if (res.status === 200) {
                 this.setState({
                     alert: true,
                     message: res.data.message,
                     severity: "success",
-                    btnLabel:"Save",
-                    btnColor:"primary"
+                    btnLabel: "Save",
+                    btnColor: "primary"
                 });
                 this.clearFields();
                 this.loadData();
-            }else {
+            } else {
                 this.setState({
                     alert: true,
                     message: res.response.data.message,
@@ -194,6 +150,19 @@ class Car extends Component {
             }
         }
     }
+
+    exampleForMap = () => {
+        this.state.data.map((value, index) => {
+            // console.log(value.userName)
+            // console.log(index)
+            console.log(value)
+
+            // this.state.data[index].id="U00_002"
+
+        })
+    }
+
+
     loadData = async () => {
         let res = await PaymentService.fetchPayment();
         if (res.status === 200) {
@@ -202,377 +171,251 @@ class Car extends Component {
             })
         }
         console.log(this.state.data)
+        this.exampleForMap();
     }
+
     componentDidMount() {
         this.loadData();
 
         console.log(this.state.data)
     }
+
     render() {
         const {classes} = this.props;
         return (
             <Fragment>
-                <Typography className={classes.columnHeaderTitleContainer} variant={"h4"}>
-                    Cars Manager
-                </Typography>
-
+                <Typography variant="h2">Payment Manage</Typography>
                 <ValidatorForm
                     ref="form"
                     className="pt-2"
-                    onSubmit={this.submitPayment()}
-                    // onError={errors => console.log(errors)}
+                    onSubmit={this.submitPayment}
+
                 >
+                    <Grid container className="pt-2" spacing={3}>
 
-                    <Grid container spacing={0.5}>
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <TextValidator id='outline-basic'
-                                           placeholder='Car Id'
-                                           label='Customer id'
-                                           variant='outlined'
-                                           size='small'
-                                           value={this.state.formData.cid}
-                                           onChange={(e) => {
-                                               let formData = this.state.formData
-                                               formData.cid = e.target.value
-                                               this.setState({ formData })
-                                           }}
-                                           style={{ width: '100%' }}
-                                           validators={['required',]}
-                            />
-
-                        </Grid>
-
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <TextValidator id='outline-basic' placeholder='Number Of Passenger'
-                                           label='Number Of Passenger'
-                                           variant='outlined'
-                                           size='small'
-                                           value={this.state.formData.numberOfPassengers}
-                                           onChange={(e) => {
-                                               let formData = this.state.formData
-                                               formData.numberOfPassengers = e.target.value
-                                               this.setState({ formData })
-                                           }}
-                                           style={{ width: '100%' }}
-                                           validators={['required',]}
-
-                            />
-
-                        </Grid>
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <Autocomplete
-                                disablePortal
-                                id="combo-box-demo"
-                                options={this.state.transmissionType}
-                                sx={{width: 300}}
-                                renderInput={(params) => <TextField {...params} label="Transmission Type"/>}
-                                getOptionLabel={
-                                    (option) => option.label
-                                }
-                                // onChange={(e, value) => {
-                                //     console.log(value.label + " " + value.year);
-                                // }}
+                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                            <Typography variant="body2">Payment Id</Typography>
+                            <TextValidator
+                                id="outlinedbasic"
+                                placeholder="Payment Id"
+                                variant="outlined"
                                 size="small"
-                                value={this.state.formData.transmissionType}
+                                value={this.state.formData.pid}
                                 onChange={(e) => {
                                     let formData = this.state.formData
-                                    formData.transmissionType = e.target.value
-                                    this.setState({ formData })
+                                    formData.pid = e.target.value
+                                    this.setState({formData})
                                 }}
-                                style={{ width: '100%' }}
+                                style={{width: '100%'}}
                                 validators={['required',]}
-                            />
-                        </Grid>
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <TextField id="outlined-basic"
-                                       placeHolder="Car Color"
-                                       label="Car Color"
-                                       variant="outlined"
-                                       size="small"
-                                       value={this.state.formData.color}
-                                       onChange={(e) => {
-                                           let formData = this.state.formData
-                                           formData.color = e.target.value
-                                           this.setState({ formData })
-                                       }}
-                                       style={{ width: '100%' }}
-                                       validators={['required',]}
 
                             />
                         </Grid>
 
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <TextField id="outlined-basic"
-                                       placeHolder="Registration Number"
-                                       label="Registration Number"
-                                       variant="outlined"
-                                       size="small"
-                                       value={this.state.formData.registrationNumber}
-                                       onChange={(e) => {
-                                           let formData = this.state.formData
-                                           formData.registrationNumber = e.target.value
-                                           this.setState({ formData })
-                                       }}
-                                       style={{ width: '100%' }}
-                                       validators={['required',]}
-                            />
-                        </Grid>
-
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <Autocomplete
-                                disablePortal
-                                id="combo-box-demo"
-                                options={this.state.fuelType}
-                                sx={{width: 300}}
-                                renderInput={(params) => <TextField {...params} label="Fuel Type"/>}
-                                getOptionLabel={
-                                    (option) => option.label
-                                }
+                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                            <Typography variant="body2">Drop Off Date</Typography>
+                            <TextValidator
+                                id="outlinedbasic"
+                                placeholder="Drop Off Date"
+                                variant="outlined"
                                 size="small"
-                                value={this.state.formData.fuelType}
+                                value={this.state.formData.dropOffDate}
                                 onChange={(e) => {
                                     let formData = this.state.formData
-                                    formData.fuelType = e.target.value
-                                    this.setState({ formData })
+                                    formData.dropOffDate = e.target.value
+                                    this.setState({formData})
                                 }}
-                                style={{ width: '100%' }}
+                                style={{width: '100%'}}
                                 validators={['required',]}
+
                             />
                         </Grid>
 
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <TextField id="outlined-basic"
-                                       placeHolder="Brand"
-                                       label="Brand"
-                                       variant="outlined"
-                                       size="small"
-                                       value={this.state.formData.brand}
-                                       onChange={(e) => {
-                                           let formData = this.state.formData
-                                           formData.brand = e.target.value
-                                           this.setState({ formData })
-                                       }}
-                                       style={{ width: '100%' }}
-                                       validators={['required',]}
-                            />
-                        </Grid>
-
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <Autocomplete
-                                disablePortal
-                                id="combo-box-demo"
-                                options={this.state.carType}
-                                sx={{width: 300}}
-                                renderInput={(params) => <TextField {...params} label="Car Type"/>}
-                                getOptionLabel={
-                                    (option) => option.label
-                                }
+                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                            <Typography variant="body2">Drop Off Last Date</Typography>
+                            <TextValidator
+                                id="outlinedbasic"
+                                placeholder="Drop Off Last Date"
+                                variant="outlined"
                                 size="small"
-                                value={this.state.formData.carType}
+                                value={this.state.formData.dropOffLastDate}
                                 onChange={(e) => {
                                     let formData = this.state.formData
-                                    formData.carType = e.target.value
-                                    this.setState({ formData })
+                                    formData.dropOffLastDate = e.target.value
+                                    this.setState({formData})
                                 }}
-                                style={{ width: '100%' }}
+                                style={{width: '100%'}}
                                 validators={['required',]}
-                            />
-                        </Grid>
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <TextField id="outlined-basic"
-                                       placeHolder="Status"
-                                       label="Status"
-                                       variant="outlined"
-                                       size="small"
-                                       value={this.state.formData.status}
-                                       onChange={(e) => {
-                                           let formData = this.state.formData
-                                           formData.status = e.target.value
-                                           this.setState({ formData })
-                                       }}
-                                       style={{ width: '100%' }}
-                                       validators={['required',]}
-                            />
-                        </Grid>
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <TextField id="outlined-basic"
-                                       placeHolder="img"
-                                       label="img"
-                                       variant="outlined"
-                                       size="small"
-                                       value={this.state.formData.img}
-                                       onChange={(e) => {
-                                           let formData = this.state.formData
-                                           formData.img = e.target.value
-                                           this.setState({ formData })
-                                       }}
-                                       style={{ width: '100%' }}
-                                       validators={['required',]}
-                            />
-                        </Grid>
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <TextField id="outlined-basic"
-                                       placeHolder="priceForTheExtraKm"
-                                       label="priceForTheExtraKm"
-                                       variant="outlined"
-                                       size="small"
-                                       value={this.state.formData.priceForTheExtraKm}
-                                       onChange={(e) => {
-                                           let formData = this.state.formData
-                                           formData.priceForTheExtraKm = e.target.value
-                                           this.setState({ formData })
-                                       }}
-                                       style={{ width: '100%' }}
-                                       validators={['required',]}
-                            />
-                        </Grid>
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <TextField id="outlined-basic"
-                                       placeHolder="freeMileageForDay"
-                                       label="freeMileageForDay"
-                                       variant="outlined"
-                                       size="small"
-                                       value={this.state.formData.freeMileageForDay}
-                                       onChange={(e) => {
-                                           let formData = this.state.formData
-                                           formData.freeMileageForDay = e.target.value
-                                           this.setState({ formData })
-                                       }}
-                                       style={{ width: '100%' }}
-                                       validators={['required',]}
-                            />
-                        </Grid>
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <TextField id="outlined-basic"
-                                       placeHolder="freeMileageForMonth"
-                                       label="freeMileageForMonth"
-                                       variant="outlined"
-                                       size="small"
-                                       value={this.state.formData.freeMileageForMonth}
-                                       onChange={(e) => {
-                                           let formData = this.state.formData
-                                           formData.freeMileageForMonth = e.target.value
-                                           this.setState({ formData })
-                                       }}
-                                       style={{ width: '100%' }}
-                                       validators={['required',]}
-                            />
-                        </Grid>
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <TextField id="outlined-basic"
-                                       placeHolder="priceForTheDailyRate"
-                                       label="priceForTheDailyRate"
-                                       variant="outlined"
-                                       size="small"
-                                       value={this.state.formData.priceForTheDailyRate}
-                                       onChange={(e) => {
-                                           let formData = this.state.formData
-                                           formData.priceForTheDailyRate = e.target.value
-                                           this.setState({ formData })
-                                       }}
-                                       style={{ width: '100%' }}
-                                       validators={['required',]}
-                            />
-                        </Grid>
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <TextField id="outlined-basic"
-                                       placeHolder="priceForTheMonthlyRate"
-                                       label="priceForTheMonthlyRate"
-                                       variant="outlined" size="small"
-                                       value={this.state.formData.priceForTheMonthlyRate}
-                                       onChange={(e) => {
-                                           let formData = this.state.formData
-                                           formData.priceForTheMonthlyRate = e.target.value
-                                           this.setState({ formData })
-                                       }}
-                                       style={{ width: '100%' }}
-                                       validators={['required',]}
-                            />
-                        </Grid>
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <TextField id="outlined-basic"
-                                       placeHolder="damageWaver"
-                                       label="damageWaver"
-                                       variant="outlined"
-                                       size="small"
-                                       value={this.state.formData.damageWaver}
-                                       onChange={(e) => {
-                                           let formData = this.state.formData
-                                           formData.damageWaver = e.target.value
-                                           this.setState({ formData })
-                                       }}
-                                       style={{ width: '100%' }}
-                                       validators={['required',]}
-                            />
-                        </Grid>
-                        <Grid item lg={3} md={3} sm={3} xm={3}>
-                            <TextField id="outlined-basic"
-                                       placeHolder="runKm"
-                                       label="runKm"
-                                       variant="outlined"
-                                       size="small"
-                                       value={this.state.formData.runKm}
-                                       onChange={(e) => {
-                                           let formData = this.state.formData
-                                           formData.runKm = e.target.value
-                                           this.setState({ formData })
-                                       }}
-                                       style={{ width: '100%' }}
-                                       validators={['required',]}
+
                             />
                         </Grid>
 
-                        {/*<Grid item lg={12} md={12} sm={12} xm={6} style={{display: 'flex'}} justifyContent="flex-end"*/}
-                        {/*      spacing-xs-6>*/}
-                        {/*    <Button variant="outlined" color="success">*/}
-                        {/*        Clear*/}
-                        {/*    </Button>*/}
-                        {/*    <div style={{width: "10px"}}></div>*/}
 
-                        {/*    <Button variant="outlined" color="primary">*/}
-                        {/*        Save*/}
-                        {/*    </Button>*/}
+                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                            <Typography variant="body2">Car Id</Typography>
+                            <TextValidator
+                                id="outlinedbasic"
+                                placeholder="Car Id"
+                                variant="outlined"
+                                size="small"
+                                value={this.state.formData.cid}
+                                onChange={(e) => {
+                                    let formData = this.state.formData
+                                    formData.cid = e.target.value
+                                    this.setState({formData})
+                                }}
+                                style={{width: '100%'}}
+                                validators={['required',]}
 
-                        {/*    <div style={{width: "10px"}}></div>*/}
+                            />
+                        </Grid>
 
-                        {/*    <Button variant="outlined" color="warning">*/}
-                        {/*        Update*/}
-                        {/*    </Button>*/}
-                        {/*    <div style={{width: "10px"}}></div>*/}
 
-                        {/*    <Button variant="outlined" color="error">*/}
-                        {/*        Delete*/}
-                        {/*    </Button>*/}
-                        {/*</Grid>*/}
+                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                            <Typography variant="body2">User Id</Typography>
+                            <TextValidator
+                                id="outlinedbasic"
+                                placeholder="User Id"
+                                variant="outlined"
+                                size="small"
+                                value={this.state.formData.uid}
+                                onChange={(e) => {
+                                    let formData = this.state.formData
+                                    formData.uid = e.target.value
+                                    this.setState({formData})
+                                }}
+                                style={{width: '100%'}}
+                                validators={['required',]}
+
+                            />
+                        </Grid>
+
+                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                            <Typography variant="body2">Driver Id</Typography>
+                            <TextValidator
+                                id="outlinedbasic"
+                                placeholder="Driver Id"
+                                variant="outlined"
+                                size="small"
+                                value={this.state.formData.did}
+                                onChange={(e) => {
+                                    let formData = this.state.formData
+                                    formData.did = e.target.value
+                                    this.setState({formData})
+                                }}
+                                style={{width: '100%'}}
+                                validators={['required',]}
+
+                            />
+                        </Grid>
+
+
+                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                            <Typography variant="body2">Rent Price</Typography>
+                            <TextValidator
+                                id="outlinedbasic"
+                                placeholder="Rent Price"
+                                variant="outlined"
+                                size="small"
+                                value={this.state.formData.rentPrice}
+                                onChange={(e) => {
+                                    let formData = this.state.formData
+                                    formData.rentPrice = e.target.value
+                                    this.setState({formData})
+                                }}
+                                style={{width: '100%'}}
+                                validators={['required',]}
+
+                            />
+                        </Grid>
+
+
+                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                            <Typography variant="body2">Damaging Price</Typography>
+                            <TextValidator
+                                id="outlinedbasic"
+                                placeholder="Damaging Price"
+                                variant="outlined"
+                                size="small"
+                                value={this.state.formData.damagingPrice}
+                                onChange={(e) => {
+                                    let formData = this.state.formData
+                                    formData.damagingPrice = e.target.value
+                                    this.setState({formData})
+                                }}
+                                style={{width: '100%'}}
+                                validators={['required',]}
+
+                            />
+                        </Grid>
+
+                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                            <Typography variant="body2">Discount</Typography>
+                            <TextValidator
+                                id="outlinedbasic"
+                                placeholder="Discount"
+                                variant="outlined"
+                                size="small"
+                                value={this.state.formData.discount}
+                                onChange={(e) => {
+                                    let formData = this.state.formData
+                                    formData.discount = e.target.value
+                                    this.setState({formData})
+                                }}
+                                style={{width: '100%'}}
+                                validators={['required',]}
+
+                            />
+                        </Grid>
+
+
+                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                            <Typography variant="body2">Total Price</Typography>
+                            <TextValidator
+                                id="outlinedbasic"
+                                placeholder="Total Price"
+                                variant="outlined"
+                                size="small"
+                                value={this.state.formData.totalPrice}
+                                onChange={(e) => {
+                                    let formData = this.state.formData
+                                    formData.totalPrice = e.target.value
+                                    this.setState({formData})
+                                }}
+                                style={{width: '100%'}}
+                                validators={['required',]}
+
+                            />
+                        </Grid>
                         <Grid container style={{marginTop: '10px'}} direction="row" justifyContent="flex-end"
                               alignItems="center">
                             <GDSEButton label={this.state.btnLabel} type="submit" size="small" color={this.state.btnColor}
                                         variant="contained"/>
                         </Grid>
+
                     </Grid>
+
+
                 </ValidatorForm>
+
+
+
+
                 <Grid container>
                     <TableContainer component={Paper}>
                         <Table sx={{minWidth: 650}} aria-label="user table">
                             <TableHead>
                                 <TableRow>
                                     <TableCell align="right">Payment Id</TableCell>
-                                    <TableCell align="right">dropOffDate</TableCell>
-                                    <TableCell align="right">dropOffLastDate</TableCell>
-                                    <TableCell align="right">cid</TableCell>
-                                    <TableCell align="right">uid</TableCell>
-                                    <TableCell align="right">did</TableCell>
-                                    <TableCell align="right">brand</TableCell>
-                                    <TableCell align="right">carType</TableCell>
-                                    <TableCell align="right">status</TableCell>
-                                    <TableCell align="right">img</TableCell>
-                                    <TableCell align="right">priceForTheExtraKm</TableCell>
-                                    <TableCell align="right">freeMileageForDay</TableCell>
-                                    <TableCell align="right">freeMileageForMonth</TableCell>
-                                    <TableCell align="right">priceForTheDailyRate</TableCell>
-                                    <TableCell align="right">priceForTheMonthlyRate</TableCell>
-                                    <TableCell align="right">damageWaver</TableCell>
-                                    <TableCell align="right">runKm</TableCell>
+                                    <TableCell align="right">Drop Off Date</TableCell>
+                                    <TableCell align="right">Drop Off Last Date</TableCell>
+                                    <TableCell align="right">Car Id</TableCell>
+                                    <TableCell align="right">User Id</TableCell>
+                                    <TableCell align="right">Driver Id</TableCell>
+                                    <TableCell align="right">Rent Price</TableCell>
+                                    <TableCell align="right">Damaging Price</TableCell>
+                                    <TableCell align="right">Discount</TableCell>
+                                    <TableCell align="right">Total Price</TableCell>
                                     <TableCell align="right">Action</TableCell>
                                 </TableRow>
                             </TableHead>
@@ -586,15 +429,10 @@ class Car extends Component {
                                             <TableCell align="right">{row.cid}</TableCell>
                                             <TableCell align="right">{row.uid}</TableCell>
                                             <TableCell align="right">{row.did}</TableCell>
-                                            <TableCell align="right">{row.brand}</TableCell>
-                                            <TableCell align="right">{row.carType}</TableCell>
-                                            <TableCell align="right">{row.status}</TableCell>
-                                            <TableCell align="right">{row.img}</TableCell>
-                                            <TableCell align="right">{row.priceForTheExtraKm}</TableCell>
-                                            <TableCell align="right">{row.freeMileageForDay}</TableCell>
-                                            <TableCell align="right">{row.freeMileageForMonth}</TableCell>
-                                            <TableCell align="right">{row.priceForTheDailyRate}</TableCell>
-                                            <TableCell align="right">{row.priceForTheMonthlyRate}</TableCell>
+                                            <TableCell align="right">{row.rentPrice}</TableCell>
+                                            <TableCell align="right">{row.damagingPrice}</TableCell>
+                                            <TableCell align="right">{row.discount}</TableCell>
+                                            <TableCell align="right">{row.totalPrice}</TableCell>
                                             <TableCell align="right">
                                                 <Tooltip title="Edit">
                                                     <IconButton
@@ -628,19 +466,27 @@ class Car extends Component {
 
                     </TableContainer>
                 </Grid>
+
                 <GDSESnackBar
                     open={this.state.alert}
                     onClose={() => {
-                        this.setState({ open: false })
+                        this.setState({alert: false})
                     }}
                     message={this.state.message}
                     autoHideDuration={3000}
                     severity={this.state.severity}
                     variant="filled"
+
                 />
             </Fragment>
+
+
         )
+
+
     }
+
+
 }
 
-export default withStyles(styleSheet)(Car);
+export default Payment
