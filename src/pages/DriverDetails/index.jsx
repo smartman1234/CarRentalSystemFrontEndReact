@@ -6,23 +6,24 @@ import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import PinDropIcon from '@mui/icons-material/PinDrop';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import TodayIcon from '@mui/icons-material/Today';
-import prius from "../../assets/img/prius.jpg";
 import Typography from "@mui/material/Typography";
-import CarRentalIcon from '@mui/icons-material/CarRental';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import PaletteIcon from '@mui/icons-material/Palette';
-import EngineeringIcon from '@mui/icons-material/Engineering';
-import EvStationIcon from '@mui/icons-material/EvStation';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
 import AirlineSeatReclineExtraIcon from '@mui/icons-material/AirlineSeatReclineExtra';
-import StackedLineChartIcon from '@mui/icons-material/StackedLineChart';
-import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import user from "../../assets/img/user.png"
 import Button from "@mui/material/Button";
+import {styleSheet} from "./style";
+import {withStyles} from "@mui/styles";
+import TableContainer from "@mui/material/TableContainer";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+import TableBody from "@mui/material/TableBody";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 class DriverDetail extends Component {
     constructor(props) {
         super(props);
@@ -31,65 +32,25 @@ class DriverDetail extends Component {
     }
 
     render() {
+        const {classes} = this.props;
         return (
 
             <Fragment>
-
+                <Typography variant="h2" className={classes.columnHeaderTitleContainer}>Driver Details</Typography>
                 <Grid container className="pt-7" spacing={2}>
 
-                    <Grid item xs={6} sm={6} md={6} lg={6}>
+                    <Grid item xs={4} sm={4} md={4} lg={4}>
                         <Card sx={{maxWidth: 750, maxHeight: 350}}>
                             <CardActionArea>
                                 {/*<Typography variant="h5" >Car Manage</Typography>*/}
-                                <CardContent>
-                                    <TextField
-                                        id="input-with-icon-textfield"
-                                        label="Driver Id"
-                                        placeholder={"D00_001"}
-                                        //sx={{mb: 15}}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    <AirlineSeatReclineExtraIcon/>
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="standard"
-                                    />
-                                    <TextField
-                                        id="input-with-icon-textfield"
-                                        label="Driver Name"
-                                        placeholder={"Kamal"}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    <AirlineSeatReclineExtraIcon/>
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="standard"
-                                    />
-                                    <TextField
-                                        id="input-with-icon-textfield"
-                                        label="Password"
-                                        placeholder={"******"}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    <AirlineSeatReclineExtraIcon/>
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="standard"
-                                    />
-                                </CardContent>
+
                             </CardActionArea>
                         </Card>
 
                     </Grid>
 
                     <Grid item lg={3} md={3} sm={3} xm={3}>
-                        <Card sx={{maxWidth: 1750}}>
+                        <Card sx={{maxWidth: 700}}>
                             <CardActionArea>
                                 <div sx={{maxWidth: 120}}>
                                     <img src={user} alt=""/>
@@ -108,17 +69,108 @@ class DriverDetail extends Component {
                                         </Typography>
                                     </CardContent>
                                 </div>
-                                <Grid sx={{maxWidth: 1750}} >
-                                    <Button variant="contained">Driver Details</Button>
-                                </Grid>
+
+                            </CardActionArea>
+                        </Card>
+
+                    </Grid>
+                    <Grid item lg={5} md={5} sm={5} xm={5}>
+                        <Card sx={{maxWidth: 800}} >
+                            <CardActionArea>
+                                <div sx={{maxWidth: 120}}>
+                                    <CardContent sx={{mb: 10}}>
+                                        <TextField
+                                            id="input-with-icon-textfield"
+                                            label="Driver Id"
+                                            placeholder={"D00_001"}
+                                            //sx={{mb: 15}}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <AirlineSeatReclineExtraIcon/>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                        />
+                                        <TextField
+                                            id="input-with-icon-textfield"
+                                            label="Driver Name"
+                                            placeholder={"Kamal"}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <AirlineSeatReclineExtraIcon/>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                        />
+                                        <TextField
+                                            id="input-with-icon-textfield"
+                                            label="Password"
+                                            placeholder={"******"}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <AirlineSeatReclineExtraIcon/>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                        />
+
+                                    </CardContent>
+                                    <Grid sx={{maxWidth: 1750}} className={classes.rightForm}>
+                                        <Button variant="contained">Driver Details</Button>
+                                    </Grid>
+                                </div>
+
                             </CardActionArea>
                         </Card>
 
                     </Grid>
 
+                    <Grid item lg={12} md={12} sm={12} xm={12} >
+                        <TableContainer component={Paper} className={classes.container} >
+                            <Table sx={{minWidth: 650}} aria-label="user table">
+                                <TableHead className={classes.TableHead} >
+                                    <TableRow>
+                                        <TableCell align="right">Driver Id</TableCell>
+                                        <TableCell align="right">driverName</TableCell>
+                                        <TableCell align="right">driverPassword</TableCell>
+                                        <TableCell align="right">pickUp</TableCell>
+                                        <TableCell align="right">dropOff</TableCell>
+                                        <TableCell align="right">pickUpDate</TableCell>
+                                        <TableCell align="right">dropOffDate</TableCell>
+                                        <TableCell align="right">pickUpTime</TableCell>
+                                        <TableCell align="right">dropOffTime</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {
+                                            <TableRow>
+                                                <TableCell align="right"></TableCell>
+                                                <TableCell align="right"></TableCell>
+                                                <TableCell align="right"></TableCell>
+                                                <TableCell align="right"></TableCell>
+                                                <TableCell align="right"></TableCell>
+                                                <TableCell align="right"></TableCell>
+                                                <TableCell align="right"></TableCell>
+                                                <TableCell align="right"></TableCell>
+                                                <TableCell align="right"></TableCell>
+                                            </TableRow>
 
+                                    }
+
+                                </TableBody>
+                            </Table>
+
+                        </TableContainer>
+
+
+                    </Grid>
                 </Grid>
-
 
 
             </Fragment>
@@ -129,4 +181,4 @@ class DriverDetail extends Component {
 
 }
 
-export default DriverDetail;
+export default withStyles(styleSheet)(DriverDetail);
