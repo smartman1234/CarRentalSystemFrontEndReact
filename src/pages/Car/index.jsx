@@ -212,7 +212,7 @@ class Car extends Component {
                 >
 
                     <Grid container className="pt-2" spacing={3}>
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Car Id</Typography>
                             <TextValidator
                                 id="outlinedbasic"
@@ -231,7 +231,7 @@ class Car extends Component {
                             />
                         </Grid>
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Number Of Passengers</Typography>
                             <TextValidator
                                 id="outlinedbasic"
@@ -250,7 +250,7 @@ class Car extends Component {
                             />
                         </Grid>
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Transmission Type</Typography>
                             <TextValidator
                                 id="outlinedbasic"
@@ -269,7 +269,7 @@ class Car extends Component {
                             />
                         </Grid>
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Car Color</Typography>
                             <TextValidator
                                 id="outlinedbasic"
@@ -288,7 +288,7 @@ class Car extends Component {
                             />
                         </Grid>
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Car Registration Number</Typography>
                             <TextValidator
                                 id="outlinedbasic"
@@ -307,7 +307,7 @@ class Car extends Component {
                             />
                         </Grid>
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Car Fuel Type</Typography>
                             <TextValidator
                                 id="outlinedbasic"
@@ -327,7 +327,7 @@ class Car extends Component {
                         </Grid>
 
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Car Brand</Typography>
                             <TextValidator
                                 id="outlinedbasic"
@@ -347,7 +347,7 @@ class Car extends Component {
                         </Grid>
 
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Car Type</Typography>
                             <TextValidator
                                 id="outlinedbasic"
@@ -367,7 +367,7 @@ class Car extends Component {
                         </Grid>
 
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Car Status</Typography>
                             <TextValidator
                                 id="outlinedbasic"
@@ -387,7 +387,7 @@ class Car extends Component {
                         </Grid>
 
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Car Img</Typography>
                             <TextValidator
                                 id="outlinedbasic"
@@ -407,7 +407,7 @@ class Car extends Component {
                         </Grid>
 
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Price Of Extra Km</Typography>
                             <TextValidator
                                 id="outlinedbasic"
@@ -427,7 +427,7 @@ class Car extends Component {
                         </Grid>
 
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Free Mileage For Day</Typography>
                             <TextValidator
                                 id="outlinedbasic"
@@ -447,7 +447,7 @@ class Car extends Component {
                         </Grid>
 
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Free Mileage For Month</Typography>
                             <TextValidator
                                 id="outlinedbasic"
@@ -467,7 +467,7 @@ class Car extends Component {
                         </Grid>
 
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Price For The Daily Rate</Typography>
                             <TextValidator
                                 id="outlinedbasic"
@@ -486,7 +486,7 @@ class Car extends Component {
                             />
                         </Grid>
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Price For The Monthly Rate</Typography>
                             <TextValidator
                                 id="outlinedbasic"
@@ -505,7 +505,7 @@ class Car extends Component {
                             />
                         </Grid>
 
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Damage Waver</Typography>
                             <TextValidator
                                 id="outlinedbasic"
@@ -523,7 +523,7 @@ class Car extends Component {
 
                             />
                         </Grid>
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Grid item xs={4} sm={4} md={4} lg={4}>
                             <Typography variant="body2">Run Km</Typography>
                             <TextValidator
                                 id="outlinedbasic"

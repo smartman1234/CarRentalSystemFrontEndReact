@@ -286,6 +286,7 @@ class User extends Component {
                                 placeholder="userIdentityCardImg"
                                 variant="outlined"
                                 size="small"
+                                // type={"file"}
                                 value={this.state.formData.userIdentityCardImg}
                                 onChange={(e) => {
                                     let formData = this.state.formData

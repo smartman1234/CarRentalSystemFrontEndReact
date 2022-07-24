@@ -64,11 +64,12 @@ class BookingDetails extends Component {
                                     <TextField
                                         id="input-with-icon-textfield"
                                         label="Pickup Date"
+                                        type={"date"}
                                         placeholder={"2022-07-24"}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
-                                                    <TodayIcon/>
+                                                    {/*<TodayIcon/>*/}
                                                 </InputAdornment>
                                             ),
                                         }}
@@ -78,10 +79,11 @@ class BookingDetails extends Component {
                                         id="input-with-icon-textfield"
                                         label="Pickup Time"
                                         placeholder={"08-00-00"}
+                                        type={"time"}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
-                                                    <AccessTimeIcon/>
+                                                    {/*<AccessTimeIcon/>*/}
                                                 </InputAdornment>
                                             ),
                                         }}
@@ -117,10 +119,11 @@ class BookingDetails extends Component {
                                         id="input-with-icon-textfield"
                                         label="Drop Off Date"
                                         placeholder={"2022-07-30"}
+                                        type={"date"}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
-                                                    <TodayIcon/>
+                                                    {/*<TodayIcon/>*/}
                                                 </InputAdornment>
                                             ),
                                         }}
@@ -130,10 +133,11 @@ class BookingDetails extends Component {
                                         id="input-with-icon-textfield"
                                         label="Drop Off Time"
                                         placeholder={"10-00-00"}
+                                        type={"time"}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
-                                                    <AccessTimeIcon/>
+                                                    {/*<AccessTimeIcon/>*/}
                                                 </InputAdornment>
                                             ),
                                         }}
