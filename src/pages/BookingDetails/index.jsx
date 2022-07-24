@@ -23,6 +23,9 @@ import StackedLineChartIcon from '@mui/icons-material/StackedLineChart';
 import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import user from "../../assets/img/user.png"
 import Button from "@mui/material/Button";
+import {styleSheet} from "./style";
+import {withStyles} from "@mui/styles";
+
 class BookingDetails extends Component {
     constructor(props) {
         super(props);
@@ -31,10 +34,12 @@ class BookingDetails extends Component {
     }
 
     render() {
+        const {classes} = this.props;
         return (
 
             <Fragment>
-
+                <Typography variant="h2" className={classes.columnHeaderTitleContainer} sx={{mb: 5}}>Booking
+                    Details</Typography>
                 <Grid container className="pt-7" spacing={2}>
 
                     <Grid item xs={6} sm={6} md={6} lg={6}>
@@ -140,15 +145,25 @@ class BookingDetails extends Component {
                     </Grid>
 
 
-                    <Grid item lg={6} md={6} sm={6} xm={6}>
+                    <Grid item lg={4} md={4} sm={4} xm={4} >
+                        <Card sx={{maxWidth: 1750}} >
+                            <CardActionArea sx={{mb: 9}}>
+                                <div sx={{maxWidth: 120}}>
+                                    <img src={prius} alt=""/>
+                                </div>
+                                <Typography gutterBottom variant="h5" component="div" className={classes.TableHead}>
+                                    Toyota
+                                </Typography>
+                            </CardActionArea>
+                        </Card>
+
+                    </Grid>
+                    <Grid item lg={4} md={4} sm={4} xm={4}>
                         <Card sx={{maxWidth: 1750}}>
                             <CardActionArea>
                                 <div sx={{maxWidth: 120}}>
-                                    <img src={prius} alt=""/>
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="div">
-                                            Toyota
-                                        </Typography>
+                                    <CardContent >
+
                                         <Typography variant="body2" color="text.secondary">
                                             <CarRentalIcon/>
                                             ABC1234
@@ -166,11 +181,11 @@ class BookingDetails extends Component {
                                             Auto
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
-                                           <EvStationIcon/>
+                                            <EvStationIcon/>
                                             Petrol
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
-                                           <AirlineSeatReclineExtraIcon/>
+                                            <AirlineSeatReclineExtraIcon/>
                                             4
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
@@ -205,12 +220,12 @@ class BookingDetails extends Component {
 
                     </Grid>
 
-                    <Grid item lg={4} md={4} sm={4} xm={4}>
+                    <Grid item lg={3} md={3} sm={3} xm={3}>
                         <Card sx={{maxWidth: 1750}}>
                             <CardActionArea>
                                 <div sx={{maxWidth: 120}}>
                                     <img src={user} alt=""/>
-                                    <CardContent>
+                                    <CardContent sx={{mb: 9}}>
                                         <Typography gutterBottom variant="h5" component="div">
                                             Name
                                         </Typography>
@@ -223,6 +238,10 @@ class BookingDetails extends Component {
                                         <Typography variant="body2" color="text.secondary">
                                             Email
                                         </Typography>
+
+                                        <Grid sx={{maxWidth: 1750}}>
+                                            <Button variant="outlined" color="success">Rent Car</Button>
+                                        </Grid>
                                     </CardContent>
                                 </div>
 
@@ -230,12 +249,9 @@ class BookingDetails extends Component {
                         </Card>
 
                     </Grid>
-                    <Grid item lg={2} md={2} sm={2} xm={2} sx={{mb: 15}}>
-                        <Button variant="outlined">Get Rent</Button>
-                    </Grid>
+
 
                 </Grid>
-
 
 
             </Fragment>
@@ -246,4 +262,5 @@ class BookingDetails extends Component {
 
 }
 
-export default BookingDetails;
+export default withStyles(styleSheet)(BookingDetails);
+;

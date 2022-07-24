@@ -394,9 +394,7 @@ class Driver extends Component{
 
 
                             <Link to={"/driverDetail"}>
-                                <button>
-                                   DriverDetails
-                                </button>
+                                <Button variant="outlined" color="success">Driver Details</Button>
                             </Link>
                         </Grid>
 

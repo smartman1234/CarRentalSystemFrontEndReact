@@ -26,6 +26,7 @@ import Tooltip from '@mui/material/Tooltip';
 import EditIcon from '@mui/icons-material/Edit';
 import {Link} from "react-router-dom";
 import BookingDetails from "../BookingDetails";
+import Button from "@mui/material/Button";
 
 class User extends Component {
     constructor(props) {
@@ -47,7 +48,7 @@ class User extends Component {
             severity: '',
 
             data: [],
-            btnLabel:'Save',
+            btnLabel:'Register',
             btnColor:"primary"
 
 
@@ -183,7 +184,7 @@ class User extends Component {
         const {classes} = this.props;
         return (
             <Fragment>
-                <Typography variant="h2" className={classes.columnHeaderTitleContainer}>User Manage</Typography>
+                <Typography variant="h2" className={classes.columnHeaderTitleContainer}>User</Typography>
                 <ValidatorForm
                     ref="form"
                     className="pt-2"
@@ -319,9 +320,7 @@ class User extends Component {
 
 
                             <Link to={"/bookingDetails"}>
-                                <button>
-                                    Book Car
-                                </button>
+                                <Button variant="contained" color="warning">Book Car</Button>
                             </Link>
                         </Grid>
 

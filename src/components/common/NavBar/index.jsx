@@ -12,7 +12,7 @@ class AppBar extends Component{
                 <ul className={"navbar-nav"}>
                     <li className={"nav-item"}><Link className={"nav-link"} to={"/"}>Home</Link></li>
                     {/*<li className={"nav-item"}><Link className={"nav-link"} to={"/car"}>Car</Link></li>*/}
-                    <li className={"nav-item"}><Link className={"nav-link"} to={"/driver"}>Driver</Link></li>
+                    <li className={"nav-item"}><Link className={"nav-link"} to={"/driverDetail"}>Driver</Link></li>
                     {/*<li className={"nav-item"}><Link className={"nav-link"} to={"/driverDetail"}>DriverDetail</Link></li>*/}
                     {/*<li className={"nav-item"}><Link className={"nav-link"} to={"/payment"}>Payment</Link></li>*/}
                     {/*<li className={"nav-item"}><Link className={"nav-link"} to={"/user"}>User</Link></li>*/}

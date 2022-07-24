@@ -26,6 +26,10 @@ export const styleSheet={
         color: 'white',
         height: 60,
         padding: '00px',
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center',
+        textContent:'center'
     }
 
 }
