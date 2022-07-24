@@ -29,6 +29,9 @@ import Button from "@mui/material/Button";
 import CardActionArea from "@mui/material/CardActionArea";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import UserTable from "./UserTable";
+import NavBar from "../../components/Home/grid";
+import AppBar from "../../components/common/NavBar";
 
 class Admin extends Component {
     constructor(props) {
@@ -45,17 +48,22 @@ class Admin extends Component {
 
 
             },
+
             alert: false,
             message: '',
             severity: '',
 
             data: [],
             btnLabel: 'Save',
-            btnColor: "primary"
+            btnColor: "primary",
 
 
         }
     }
+
+
+
+
 
     deleteAdmin = async (aid) => {
         let params = {
@@ -190,65 +198,81 @@ class Admin extends Component {
             <Fragment>
 
 
-                <Grid container className="pt-7" spacing={2}>
+                {/*<Grid container className="pt-7" spacing={2}>*/}
 
-                    <Grid item xs={3} sm={3} md={3} lg={3}>
-                        <Card sx={{maxWidth: 500, maxHeight: 350}}>
-                            <CardActionArea className={classes.container}>
-                                <Typography variant="h5" className={classes.columnHeaderTitleContainer}>Car
-                                    Manage</Typography>
-                                <CardContent>
-                                    <Link to={"/car"}>
-                                        <Button variant="outlined" color="error">
-                                            Car
-                                        </Button>
-                                    </Link>
-                                </CardContent>
+                {/*    <Grid item xs={3} sm={3} md={3} lg={3}>*/}
+                {/*        <Card sx={{maxWidth: 500, maxHeight: 350}}>*/}
+                {/*            <CardActionArea className={classes.container}>*/}
+                {/*                <Typography variant="h5" className={classes.columnHeaderTitleContainer}>Car*/}
+                {/*                    Manage</Typography>*/}
+                {/*                <CardContent>*/}
+                {/*                    <Link to={"/car"}>*/}
+                {/*                        <Button variant="outlined" color="error">*/}
+                {/*                            Car*/}
+                {/*                        </Button>*/}
+                {/*                    </Link>*/}
+                {/*                </CardContent>*/}
 
-                                <Typography variant="h5" className={classes.columnHeaderTitleContainer}>Driver
-                                    Manage</Typography>
-                                <CardContent sx={{mb: 15}}>
-                                    <Link to={"/driver"}>
-                                        <Button variant="outlined" color="error">
-                                            Driver
-                                        </Button>
-                                    </Link>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
+                {/*                <Typography variant="h5" className={classes.columnHeaderTitleContainer}>Driver*/}
+                {/*                    Manage</Typography>*/}
+                {/*                <CardContent sx={{mb: 15}}>*/}
+                {/*                    <Link to={"/driver"}>*/}
+                {/*                        <Button variant="outlined" color="error">*/}
+                {/*                            Driver*/}
+                {/*                        </Button>*/}
+                {/*                    </Link>*/}
+                {/*                </CardContent>*/}
+                {/*            </CardActionArea>*/}
+                {/*        </Card>*/}
 
-                    </Grid>
+                {/*    </Grid>*/}
 
-                    <Grid item xs={6} sm={6} md={6} lg={6}>
-                        <Card sx={{maxWidth: 500, maxHeight: 350}}>
-                            <CardActionArea className={classes.container}>
-                                <Typography variant="h5" className={classes.columnHeaderTitleContainer}>Payment  Manage</Typography>
-                                <CardContent>
-                                    <Link to={"/payment"}>
-                                        <Button variant="outlined" color="error">
-                                            Payment
-                                        </Button>
-                                    </Link>
-                                </CardContent>
+                {/*    <Grid item xs={6} sm={6} md={6} lg={6}>*/}
+                {/*        <Card sx={{maxWidth: 500, maxHeight: 350}}>*/}
+                {/*            <CardActionArea className={classes.container}>*/}
+                {/*                <Typography variant="h5" className={classes.columnHeaderTitleContainer}>Payment  Manage</Typography>*/}
+                {/*                <CardContent>*/}
+                {/*                    <Link to={"/payment"}>*/}
+                {/*                        <Button variant="outlined" color="error">*/}
+                {/*                            Payment*/}
+                {/*                        </Button>*/}
+                {/*                    </Link>*/}
+                {/*                </CardContent>*/}
 
-                                <Typography variant="h5" className={classes.columnHeaderTitleContainer}>
-                                Booking Details
-                                </Typography>
-                                <CardContent sx={{mb: 15}}>
-                                    <Link to={"/bookingDetails"}>
-                                        <Button variant="outlined" color="error">
-                                            Booking Details
-                                        </Button>
-                                    </Link>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
+                {/*                <Typography variant="h5" className={classes.columnHeaderTitleContainer}>*/}
+                {/*                Booking Details*/}
+                {/*                </Typography>*/}
+                {/*                <CardContent sx={{mb: 15}}>*/}
+                {/*                    <Link to={"/bookingDetails"}>*/}
+                {/*                        <Button variant="outlined" color="error">*/}
+                {/*                            Booking Details*/}
+                {/*                        </Button>*/}
+                {/*                    </Link>*/}
+                {/*                </CardContent>*/}
+                {/*            </CardActionArea>*/}
+                {/*        </Card>*/}
 
-                    </Grid>
+                {/*    </Grid>*/}
 
 
-                </Grid>
+                {/*</Grid>*/}
 
+                <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-5 bg-body rounded" >
+                    <span className={"navbar-brand mb-0 h1"}>Car Rental System</span>
+                    <ul className={"navbar-nav"}>
+                        <li className={"nav-item"}><Link className={"nav-link"} to={"/"}>Home</Link></li>
+                        <li className={"nav-item"}><Link className={"nav-link"} to={"/car"}>Car</Link></li>
+                        <li className={"nav-item"}><Link className={"nav-link"} to={"/driver"}>Driver</Link></li>
+                        <li className={"nav-item"}><Link className={"nav-link"} to={"/driverDetail"}>DriverDetail</Link></li>
+                        <li className={"nav-item"}><Link className={"nav-link"} to={"/payment"}>Payment</Link></li>
+                        <li className={"nav-item"}><Link className={"nav-link"} to={"/user"}>User</Link></li>
+                        <li className={"nav-item"}><Link className={"nav-link"} to={"/bookingDetails"}>BookingDetails</Link></li>
+                        <li className={"nav-item"}><Link className={"nav-link"} to={"/admin"}>Admin</Link></li>
+
+
+
+                    </ul>
+                </nav>
 
                 <Typography variant="h2" className={classes.columnHeaderTitleContainer}>Admin Manage</Typography>
 
@@ -445,6 +469,7 @@ class Admin extends Component {
                 />
 
 
+                {/*<UserTable/>*/}
             </Fragment>
 
 

@@ -24,6 +24,8 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
 import EditIcon from '@mui/icons-material/Edit';
+import {Link} from "react-router-dom";
+import BookingDetails from "../BookingDetails";
 
 class User extends Component {
     constructor(props) {
@@ -314,7 +316,16 @@ class User extends Component {
                               alignItems="center">
                             <GDSEButton label={this.state.btnLabel} type="submit" size="small" color={this.state.btnColor}
                                         variant="contained"/>
+
+
+                            <Link to={"/bookingDetails"}>
+                                <button>
+                                    Book Car
+                                </button>
+                            </Link>
                         </Grid>
+
+
                     </Grid>
                 </ValidatorForm>
 

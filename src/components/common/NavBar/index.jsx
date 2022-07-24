@@ -11,13 +11,13 @@ class AppBar extends Component{
                 <span className={"navbar-brand mb-0 h1"}>Car Rental System</span>
                 <ul className={"navbar-nav"}>
                     <li className={"nav-item"}><Link className={"nav-link"} to={"/"}>Home</Link></li>
-                    <li className={"nav-item"}><Link className={"nav-link"} to={"/car"}>Car</Link></li>
-                    <li className={"nav-item"}><Link className={"nav-link"} to={"/driver"}>Driver</Link></li>
-                    <li className={"nav-item"}><Link className={"nav-link"} to={"/driverDetail"}>DriverDetail</Link></li>
-                    <li className={"nav-item"}><Link className={"nav-link"} to={"/payment"}>Payment</Link></li>
-                    <li className={"nav-item"}><Link className={"nav-link"} to={"/user"}>User</Link></li>
-                    <li className={"nav-item"}><Link className={"nav-link"} to={"/bookingDetails"}>BookingDetails</Link></li>
-                    <li className={"nav-item"}><Link className={"nav-link"} to={"/admin"}>Admin</Link></li>
+                    {/*<li className={"nav-item"}><Link className={"nav-link"} to={"/car"}>Car</Link></li>*/}
+                    {/*<li className={"nav-item"}><Link className={"nav-link"} to={"/driver"}>Driver</Link></li>*/}
+                    {/*<li className={"nav-item"}><Link className={"nav-link"} to={"/driverDetail"}>DriverDetail</Link></li>*/}
+                    {/*<li className={"nav-item"}><Link className={"nav-link"} to={"/payment"}>Payment</Link></li>*/}
+                    {/*<li className={"nav-item"}><Link className={"nav-link"} to={"/user"}>User</Link></li>*/}
+                    {/*<li className={"nav-item"}><Link className={"nav-link"} to={"/bookingDetails"}>BookingDetails</Link></li>*/}
+                    {/*<li className={"nav-item"}><Link className={"nav-link"} to={"/admin"}>Admin</Link></li>*/}
 
 
 
