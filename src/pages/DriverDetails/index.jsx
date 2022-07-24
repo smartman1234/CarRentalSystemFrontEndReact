@@ -36,49 +36,14 @@ class DriverDetail extends Component {
         return (
 
             <Fragment>
-                <Typography variant="h2" className={classes.columnHeaderTitleContainer}>Driver Details</Typography>
-                <Grid container className="pt-7" spacing={2}>
+                <Typography variant="h2" className={classes.columnHeaderTitleContainer} sx={{mb: 5}}>Driver Details</Typography>
+                <Grid container className="pt-7" sx={{mb: 8}} spacing={2} >
 
-                    <Grid item xs={4} sm={4} md={4} lg={4}>
-                        <Card sx={{maxWidth: 750, maxHeight: 350}}>
-                            <CardActionArea>
-                                {/*<Typography variant="h5" >Car Manage</Typography>*/}
-
-                            </CardActionArea>
-                        </Card>
-
-                    </Grid>
-
-                    <Grid item lg={3} md={3} sm={3} xm={3}>
-                        <Card sx={{maxWidth: 700}}>
-                            <CardActionArea>
-                                <div sx={{maxWidth: 120}}>
-                                    <img src={user} alt=""/>
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="div">
-                                            Kamal
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            D00_001
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            0786787987
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            L00_0001
-                                        </Typography>
-                                    </CardContent>
-                                </div>
-
-                            </CardActionArea>
-                        </Card>
-
-                    </Grid>
-                    <Grid item lg={5} md={5} sm={5} xm={5}>
+                    <Grid item lg={5} md={5} sm={5} xm={5} sx={{mb: 8}}>
                         <Card sx={{maxWidth: 800}} >
                             <CardActionArea>
                                 <div sx={{maxWidth: 120}}>
-                                    <CardContent sx={{mb: 10}}>
+                                    <CardContent sx={{mb: 6}} >
                                         <TextField
                                             id="input-with-icon-textfield"
                                             label="Driver Id"
@@ -121,7 +86,7 @@ class DriverDetail extends Component {
                                         />
 
                                     </CardContent>
-                                    <Grid sx={{maxWidth: 1750}} className={classes.rightForm}>
+                                    <Grid sx={{maxWidth: 1750}}>
                                         <Button variant="contained">Driver Details</Button>
                                     </Grid>
                                 </div>
@@ -130,6 +95,88 @@ class DriverDetail extends Component {
                         </Card>
 
                     </Grid>
+
+                    <Grid item lg={4} md={4} sm={4} xm={4}>
+                        <Card sx={{maxWidth: 800}}>
+                            <CardActionArea>
+                                <div sx={{maxWidth: 120}}>
+                                    <img src={user} alt=""/>
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="div">
+                                            Kamal
+                                        </Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                            D00_001
+                                        </Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                            0786787987
+                                        </Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                            L00_0001
+                                        </Typography>
+                                    </CardContent>
+                                </div>
+
+                            </CardActionArea>
+                        </Card>
+
+                    </Grid>
+                    {/*<Grid item lg={5} md={5} sm={5} xm={5}>*/}
+                    {/*    <Card sx={{maxWidth: 800}} >*/}
+                    {/*        <CardActionArea>*/}
+                    {/*            <div sx={{maxWidth: 120}}>*/}
+                    {/*                <CardContent sx={{mb: 10}}>*/}
+                    {/*                    <TextField*/}
+                    {/*                        id="input-with-icon-textfield"*/}
+                    {/*                        label="Driver Id"*/}
+                    {/*                        placeholder={"D00_001"}*/}
+                    {/*                        //sx={{mb: 15}}*/}
+                    {/*                        InputProps={{*/}
+                    {/*                            startAdornment: (*/}
+                    {/*                                <InputAdornment position="start">*/}
+                    {/*                                    <AirlineSeatReclineExtraIcon/>*/}
+                    {/*                                </InputAdornment>*/}
+                    {/*                            ),*/}
+                    {/*                        }}*/}
+                    {/*                        variant="standard"*/}
+                    {/*                    />*/}
+                    {/*                    <TextField*/}
+                    {/*                        id="input-with-icon-textfield"*/}
+                    {/*                        label="Driver Name"*/}
+                    {/*                        placeholder={"Kamal"}*/}
+                    {/*                        InputProps={{*/}
+                    {/*                            startAdornment: (*/}
+                    {/*                                <InputAdornment position="start">*/}
+                    {/*                                    <AirlineSeatReclineExtraIcon/>*/}
+                    {/*                                </InputAdornment>*/}
+                    {/*                            ),*/}
+                    {/*                        }}*/}
+                    {/*                        variant="standard"*/}
+                    {/*                    />*/}
+                    {/*                    <TextField*/}
+                    {/*                        id="input-with-icon-textfield"*/}
+                    {/*                        label="Password"*/}
+                    {/*                        placeholder={"******"}*/}
+                    {/*                        InputProps={{*/}
+                    {/*                            startAdornment: (*/}
+                    {/*                                <InputAdornment position="start">*/}
+                    {/*                                    <AirlineSeatReclineExtraIcon/>*/}
+                    {/*                                </InputAdornment>*/}
+                    {/*                            ),*/}
+                    {/*                        }}*/}
+                    {/*                        variant="standard"*/}
+                    {/*                    />*/}
+
+                    {/*                </CardContent>*/}
+                    {/*                <Grid sx={{maxWidth: 1750}} className={classes.rightForm}>*/}
+                    {/*                    <Button variant="contained">Driver Details</Button>*/}
+                    {/*                </Grid>*/}
+                    {/*            </div>*/}
+
+                    {/*        </CardActionArea>*/}
+                    {/*    </Card>*/}
+
+                    {/*</Grid>*/}
 
                     <Grid item lg={12} md={12} sm={12} xm={12} >
                         <TableContainer component={Paper} className={classes.container} >

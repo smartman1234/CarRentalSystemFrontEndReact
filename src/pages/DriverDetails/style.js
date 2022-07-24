@@ -15,7 +15,7 @@ export const styleSheet={
         borderRadius: 3,
         boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
         color: 'white',
-        height: 80,
+        height: 60,
         padding: '0 30px',
     } ,
     TableHead: {
@@ -24,7 +24,7 @@ export const styleSheet={
         borderRadius: 3,
         boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
         color: 'white',
-        height: 50,
+        height: 60,
         padding: '00px',
     }
 
