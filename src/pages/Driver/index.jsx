@@ -28,6 +28,7 @@ import EditIcon from '@mui/icons-material/Edit';
 
 import { styleSheet } from "./style";
 import { withStyles } from "@mui/styles";
+import {Link} from "react-router-dom";
 
 class Driver extends Component{
     constructor(props) {
@@ -390,6 +391,13 @@ class Driver extends Component{
                               alignItems="center">
                             <GDSEButton label={this.state.btnLabel} type="submit" size="small" color={this.state.btnColor}
                                         variant="contained"/>
+
+
+                            <Link to={"/driverDetail"}>
+                                <button>
+                                   DriverDetails
+                                </button>
+                            </Link>
                         </Grid>
 
                     </Grid>
