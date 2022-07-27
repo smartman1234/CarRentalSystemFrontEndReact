@@ -21,6 +21,7 @@ import StackedLineChartIcon from '@mui/icons-material/StackedLineChart';
 import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import user from "../../assets/img/user.png"
 import logo from "../../assets/img/carLogo.jpg"
+import slip from "../../assets/img/slip.jpg"
 import Button from "@mui/material/Button";
 import {styleSheet} from "./style";
 import {withStyles} from "@mui/styles";
@@ -345,6 +346,10 @@ class BookingDetails extends Component {
                                                 }}
                                                 variant="standard"
                                             />
+
+                                            <div sx={{maxWidth: 120}}>
+                                                <img src={slip} alt=""/>
+                                            </div>
 
                                         </Grid>
                                     </CardContent>
