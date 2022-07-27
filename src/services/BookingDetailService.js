@@ -1,7 +1,7 @@
 import axios from "../axios";
 
 class BookingDetailService{
-    postBookingDetails = async (data) => {
+    postBookingDetailsService = async (data) => {
         const promise = new Promise((resolve, reject) => {
             axios.post('bookingDetails', data).then((res) => {
                 return resolve(res)

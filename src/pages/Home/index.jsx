@@ -17,6 +17,10 @@ import ToyotaCorollaAltis from "../../assets/img/ToyotaCorollaAltis.jpg"
 import mitsubishi from "../../assets/img/mitsubishi.jpg"
 import mitsubishiEvo from "../../assets/img/mitsubishiEvo.jpg"
 import mitsubishiLanzerRed from "../../assets/img/mitsubishiLanzerRed.jpg"
+import NameList from "../../components/Home/ImageList/NameList";
+import logo from "../../assets/img/carLogo.jpg"
+import Stack from "@mui/material/Stack";
+import Avatar from "@mui/material/Avatar";
 
 const styleSheet = () => ({
     container: {
@@ -44,7 +48,6 @@ class Home extends Component {
         return (
             <Fragment>
                 <AppBar/>
-
                 <Grid container spacing={0.5}>
 
                     <Grid item lg={3} md={3} sm={3} xm={3}>
@@ -55,11 +58,10 @@ class Home extends Component {
                                 </div>
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="div">
-                                        Lizard
+                                        Prius
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                                        species, ranging across all continents except Antarctica
+                                        LKR 12500/=
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -86,8 +88,7 @@ class Home extends Component {
                                         Benze
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                                        species, ranging across all continents except Antarctica
+                                        LKR 12500/=
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -114,8 +115,7 @@ class Home extends Component {
                                         Toyota
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                                        species, ranging across all continents except Antarctica
+                                        LKR 12500/=
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -142,8 +142,7 @@ class Home extends Component {
                                         BMWM5
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                                        species, ranging across all continents except Antarctica
+                                        LKR 12500/=
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -171,8 +170,7 @@ class Home extends Component {
                                         BMWMz4
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                                        species, ranging across all continents except Antarctica
+                                        LKR 12500/=
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -200,8 +198,7 @@ class Home extends Component {
                                         ToyotaCorollaAltis
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                                        species, ranging across all continents except Antarctica
+                                        LKR 12500/=
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -227,8 +224,7 @@ class Home extends Component {
                                         BMWMz4
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                                        species, ranging across all continents except Antarctica
+                                        LKR 12500/=
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -255,8 +251,7 @@ class Home extends Component {
                                         mitsubishiEvo
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                                        species, ranging across all continents except Antarctica
+                                        LKR 12500/=
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -271,7 +266,6 @@ class Home extends Component {
                         </Card>
 
                     </Grid>
-
 
                 </Grid>
 

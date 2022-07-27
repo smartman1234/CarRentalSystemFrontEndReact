@@ -30,13 +30,65 @@ import {Link} from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import SendIcon from '@mui/icons-material/Send';
+import PaymentService from "../../services/PaymentService";
+import BookingDetailService from "../../services/BookingDetailService";
+import {TextValidator} from "react-material-ui-form-validator";
+import GDSESnackBar from "../../components/common/snackBar";
 
 class BookingDetails extends Component {
     constructor(props) {
         super(props);
+        this.state={
+            formData:{
+                bdid: '',
+                uid: '',
+                cid: '',
+                did: '',
+                pickUp: '',
+                dropOff: '',
+                pickUpDate: '',
+                dropOffDate: '',
+                pickUpTime: '',
+                dropOffTime: '',
+                rentPrice:''
+            },
+            alert:false,
+            message:'',
+            severity:'',
+
+            data:[],
+            btnLabel:'Save',
+            btnColor:'primary'
+        }
 
 
     }
+   submitBookingDetails=async ()=>{
+        let formData=this.state.formData;
+       if (this.state.btnLabel === "Save") {
+           let res = await BookingDetailService.postBookingDetailsService(formData);
+           console.log(res);
+
+           if (res.status === 201) {
+               this.setState({
+                   alert: true,
+                   message: res.data.message,
+                   severity: "success"
+               });
+               this.clearFields();
+               this.loadData();
+           } else {
+               this.setState({
+                   alert: true,
+                   message: res.response.data.message,
+                   severity: "error"
+               });
+           }
+       }else {
+           console.log("error")
+       }
+   }
+
 
     render() {
         const {classes} = this.props;
@@ -75,6 +127,26 @@ class BookingDetails extends Component {
                                 <CardContent>
                                     <TextField
                                         id="input-with-icon-textfield"
+                                        label="Booking Detail Id"
+                                        placeholder={"BD00_001"}
+                                        //sx={{mb: 15}}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        variant="standard"
+                                        value={this.state.formData.bdid}
+                                        onChange={(e) => {
+                                            let formData = this.state.formData
+                                            formData.bdid = e.target.value
+                                            this.setState({formData})
+                                        }}
+                                        //validators={['required','matchRegexp:^(B00_)[0-9]{3,4}$']}
+                                    />
+                                    <TextField
+                                        id="input-with-icon-textfield"
                                         label="Pick Up"
                                         placeholder={"Gall"}
                                         //sx={{mb: 15}}
@@ -86,6 +158,12 @@ class BookingDetails extends Component {
                                             ),
                                         }}
                                         variant="standard"
+                                        value={this.state.formData.pickUp}
+                                        onChange={(e) => {
+                                            let formData = this.state.formData
+                                            formData.pickUp = e.target.value
+                                            this.setState({formData})
+                                        }}
                                     />
 
 
@@ -102,6 +180,12 @@ class BookingDetails extends Component {
                                             ),
                                         }}
                                         variant="standard"
+                                        value={this.state.formData.pickUpDate}
+                                        onChange={(e) => {
+                                            let formData = this.state.formData
+                                            formData.pickUpDate = e.target.value
+                                            this.setState({formData})
+                                        }}
                                     />
                                     <TextField
                                         id="input-with-icon-textfield"
@@ -116,6 +200,12 @@ class BookingDetails extends Component {
                                             ),
                                         }}
                                         variant="standard"
+                                        value={this.state.formData.pickUpTime}
+                                        onChange={(e) => {
+                                            let formData = this.state.formData
+                                            formData.pickUpTime = e.target.value
+                                            this.setState({formData})
+                                        }}
                                     />
                                 </CardContent>
                             </CardActionArea>
@@ -142,6 +232,12 @@ class BookingDetails extends Component {
                                             ),
                                         }}
                                         variant="standard"
+                                        value={this.state.formData.dropOff}
+                                        onChange={(e) => {
+                                            let formData = this.state.formData
+                                            formData.dropOff = e.target.value
+                                            this.setState({formData})
+                                        }}
                                     />
                                     <TextField
                                         id="input-with-icon-textfield"
@@ -156,6 +252,13 @@ class BookingDetails extends Component {
                                             ),
                                         }}
                                         variant="standard"
+
+                                        value={this.state.formData.pickUpDate}
+                                        onChange={(e) => {
+                                            let formData = this.state.formData
+                                            formData.pickUpDate = e.target.value
+                                            this.setState({formData})
+                                        }}
                                     />
                                     <TextField
                                         id="input-with-icon-textfield"
@@ -170,6 +273,12 @@ class BookingDetails extends Component {
                                             ),
                                         }}
                                         variant="standard"
+                                        value={this.state.formData.dropOffTime}
+                                        onChange={(e) => {
+                                            let formData = this.state.formData
+                                            formData.dropOffTime = e.target.value
+                                            this.setState({formData})
+                                        }}
                                     />
                                 </CardContent>
                             </CardActionArea>
@@ -185,6 +294,10 @@ class BookingDetails extends Component {
                                 </div>
                                 <Typography gutterBottom variant="h5" component="div" className={classes.TableHead}>
                                     Toyota
+                                </Typography>
+
+                                <Typography variant="body2" color="text.secondary">
+                                    Total = LKR 25000/=
                                 </Typography>
                             </CardActionArea>
                         </Card>
@@ -222,27 +335,27 @@ class BookingDetails extends Component {
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             <StackedLineChartIcon/>
-                                            priceForTheExtraKm
+                                            priceForTheExtraKm =30.00
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             <PriceCheckIcon/>
-                                            freeMileageForDay
+                                            freeMileageForDay = 1000
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             <PriceCheckIcon/>
-                                            freeMileageForMonth
+                                            freeMileageForMonth =2000
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             <PriceCheckIcon/>
-                                            priceForTheDailyRate
+                                            priceForTheDailyRate =1000.00
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             <PriceCheckIcon/>
-                                            priceForTheMonthlyRate
+                                            priceForTheMonthlyRate =20000.00
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             <CreditCardIcon/>
-                                            damageWaver
+                                            damageWaver = 15000.00
                                         </Typography>
                                     </CardContent>
                                 </div>
@@ -354,7 +467,9 @@ class BookingDetails extends Component {
                                         </Grid>
                                     </CardContent>
 
-                                    <Button variant="outlined" color="success" type={'file'} endIcon={<SendIcon />}>Rent Car</Button>
+                                    <Button variant="outlined" color="success" type={'file'} endIcon={<SendIcon />}
+                                    onClick={this.submitBookingDetails}
+                                    >Rent Car</Button>
 
                                 </div>
 
@@ -365,7 +480,17 @@ class BookingDetails extends Component {
 
 
                 </Grid>
+                <GDSESnackBar
+                    open={this.state.alert}
+                    onClose={() => {
+                        this.setState({alert: false})
+                    }}
+                    message={this.state.message}
+                    autoHideDuration={3000}
+                    severity={this.state.severity}
+                    variant="filled"
 
+                />
 
             </Fragment>
 

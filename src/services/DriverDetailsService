@@ -1,6 +1,6 @@
 import axios from "../axios";
 
-class UsersService {
+class DriverDetailsService {
     postDriverDetails = async (data) => {
         const promise = new Promise((resolve, reject) => {
             axios.post('driverDetails', data).then((res) => {
@@ -53,4 +53,4 @@ class UsersService {
     };
 }
 
-export default new UsersService();
+export default new DriverDetailsService();

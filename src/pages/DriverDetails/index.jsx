@@ -27,7 +27,28 @@ import DeleteIcon from "@mui/icons-material/Delete";
 class DriverDetail extends Component {
     constructor(props) {
         super(props);
+        this.state={
+            formData:{
+                ddid: '',
+                cid: '',
+                did: '',
+                driverName: '',
+                driverPassword: '',
+                pickUp: '',
+                dropOff: '',
+                pickUpDate: '',
+                dropOffDate: '',
+                pickUpTime: '',
+                dropOffTime: ''
+            },
+            alert:false,
+            message:'',
+            severity:'',
 
+            data:[],
+            btnLabel:'Save',
+            btnColor:'primary'
+        }
 
     }
 
@@ -57,6 +78,12 @@ class DriverDetail extends Component {
                                                 ),
                                             }}
                                             variant="standard"
+                                            value={this.state.formData.did}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.did = e.target.value
+                                                this.setState({formData})
+                                            }}
                                         />
                                         <TextField
                                             id="input-with-icon-textfield"
@@ -70,6 +97,12 @@ class DriverDetail extends Component {
                                                 ),
                                             }}
                                             variant="standard"
+                                            value={this.state.formData.driverName}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.driverName = e.target.value
+                                                this.setState({formData})
+                                            }}
                                         />
                                         <TextField
                                             id="input-with-icon-textfield"
@@ -83,6 +116,12 @@ class DriverDetail extends Component {
                                                 ),
                                             }}
                                             variant="standard"
+                                            value={this.state.formData.driverPassword}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.driverPassword = e.target.value
+                                                this.setState({formData})
+                                            }}
                                         />
 
                                     </CardContent>
