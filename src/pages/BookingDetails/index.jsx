@@ -8,8 +8,6 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PinDropIcon from '@mui/icons-material/PinDrop';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import TodayIcon from '@mui/icons-material/Today';
 import prius from "../../assets/img/prius.jpg";
 import Typography from "@mui/material/Typography";
 import CarRentalIcon from '@mui/icons-material/CarRental';
@@ -22,13 +20,15 @@ import AirlineSeatReclineExtraIcon from '@mui/icons-material/AirlineSeatReclineE
 import StackedLineChartIcon from '@mui/icons-material/StackedLineChart';
 import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import user from "../../assets/img/user.png"
+import logo from "../../assets/img/carLogo.jpg"
 import Button from "@mui/material/Button";
 import {styleSheet} from "./style";
 import {withStyles} from "@mui/styles";
 import CreateIcon from '@mui/icons-material/Create';
 import {Link} from "react-router-dom";
-import UsersService from "../../services/UsersService";
-import BookingDetailService from "../../services/BookingDetailService";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
+import SendIcon from '@mui/icons-material/Send';
 
 class BookingDetails extends Component {
     constructor(props) {
@@ -42,13 +42,34 @@ class BookingDetails extends Component {
         return (
 
             <Fragment>
-                <Typography variant="h2" className={classes.columnHeaderTitleContainer} sx={{mb: 5}}>Booking
-                    Details</Typography>
+
+                <Grid container className="pt-7" spacing={2}>
+
+                    <Grid item xs={11} sm={11} md={11} lg={11}>
+                        <Typography variant="h2" className={classes.columnHeaderTitleContainer} sx={{mb: 5}}>Booking
+                            Details
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={1} sm={1} md={1} lg={1}>
+                            <Stack direction="row" spacing={2}>
+                                <Avatar
+                                    alt="Remy Sharp"
+                                    src={logo} alt=""
+                                    sx={{width: 100, height: 100}}
+                                />
+                            </Stack>
+
+                    </Grid>
+
+
+                </Grid>
+
                 <Grid container className="pt-7" spacing={2}>
 
                     <Grid item xs={6} sm={6} md={6} lg={6}>
                         <Card sx={{maxWidth: 750, maxHeight: 350}}>
                             <CardActionArea>
+
                                 {/*<Typography variant="h5" >Car Manage</Typography>*/}
                                 <CardContent>
                                     <TextField
@@ -65,6 +86,8 @@ class BookingDetails extends Component {
                                         }}
                                         variant="standard"
                                     />
+
+
                                     <TextField
                                         id="input-with-icon-textfield"
                                         label="Pickup Date"
@@ -153,8 +176,8 @@ class BookingDetails extends Component {
                     </Grid>
 
 
-                    <Grid item lg={4} md={4} sm={4} xm={4} >
-                        <Card sx={{maxWidth: 1750}} >
+                    <Grid item lg={3} md={3} sm={3} xm={3}>
+                        <Card sx={{maxWidth: 1750}}>
                             <CardActionArea sx={{mb: 9}}>
                                 <div sx={{maxWidth: 120}}>
                                     <img src={prius} alt=""/>
@@ -166,11 +189,11 @@ class BookingDetails extends Component {
                         </Card>
 
                     </Grid>
-                    <Grid item lg={4} md={4} sm={4} xm={4}>
+                    <Grid item lg={3} md={3} sm={3} xm={3}>
                         <Card sx={{maxWidth: 1750}}>
                             <CardActionArea>
                                 <div sx={{maxWidth: 120}}>
-                                    <CardContent >
+                                    <CardContent>
 
                                         <Typography variant="body2" color="text.secondary">
                                             <CarRentalIcon/>
@@ -271,15 +294,63 @@ class BookingDetails extends Component {
                                             Email
                                         </Typography>
 
-                                        <Grid sx={{maxWidth: 1750}}  >
-                                            <Button variant="outlined" color="success" >Rent Car</Button>
-                                            <Link to={"/User"} >
-                                                <Button size="small" color="primary" variant="outlined" >
+                                        <Grid sx={{maxWidth: 1750}}>
+                                            <Link to={"/User"}>
+                                                <Button variant="outlined" color="success">
                                                     Register
                                                 </Button>
                                             </Link>
                                         </Grid>
                                     </CardContent>
+                                </div>
+
+                            </CardActionArea>
+                        </Card>
+
+                    </Grid>
+
+                    <Grid item lg={3} md={3} sm={3} xm={3}>
+                        <Card sx={{maxWidth: 1750}}>
+                            <CardActionArea>
+                                <Typography variant="body2" color="text.secondary">
+                                    Bank Account Details
+                                </Typography>
+                                <div sx={{maxWidth: 5}}>
+                                    {/*<img src={user} alt=""/>*/}
+                                    <CardContent sx={{mb: 9}}>
+                                        <TextField
+                                            id="input-with-icon-textfield"
+                                            label="Account No"
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <CreateIcon/>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                        />
+
+                                        <Grid sx={{maxWidth: 1750}}>
+                                            <TextField
+                                                id="input-with-icon-textfield"
+                                                label="Add Bank Slipt"
+                                                type={'file'}
+                                                InputProps={{
+                                                    startAdornment: (
+                                                        <InputAdornment position="start">
+
+                                                        </InputAdornment>
+                                                    ),
+                                                }}
+                                                variant="standard"
+                                            />
+
+                                        </Grid>
+                                    </CardContent>
+
+                                    <Button variant="outlined" color="success" type={'file'} endIcon={<SendIcon />}>Rent Car</Button>
+
                                 </div>
 
                             </CardActionArea>
