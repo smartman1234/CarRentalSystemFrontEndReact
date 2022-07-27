@@ -216,7 +216,7 @@ class Car extends Component {
                             <Typography variant="body2">Car Id</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Car Id"
+                                placeholder="C00_001"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.cid}
@@ -226,7 +226,7 @@ class Car extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','matchRegexp:^(C00_)[0-9]{3,4}$']}
 
                             />
                         </Grid>
@@ -235,7 +235,7 @@ class Car extends Component {
                             <Typography variant="body2">Number Of Passengers</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Number Of Passengers"
+                                placeholder="4"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.numberOfPassengers}
@@ -245,7 +245,7 @@ class Car extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','minNumber:0', 'maxNumber:255', 'matchRegexp:^[0-9]{1,2}$']}
 
                             />
                         </Grid>
@@ -254,7 +254,7 @@ class Car extends Component {
                             <Typography variant="body2">Transmission Type</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Transmission Type"
+                                placeholder="Auto"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.transmissionType}
@@ -264,7 +264,7 @@ class Car extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isString']}
 
                             />
                         </Grid>
@@ -273,7 +273,7 @@ class Car extends Component {
                             <Typography variant="body2">Car Color</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Car Color"
+                                placeholder="Black"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.color}
@@ -283,7 +283,7 @@ class Car extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isString']}
 
                             />
                         </Grid>
@@ -302,7 +302,7 @@ class Car extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isString']}
 
                             />
                         </Grid>
@@ -311,7 +311,7 @@ class Car extends Component {
                             <Typography variant="body2">Car Fuel Type</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Car Fuel Type"
+                                placeholder="Petrol"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.fuelType}
@@ -321,7 +321,7 @@ class Car extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isString']}
 
                             />
                         </Grid>
@@ -331,7 +331,7 @@ class Car extends Component {
                             <Typography variant="body2">Car Brand</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Car Brand"
+                                placeholder="Toyota"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.brand}
@@ -341,7 +341,7 @@ class Car extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isString']}
 
                             />
                         </Grid>
@@ -351,7 +351,7 @@ class Car extends Component {
                             <Typography variant="body2">Car Type</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Car Type"
+                                placeholder="Premium"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.carType}
@@ -361,7 +361,7 @@ class Car extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isString']}
 
                             />
                         </Grid>
@@ -371,7 +371,7 @@ class Car extends Component {
                             <Typography variant="body2">Car Status</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Car Status"
+                                placeholder="Available"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.status}
@@ -381,7 +381,7 @@ class Car extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isString']}
 
                             />
                         </Grid>
@@ -411,7 +411,7 @@ class Car extends Component {
                             <Typography variant="body2">Price Of Extra Km</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Price Of Extra Km"
+                                placeholder="30.00"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.priceForTheExtraKm}
@@ -421,7 +421,7 @@ class Car extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required', 'isPositive']}
 
                             />
                         </Grid>
@@ -431,7 +431,7 @@ class Car extends Component {
                             <Typography variant="body2">Free Mileage For Day</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Free Mileage For Day"
+                                placeholder="100"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.freeMileageForDay}
@@ -441,7 +441,7 @@ class Car extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isPositive']}
 
                             />
                         </Grid>
@@ -451,7 +451,7 @@ class Car extends Component {
                             <Typography variant="body2">Free Mileage For Month</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Free Mileage For Month"
+                                placeholder="2400"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.freeMileageForMonth}
@@ -461,7 +461,7 @@ class Car extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isPositive']}
 
                             />
                         </Grid>
@@ -471,7 +471,7 @@ class Car extends Component {
                             <Typography variant="body2">Price For The Daily Rate</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Price For The Daily Rate"
+                                placeholder="2500"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.priceForTheDailyRate}
@@ -481,7 +481,7 @@ class Car extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isPositive']}
 
                             />
                         </Grid>
@@ -490,7 +490,7 @@ class Car extends Component {
                             <Typography variant="body2">Price For The Monthly Rate</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Price For The Monthly Rate"
+                                placeholder="643500.00"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.priceForTheMonthlyRate}
@@ -500,7 +500,7 @@ class Car extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isPositive']}
 
                             />
                         </Grid>
@@ -509,7 +509,7 @@ class Car extends Component {
                             <Typography variant="body2">Damage Waver</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Damage Waver"
+                                placeholder="15000.00"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.damageWaver}
@@ -519,7 +519,7 @@ class Car extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isPositive']}
 
                             />
                         </Grid>
@@ -527,7 +527,7 @@ class Car extends Component {
                             <Typography variant="body2">Run Km</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Run Km"
+                                placeholder="1000"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.runKm}
@@ -537,7 +537,7 @@ class Car extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isPositive']}
 
                             />
                         </Grid>

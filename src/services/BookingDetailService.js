@@ -1,34 +1,56 @@
-import axios from "axios";
+import axios from "../axios";
 
-
-class BookingDetailService {
-    createPost = async (data) => {
-        console.log("form data: " + data)
+class BookingDetailService{
+    postBookingDetails = async (data) => {
         const promise = new Promise((resolve, reject) => {
-            axios.post('http://localhost:8080/car_rental_02_war/api/v1/bookingDetails', data)   //10s
+            axios.post('bookingDetails', data).then((res) => {
+                return resolve(res)
+            })
+                .catch((err) => {
+                    return resolve(err)
+                })
+        });
+        return promise;
+    }
+
+    fetchBookingDetails = async () => {
+        const promise = new Promise((resolve, reject) => {
+            axios.get('bookingDetails')
                 .then((res) => {
                     return resolve(res)
                 })
-                .catch((er) => {
-                    console.log('error: ' + er);
-                    return resolve(er)
+                .catch((err) => {
+                    return resolve(err)
                 })
         })
-        return await promise
-    }
 
-    fetchPosts = async () => {
-        const promise = new Promise((resolve, reject) => {
-            axios.get('http://localhost:8080/car_rental_02_war/api/v1/bookingDetails')
-                .then((res) => {
+        return await promise;
+    }
+    putBookingDetails = async (data) => {
+        const promise = new Promise(((resolve, reject) => {
+                axios.put('bookingDetails', data).then((res) => {
                     return resolve(res)
                 })
-                .catch((er) => {
-                    return resolve(er)
+                    .catch((err) => {
+                        return resolve(err)
+                    })
+            })
+        )
+        return await promise;
+    }
+
+    deleteBookingDetails = async (params) => {
+        const promise = new Promise((resolve, reject) => {
+            axios.delete('bookingDetails',{params:params}).
+            then((res)=>{
+                return resolve(res)
+            })
+                .catch((err)=>{
+                    return resolve (err)
                 })
         })
-        return await promise
-    }
+        return await promise;
+    };
 }
 
-export default new BookingDetailService()
+export default new BookingDetailService();

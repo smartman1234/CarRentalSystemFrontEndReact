@@ -287,7 +287,7 @@ class Admin extends Component {
                             <Typography variant="body2">Admin Id</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Admin Id"
+                                placeholder="A00_001"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.aid}
@@ -297,7 +297,7 @@ class Admin extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','matchRegexp:^(A00_)[0-9]{3,4}$']}
 
                             />
                         </Grid>
@@ -306,7 +306,7 @@ class Admin extends Component {
                             <Typography variant="subtitle1">Password</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Password"
+                                placeholder="Re12^0l"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.password}
@@ -323,7 +323,7 @@ class Admin extends Component {
                             <Typography variant="subtitle1">Username</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Username"
+                                placeholder="username"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.username}
@@ -333,14 +333,15 @@ class Admin extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','matchRegexp:^[a-zA-Z ]+$']}
+
                             />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <Typography variant="subtitle1">Name</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Name"
+                                placeholder="Your Name"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.name}
@@ -350,14 +351,14 @@ class Admin extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','matchRegexp:^[a-zA-Z ]+$']}
                             />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <Typography variant="subtitle1">Email</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Email"
+                                placeholder="user@gmail.com"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.email}
@@ -367,14 +368,14 @@ class Admin extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required',"isEmail"]}
                             />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <Typography variant="subtitle1">ContactNo</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="ContactNo"
+                                placeholder="Your Phone No"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.contactNo}
@@ -384,7 +385,7 @@ class Admin extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isPositive']}
                             />
                         </Grid>
 
@@ -453,7 +454,10 @@ class Admin extends Component {
                         </Table>
 
                     </TableContainer>
+
+                    {/*<UserTable/>*/}
                 </Grid>
+
 
 
                 <GDSESnackBar
@@ -469,7 +473,6 @@ class Admin extends Component {
                 />
 
 
-                {/*<UserTable/>*/}
             </Fragment>
 
 

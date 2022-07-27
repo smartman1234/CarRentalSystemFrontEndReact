@@ -64,7 +64,7 @@ class Home extends Component {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Link to={"/user"}>
+                                <Link to={"/bookingDetails"}>
                                     <Button size="small" color="primary">
                                         Booking
                                     </Button>
@@ -92,7 +92,7 @@ class Home extends Component {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Link to={"/user"}>
+                                <Link to={"/bookingDetails"}>
                                     <Button size="small" color="primary">
                                         Booking
                                     </Button>
@@ -120,7 +120,7 @@ class Home extends Component {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Link to={"/user"}>
+                                <Link to={"/bookingDetails"}>
                                     <Button size="small" color="primary">
                                         Booking
                                     </Button>
@@ -148,7 +148,7 @@ class Home extends Component {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Link to={"/user"}>
+                                <Link to={"/bookingDetails"}>
                                     <Button size="small" color="primary">
                                         Booking
                                     </Button>
@@ -177,7 +177,7 @@ class Home extends Component {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Link to={"/user"}>
+                                <Link to={"/bookingDetails"}>
                                     <Button size="small" color="primary">
                                         Booking
                                     </Button>
@@ -206,7 +206,7 @@ class Home extends Component {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Link to={"/user"}>
+                                <Link to={"/bookingDetails"}>
                                     <Button size="small" color="primary">
                                         Booking
                                     </Button>
@@ -233,7 +233,7 @@ class Home extends Component {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Link to={"/user"}>
+                                <Link to={"/bookingDetails"}>
                                     <Button size="small" color="primary">
                                         Booking
                                     </Button>
@@ -261,7 +261,7 @@ class Home extends Component {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Link to={"/user"}>
+                                <Link to={"/bookingDetails"}>
                                     <Button size="small" color="primary">
                                         Booking
                                     </Button>

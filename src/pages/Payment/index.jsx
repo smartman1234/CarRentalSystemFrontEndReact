@@ -200,7 +200,7 @@ class Payment extends Component {
                             <Typography variant="body2">Payment Id</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Payment Id"
+                                placeholder="P00_001"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.pid}
@@ -210,7 +210,7 @@ class Payment extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','matchRegexp:^(P00_)[0-9]{3,4}$']}
 
                             />
                         </Grid>
@@ -219,7 +219,7 @@ class Payment extends Component {
                             <Typography variant="body2">Drop Off Date</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Drop Off Date"
+                                placeholder="2022-07-27"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.dropOffDate}
@@ -229,7 +229,7 @@ class Payment extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isString']}
 
                             />
                         </Grid>
@@ -238,7 +238,7 @@ class Payment extends Component {
                             <Typography variant="body2">Drop Off Last Date</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Drop Off Last Date"
+                                placeholder="2022-07-27"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.dropOffLastDate}
@@ -248,7 +248,7 @@ class Payment extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isString']}
 
                             />
                         </Grid>
@@ -258,7 +258,7 @@ class Payment extends Component {
                             <Typography variant="body2">Car Id</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Car Id"
+                                placeholder="C00_001"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.cid}
@@ -268,7 +268,7 @@ class Payment extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','matchRegexp:^(C00_)[0-9]{3,4}$']}
 
                             />
                         </Grid>
@@ -278,7 +278,7 @@ class Payment extends Component {
                             <Typography variant="body2">User Id</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="User Id"
+                                placeholder="U00_001"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.uid}
@@ -288,7 +288,7 @@ class Payment extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','matchRegexp:^(U00_)[0-9]{3,4}$']}
 
                             />
                         </Grid>
@@ -297,7 +297,7 @@ class Payment extends Component {
                             <Typography variant="body2">Driver Id</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Driver Id"
+                                placeholder="D00_001"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.did}
@@ -307,7 +307,7 @@ class Payment extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','matchRegexp:^(D00_)[0-9]{3,4}$']}
 
                             />
                         </Grid>
@@ -317,7 +317,7 @@ class Payment extends Component {
                             <Typography variant="body2">Rent Price</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Rent Price"
+                                placeholder="20000"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.rentPrice}
@@ -327,7 +327,7 @@ class Payment extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isPositive']}
 
                             />
                         </Grid>
@@ -337,7 +337,7 @@ class Payment extends Component {
                             <Typography variant="body2">Damaging Price</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Damaging Price"
+                                placeholder="25000"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.damagingPrice}
@@ -347,7 +347,7 @@ class Payment extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isPositive']}
 
                             />
                         </Grid>
@@ -356,7 +356,7 @@ class Payment extends Component {
                             <Typography variant="body2">Discount</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Discount"
+                                placeholder="1000"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.discount}
@@ -366,7 +366,7 @@ class Payment extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isPositive']}
 
                             />
                         </Grid>
@@ -376,7 +376,7 @@ class Payment extends Component {
                             <Typography variant="body2">Total Price</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Total Price"
+                                placeholder="12000"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.totalPrice}
@@ -386,7 +386,7 @@ class Payment extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isPositive']}
 
                             />
                         </Grid>

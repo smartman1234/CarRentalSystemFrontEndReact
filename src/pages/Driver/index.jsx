@@ -196,7 +196,7 @@ class Driver extends Component{
                             <Typography variant="body2">Driver Id</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Driver Id"
+                                placeholder="D00_001"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.did}
@@ -206,7 +206,7 @@ class Driver extends Component{
                                     this.setState({ formData })
                                 }}
                                 style={{ width: '100%' }}
-                                validators={['required',]}
+                                validators={['required','matchRegexp:^(D00_)[0-9]{3,4}$']}
 
                             />
                         </Grid>
@@ -225,7 +225,7 @@ class Driver extends Component{
                                     this.setState({ formData })
                                 }}
                                 style={{ width: '100%' }}
-                                validators={['required',]}
+                                validators={['required','matchRegexp:^[a-zA-Z ]+$']}
                             />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -242,14 +242,14 @@ class Driver extends Component{
                                     this.setState({ formData })
                                 }}
                                 style={{ width: '100%' }}
-                                validators={['required',]}
+                                validators={['required','minNumber:0', 'maxNumber:255', 'matchRegexp:^[0-9]{1,2}$']}
                             />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <Typography variant="subtitle1">Driver Password</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Driver Password"
+                                placeholder="Dk0^kl&hl"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.driverPassword}
@@ -266,7 +266,7 @@ class Driver extends Component{
                             <Typography variant="subtitle1">Driver Licence</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Driver Licence"
+                                placeholder="B44909478"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.driverLicence}
@@ -310,7 +310,7 @@ class Driver extends Component{
                                     this.setState({ formData })
                                 }}
                                 style={{ width: '100%' }}
-                                validators={['required',]}
+                                validators={['required','isEmail']}
                             />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -327,7 +327,7 @@ class Driver extends Component{
                                     this.setState({ formData })
                                 }}
                                 style={{ width: '100%' }}
-                                validators={['required',]}
+                                validators={['required','isPositive']}
                             />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -344,14 +344,14 @@ class Driver extends Component{
                                     this.setState({ formData })
                                 }}
                                 style={{ width: '100%' }}
-                                validators={['required',]}
+                                validators={['required','isString']}
                             />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <Typography variant="subtitle1">Driver Status</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="Driver Status"
+                                placeholder="Available"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.driverStatus}
@@ -361,7 +361,7 @@ class Driver extends Component{
                                     this.setState({ formData })
                                 }}
                                 style={{ width: '100%' }}
-                                validators={['required',]}
+                                validators={['required','isString']}
                             />
                         </Grid>
                         {/*<Grid item lg={12} md={12} sm={12} xm={6} style={{display: 'flex'}} justifyContent="flex-end"*/}

@@ -25,6 +25,10 @@ import user from "../../assets/img/user.png"
 import Button from "@mui/material/Button";
 import {styleSheet} from "./style";
 import {withStyles} from "@mui/styles";
+import CreateIcon from '@mui/icons-material/Create';
+import {Link} from "react-router-dom";
+import UsersService from "../../services/UsersService";
+import BookingDetailService from "../../services/BookingDetailService";
 
 class BookingDetails extends Component {
     constructor(props) {
@@ -230,7 +234,31 @@ class BookingDetails extends Component {
                                 <div sx={{maxWidth: 120}}>
                                     <img src={user} alt=""/>
                                     <CardContent sx={{mb: 9}}>
-                                        <Typography gutterBottom variant="h5" component="div">
+                                        <TextField
+                                            id="input-with-icon-textfield"
+                                            label="UserName"
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <CreateIcon/>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                        />
+                                        <TextField
+                                            id="input-with-icon-textfield"
+                                            label="Password"
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <CreateIcon/>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                        />
+                                        <Typography variant="body2" color="text.secondary">
                                             Name
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
@@ -243,8 +271,13 @@ class BookingDetails extends Component {
                                             Email
                                         </Typography>
 
-                                        <Grid sx={{maxWidth: 1750}}>
-                                            <Button variant="outlined" color="success">Rent Car</Button>
+                                        <Grid sx={{maxWidth: 1750}}  >
+                                            <Button variant="outlined" color="success" >Rent Car</Button>
+                                            <Link to={"/User"} >
+                                                <Button size="small" color="primary" variant="outlined" >
+                                                    Register
+                                                </Button>
+                                            </Link>
                                         </Grid>
                                     </CardContent>
                                 </div>

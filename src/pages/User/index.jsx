@@ -48,7 +48,7 @@ class User extends Component {
             severity: '',
 
             data: [],
-            btnLabel:'Register',
+            btnLabel:'Save',
             btnColor:"primary"
 
 
@@ -190,13 +190,14 @@ class User extends Component {
                     className="pt-2"
                     onSubmit={this.submitUser}
 
+
                 >
                     <Grid container className="pt-2" spacing={3}>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <Typography variant="body2">User Id</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="User Id"
+                                placeholder="U00_001"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.uid}
@@ -206,7 +207,7 @@ class User extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','matchRegexp:^(U00_)[0-9]{3,4}$']}
 
                             />
                         </Grid>
@@ -225,14 +226,14 @@ class User extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','matchRegexp:^[a-zA-Z ]+$']}
                             />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
                             <Typography variant="subtitle1">userEmail</Typography>
                             <TextValidator
                                 id="outlinedbasic"
-                                placeholder="User Email"
+                                placeholder="user@gmail.com"
                                 variant="outlined"
                                 size="small"
                                 value={this.state.formData.userEmail}
@@ -242,7 +243,7 @@ class User extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isEmail']}
                             />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -259,7 +260,7 @@ class User extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isString']}
                             />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -276,7 +277,7 @@ class User extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',]}
+                                validators={['required','isPositive']}
                             />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
