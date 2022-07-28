@@ -26,6 +26,9 @@ export const styleSheet={
         color: 'white',
         height: 50,
         padding: '00px',
+    },
+    textField: {
+        color: 'black',
     }
 
 }

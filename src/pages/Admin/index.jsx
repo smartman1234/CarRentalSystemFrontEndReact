@@ -33,6 +33,12 @@ import UserTable from "./UserTable";
 import NavBar from "../../components/Home/grid";
 import AppBar from "../../components/common/NavBar";
 
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+
 class Admin extends Component {
     constructor(props) {
         super(props);
@@ -190,14 +196,13 @@ class Admin extends Component {
         console.log(this.state.data)
     }
 
+
+
     render() {
         const {classes} = this.props;
 
-
         return (
             <Fragment>
-
-
                 {/*<Grid container className="pt-7" spacing={2}>*/}
 
                 {/*    <Grid item xs={3} sm={3} md={3} lg={3}>*/}
@@ -273,7 +278,183 @@ class Admin extends Component {
 
                     </ul>
                 </nav>
+                <Grid container className="pt-2" spacing={3}>
+                    <Grid item xs={12} sm={12} md={12} lg={12}>
+                        <Card sx={{maxWidth: 1200, maxHeight: 350}}>
+                            <CardActionArea>
 
+                                {/*<Typography variant="h5" >Car Manage</Typography>*/}
+                                <CardContent>
+                                    <TextField
+                                        id="input-with-icon-textfield"
+                                        label="Number of registered users"
+                                        placeholder={"4"}
+                                        sx={{mb: 3}}
+                                        disabled={'true'}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        variant="standard"
+                                        // value={this.state.formData.bdid}
+                                        //validators={['required','matchRegexp:^(B00_)[0-9]{3,4}$']}
+                                    />
+                                    <TextField
+                                        id="input-with-icon-textfield"
+                                        label="Total bookings for the day"
+                                        placeholder={"Gall"}
+                                        disabled={'true'}
+                                        //sx={{mb: 15}}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    {/*<LocationOnIcon/>*/}
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        variant="standard"
+                                        // value={this.state.formData.pickUp}
+                                        // onChange={(e) => {
+                                        //     let formData = this.state.formData
+                                        //     formData.pickUp = e.target.value
+                                        //     this.setState({formData})
+                                        // }}
+                                    />
+
+
+                                    <TextField
+                                        id="input-with-icon-textfield"
+                                        label="Available cars"
+                                        //type={"date"}
+                                        placeholder={"4"}
+                                        disabled={'true'}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    {/*<TodayIcon/>*/}
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        variant="standard"
+                                        // value={this.state.formData.pickUpDate}
+                                        // onChange={(e) => {
+                                        //     let formData = this.state.formData
+                                        //     formData.pickUpDate = e.target.value
+                                        //     this.setState({formData})
+                                        // }}
+                                    />
+                                    <TextField
+                                        id="input-with-icon-textfield"
+                                        label="Available Driver"
+                                        placeholder={"5"}
+                                        disabled={'true'}
+                                        // type={"time"}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    {/*<AccessTimeIcon/>*/}
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        variant="standard"
+                                        // value={this.state.formData.pickUpTime}
+                                        // onChange={(e) => {
+                                        //     let formData = this.state.formData
+                                        //     formData.pickUpTime = e.target.value
+                                        //     this.setState({formData})
+                                        // }}
+                                    />
+                                    <TextField
+                                        id="input-with-icon-textfield"
+                                        label="maintenance Car"
+                                        placeholder={"5"}
+                                        // type={"time"}
+                                        disabled={'true'}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    {/*<AccessTimeIcon/>*/}
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        variant="standard"
+                                        // value={this.state.formData.pickUpTime}
+                                        // onChange={(e) => {
+                                        //     let formData = this.state.formData
+                                        //     formData.pickUpTime = e.target.value
+                                        //     this.setState({formData})
+                                        // }}
+                                    />
+                                    <TextField
+                                        id="input-with-icon-textfield"
+                                        label="Daily Income"
+                                        placeholder={"10000.00"}
+                                        disabled={'true'}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    {/*<AccessTimeIcon/>*/}
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        variant="standard"
+
+                                    />
+                                    <TextField
+                                        id="input-with-icon-textfield"
+                                        label="Weekly Income"
+                                        placeholder={"10000.00"}
+                                        disabled={'true'}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    {/*<AccessTimeIcon/>*/}
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        variant="standard"
+
+                                    />
+                                    <TextField
+                                        id="input-with-icon-textfield"
+                                        label="Monthly Income"
+                                        placeholder={"10000.00"}
+                                        disabled={'true'}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    {/*<AccessTimeIcon/>*/}
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        variant="standard"
+
+                                    />
+                                    <TextField
+                                        id="input-with-icon-textfield"
+                                        label="Yearly Income"
+                                        placeholder={"10000.00"}
+                                        disabled={'true'}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    {/*<AccessTimeIcon/>*/}
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        variant="standard"
+
+                                    />
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+
+                    </Grid>
+
+
+                </Grid>
                 <Typography variant="h2" className={classes.columnHeaderTitleContainer}>Admin Manage</Typography>
 
 
