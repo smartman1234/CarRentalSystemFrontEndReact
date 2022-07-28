@@ -38,6 +38,10 @@ import Box from '@mui/material/Box';
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import UsersService from "../../services/UsersService";
+import Stack from "@mui/material/Stack";
+import Avatar from "@mui/material/Avatar";
+import logo from "../../assets/img/carLogo.jpg";
 
 class Admin extends Component {
     constructor(props) {
@@ -65,6 +69,7 @@ class Admin extends Component {
 
 
         }
+
     }
 
 
@@ -189,81 +194,51 @@ class Admin extends Component {
         console.log(this.state.data)
         this.exampleForMap();
     }
+    loadUser = async () => {
+        let res = await UsersService.fetchUser();
+        this.userMap();
+    }
 
     componentDidMount() {
         this.loadData();
+        this.loadUser();
 
         console.log(this.state.data)
     }
 
+    userMap = () => {
+        this.state.data.map((index) => {
+            // console.log(value.userName)
+            // console.log(index)
+            console.log(index)
+            // this.userCount=index;
 
+            // this.state.data[index]
+
+        })
+    }
 
     render() {
         const {classes} = this.props;
 
         return (
             <Fragment>
-                {/*<Grid container className="pt-7" spacing={2}>*/}
-
-                {/*    <Grid item xs={3} sm={3} md={3} lg={3}>*/}
-                {/*        <Card sx={{maxWidth: 500, maxHeight: 350}}>*/}
-                {/*            <CardActionArea className={classes.container}>*/}
-                {/*                <Typography variant="h5" className={classes.columnHeaderTitleContainer}>Car*/}
-                {/*                    Manage</Typography>*/}
-                {/*                <CardContent>*/}
-                {/*                    <Link to={"/car"}>*/}
-                {/*                        <Button variant="outlined" color="error">*/}
-                {/*                            Car*/}
-                {/*                        </Button>*/}
-                {/*                    </Link>*/}
-                {/*                </CardContent>*/}
-
-                {/*                <Typography variant="h5" className={classes.columnHeaderTitleContainer}>Driver*/}
-                {/*                    Manage</Typography>*/}
-                {/*                <CardContent sx={{mb: 15}}>*/}
-                {/*                    <Link to={"/driver"}>*/}
-                {/*                        <Button variant="outlined" color="error">*/}
-                {/*                            Driver*/}
-                {/*                        </Button>*/}
-                {/*                    </Link>*/}
-                {/*                </CardContent>*/}
-                {/*            </CardActionArea>*/}
-                {/*        </Card>*/}
-
-                {/*    </Grid>*/}
-
-                {/*    <Grid item xs={6} sm={6} md={6} lg={6}>*/}
-                {/*        <Card sx={{maxWidth: 500, maxHeight: 350}}>*/}
-                {/*            <CardActionArea className={classes.container}>*/}
-                {/*                <Typography variant="h5" className={classes.columnHeaderTitleContainer}>Payment  Manage</Typography>*/}
-                {/*                <CardContent>*/}
-                {/*                    <Link to={"/payment"}>*/}
-                {/*                        <Button variant="outlined" color="error">*/}
-                {/*                            Payment*/}
-                {/*                        </Button>*/}
-                {/*                    </Link>*/}
-                {/*                </CardContent>*/}
-
-                {/*                <Typography variant="h5" className={classes.columnHeaderTitleContainer}>*/}
-                {/*                Booking Details*/}
-                {/*                </Typography>*/}
-                {/*                <CardContent sx={{mb: 15}}>*/}
-                {/*                    <Link to={"/bookingDetails"}>*/}
-                {/*                        <Button variant="outlined" color="error">*/}
-                {/*                            Booking Details*/}
-                {/*                        </Button>*/}
-                {/*                    </Link>*/}
-                {/*                </CardContent>*/}
-                {/*            </CardActionArea>*/}
-                {/*        </Card>*/}
-
-                {/*    </Grid>*/}
-
-
-                {/*</Grid>*/}
 
                 <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-5 bg-body rounded" >
-                    <span className={"navbar-brand mb-0 h1"}>Car Rental System</span>
+
+                    <Grid item xs={1} sm={1} md={1} lg={1}>
+                        <Stack direction="row" spacing={2}>
+                            <Avatar
+                                alt="Remy Sharp"
+                                src={logo} alt=""
+                                sx={{width: 100, height: 100}}
+                            />
+                        </Stack>
+
+                    </Grid>
+
+
+                    <span className={"navbar-brand mb-0 h1"}>Easy car rental private limited</span>
                     <ul className={"navbar-nav"}>
                         <li className={"nav-item"}><Link className={"nav-link"} to={"/"}>Home</Link></li>
                         <li className={"nav-item"}><Link className={"nav-link"} to={"/car"}>Car</Link></li>
@@ -285,12 +260,13 @@ class Admin extends Component {
 
                                 {/*<Typography variant="h5" >Car Manage</Typography>*/}
                                 <CardContent>
+
                                     <TextField
                                         id="input-with-icon-textfield"
                                         label="Number of registered users"
                                         placeholder={"4"}
                                         sx={{mb: 3}}
-                                        disabled={'true'}
+                                        // disabled={'true'}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -298,7 +274,7 @@ class Admin extends Component {
                                             ),
                                         }}
                                         variant="standard"
-                                        // value={this.state.formData.bdid}
+                                        value={this.userMap.userCount}
                                         //validators={['required','matchRegexp:^(B00_)[0-9]{3,4}$']}
                                     />
                                     <TextField

@@ -23,6 +23,9 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Stack from "@mui/material/Stack";
+import Avatar from "@mui/material/Avatar";
+import logo from "../../assets/img/carLogo.jpg";
 
 class DriverDetail extends Component {
     constructor(props) {
@@ -57,7 +60,27 @@ class DriverDetail extends Component {
         return (
 
             <Fragment>
-                <Typography variant="h2" className={classes.columnHeaderTitleContainer} sx={{mb: 5}}>Driver Details</Typography>
+
+                <Grid container className="pt-7" spacing={2}>
+
+                    <Grid item xs={11} sm={11} md={11} lg={11}>
+                        <Typography variant="h2" className={classes.columnHeaderTitleContainer} sx={{mb: 5}}>Driver
+                            Details
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={1} sm={1} md={1} lg={1}>
+                        <Stack direction="row" spacing={2}>
+                            <Avatar
+                                alt="Remy Sharp"
+                                src={logo} alt=""
+                                sx={{width: 100, height: 100}}
+                            />
+                        </Stack>
+
+                    </Grid>
+
+
+                </Grid>
                 <Grid container className="pt-7" sx={{mb: 8}} spacing={2} >
 
                     <Grid item lg={5} md={5} sm={5} xm={5} sx={{mb: 8}}>

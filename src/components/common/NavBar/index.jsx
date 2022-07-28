@@ -24,7 +24,7 @@ class AppBar extends Component{
 
                 </Grid>
 
-                <span className={"navbar-brand mb-0 h1"}>Car Rental System</span>
+                <span className={"navbar-brand mb-0 h1"}>Easy car rental private limited</span>
                 <ul className={"navbar-nav"}>
                     <li className={"nav-item"}><Link className={"nav-link"} to={"/"}>Home</Link></li>
                     {/*<li className={"nav-item"}><Link className={"nav-link"} to={"/car"}>Car</Link></li>*/}

@@ -27,6 +27,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import {Link} from "react-router-dom";
 import BookingDetails from "../BookingDetails";
 import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Avatar from "@mui/material/Avatar";
+import logo from "../../assets/img/carLogo.jpg";
 
 class User extends Component {
     constructor(props) {
@@ -184,8 +187,26 @@ class User extends Component {
         const {classes} = this.props;
         return (
             <Fragment>
-                <Typography variant="h2" className={classes.columnHeaderTitleContainer}>User</Typography>
-                <ValidatorForm
+                <Grid container className="pt-7" spacing={2}>
+
+                    <Grid item xs={11} sm={11} md={11} lg={11}>
+                        <Typography variant="h2" className={classes.columnHeaderTitleContainer} sx={{mb: 5}}>
+                            User
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={1} sm={1} md={1} lg={1}>
+                        <Stack direction="row" spacing={2}>
+                            <Avatar
+                                alt="Remy Sharp"
+                                src={logo} alt=""
+                                sx={{width: 100, height: 100}}
+                            />
+                        </Stack>
+
+                    </Grid>
+
+
+                </Grid>                <ValidatorForm
                     ref="form"
                     className="pt-2"
                     onSubmit={this.submitUser}

@@ -30,16 +30,15 @@ import {Link} from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import SendIcon from '@mui/icons-material/Send';
-import PaymentService from "../../services/PaymentService";
 import BookingDetailService from "../../services/BookingDetailService";
-import {TextValidator} from "react-material-ui-form-validator";
 import GDSESnackBar from "../../components/common/snackBar";
 
 class BookingDetails extends Component {
     constructor(props) {
         super(props);
-        this.state={
-            formData:{
+        this.state = {
+
+            formData: {
                 bdid: '',
                 uid: '',
                 cid: '',
@@ -50,44 +49,57 @@ class BookingDetails extends Component {
                 dropOffDate: '',
                 pickUpTime: '',
                 dropOffTime: '',
-                rentPrice:''
+                rentPrice: ''
             },
-            alert:false,
-            message:'',
-            severity:'',
+            alert: false,
+            message: '',
+            severity: '',
 
-            data:[],
-            btnLabel:'Save',
-            btnColor:'primary'
+            data: [],
+            btnLabel: 'Save',
+            btnColor: 'primary',
+
+            file: null,
+
         }
+
+        this.handleChange = this.handleChange.bind(this)
 
 
     }
-   submitBookingDetails=async ()=>{
-        let formData=this.state.formData;
-       if (this.state.btnLabel === "Save") {
-           let res = await BookingDetailService.postBookingDetailsService(formData);
-           console.log(res);
 
-           if (res.status === 201) {
-               this.setState({
-                   alert: true,
-                   message: res.data.message,
-                   severity: "success"
-               });
-               this.clearFields();
-               this.loadData();
-           } else {
-               this.setState({
-                   alert: true,
-                   message: res.response.data.message,
-                   severity: "error"
-               });
-           }
-       }else {
-           console.log("error")
-       }
-   }
+    handleChange(event) {
+        this.state({
+            file: URL.createObjectURL(event.target.files[0])
+        })
+    }
+
+
+    submitBookingDetails = async () => {
+        let formData = this.state.formData;
+        if (this.state.btnLabel === "Save") {
+            let res = await BookingDetailService.postBookingDetailsService(formData);
+            console.log(res);
+
+            if (res.status === 201) {
+                this.setState({
+                    alert: true,
+                    message: res.data.message,
+                    severity: "success"
+                });
+                this.clearFields();
+                this.loadData();
+            } else {
+                this.setState({
+                    alert: true,
+                    message: res.response.data.message,
+                    severity: "error"
+                });
+            }
+        } else {
+            console.log("error")
+        }
+    }
 
 
     render() {
@@ -95,7 +107,6 @@ class BookingDetails extends Component {
         return (
 
             <Fragment>
-
                 <Grid container className="pt-7" spacing={2}>
 
                     <Grid item xs={11} sm={11} md={11} lg={11}>
@@ -104,13 +115,13 @@ class BookingDetails extends Component {
                         </Typography>
                     </Grid>
                     <Grid item xs={1} sm={1} md={1} lg={1}>
-                            <Stack direction="row" spacing={2}>
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src={logo} alt=""
-                                    sx={{width: 100, height: 100}}
-                                />
-                            </Stack>
+                        <Stack direction="row" spacing={2}>
+                            <Avatar
+                                alt="Remy Sharp"
+                                src={logo} alt=""
+                                sx={{width: 100, height: 100}}
+                            />
+                        </Stack>
 
                     </Grid>
 
@@ -457,18 +468,21 @@ class BookingDetails extends Component {
                                                         </InputAdornment>
                                                     ),
                                                 }}
+                                                // onClick={this.setState.file}
                                                 variant="standard"
                                             />
 
                                             <div sx={{maxWidth: 120}}>
+                                                {/*{console.log(this.handleChange.event)}*/}
+                                                {/*<img src={this.handleChange.event} alt=""/>*/}
                                                 <img src={slip} alt=""/>
                                             </div>
 
                                         </Grid>
                                     </CardContent>
 
-                                    <Button variant="outlined" color="success" type={'file'} endIcon={<SendIcon />}
-                                    onClick={this.submitBookingDetails}
+                                    <Button variant="outlined" color="success" type={'file'} endIcon={<SendIcon/>}
+                                            onClick={this.submitBookingDetails}
                                     >Rent Car</Button>
 
                                 </div>
