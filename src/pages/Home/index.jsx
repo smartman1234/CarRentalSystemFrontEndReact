@@ -21,6 +21,9 @@ import NameList from "../../components/Home/ImageList/NameList";
 import logo from "../../assets/img/carLogo.jpg"
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
+import SimpleAppBarLayout from "../../layout/simpleApBarLayout";
+import MiniDrawer from "../../layout/drawer";
+import ResponsiveAppBar from "../../layout/appBar";
 
 const styleSheet = () => ({
     container: {
@@ -48,6 +51,7 @@ class Home extends Component {
         return (
             <Fragment>
                 <AppBar/>
+                {/*<MiniDrawer/>*/}
                 <Grid container spacing={0.5}>
 
                     <Grid item lg={3} md={3} sm={3} xm={3}>

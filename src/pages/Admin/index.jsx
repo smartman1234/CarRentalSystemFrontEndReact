@@ -197,6 +197,7 @@ class Admin extends Component {
     loadUser = async () => {
         let res = await UsersService.fetchUser();
         this.userMap();
+
     }
 
     componentDidMount() {

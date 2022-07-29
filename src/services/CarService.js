@@ -26,6 +26,19 @@ class CarService {
 
         return await promise;
     }
+    searchCar = async (params) => {
+        const promise = new Promise((resolve, reject) => {
+            axios.get('car',{params:params})
+                .then((res) => {
+                    return resolve(res)
+                })
+                .catch((err) => {
+                    return resolve(err)
+                })
+        })
+
+        return await promise;
+    }
     putCar = async (data) => {
         const promise = new Promise(((resolve, reject) => {
                 axios.put('car', data).then((res) => {
