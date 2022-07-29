@@ -17,15 +17,55 @@ import Typography from "@mui/material/Typography";
 class UserTable extends Component{
     constructor(props) {
         super(props);
+        this.state = {
+            formData: {
+                uid: '',
+                userName: '',
+                userEmail: '',
+                userAddress: '',
+                userContactNo: '',
+                userIdentityCardImg: '',
+                userDrivingLicenceImg: '',
+
+            },
+            alert: false,
+            message: '',
+            severity: '',
+
+            data: [],
+            btnLabel:'Save',
+            btnColor:"primary"
+
 
         }
+        }
+    loadData = async () => {
+        let res = await UsersService.fetchUser();
+        if (res.status === 200) {
+            this.setState({
+                data: res.data.data
+            })
+        }
+        console.log(this.state.data)
+        this.exampleForMap();
+    }
+
+    componentDidMount() {
+        this.loadData();
+
+        console.log(this.state.data)
+    }
+
+
     render() {
         const {classes} = this.props;
         return(
          <Fragment>
-             <Typography variant="h2">User</Typography>
+             <Typography variant="h2"  sx={{mb: 5}}>
+                 User
+             </Typography>
              <Grid container>
-                 <TableContainer component={Paper} >
+                 <TableContainer component={Paper}  >
                      <Table sx={{minWidth: 650}} aria-label="user table">
                          <TableHead >
                              <TableRow>
@@ -53,10 +93,7 @@ class UserTable extends Component{
                                          <TableCell align="right">
                                              <Tooltip title="Edit">
                                                  <IconButton
-                                                     onClick={() => {
-                                                         console.log("edit icon clicked!")
-                                                         this.updateUser(row);
-                                                     }}
+
                                                  >
                                                      <EditIcon color={"primary"}/>
                                                  </IconButton>
@@ -65,10 +102,7 @@ class UserTable extends Component{
                                          <TableCell align="right">
                                              <Tooltip title="Delete">
                                                  <IconButton
-                                                     onClick={() => {
-                                                         console.log("delete icon clicked!")
-                                                         this.deleteUser(row.uid);
-                                                     }}
+
                                                  >
                                                      <DeleteIcon color={"error"}/>
                                                  </IconButton>
@@ -83,7 +117,6 @@ class UserTable extends Component{
 
                  </TableContainer>
              </Grid>
-
          </Fragment>
         )
     }

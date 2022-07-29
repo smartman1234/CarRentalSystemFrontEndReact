@@ -631,6 +631,7 @@ class Admin extends Component {
                 />
 
 
+                <UserTable/>
             </Fragment>
 
 
