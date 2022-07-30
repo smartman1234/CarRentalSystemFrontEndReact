@@ -33,11 +33,7 @@ import SendIcon from '@mui/icons-material/Send';
 import BookingDetailService from "../../services/BookingDetailService";
 import GDSESnackBar from "../../components/common/snackBar";
 import CarService from "../../services/CarService";
-import Radio from '@mui/material/Radio';
-import Toyota from "../../assets/img/Toyota.jpg"
-import BMWM5 from "../../assets/img/BMWM5.jpg"
 import BMWMz4 from "../../assets/img/BMWz4.jpg"
-import benze from "../../assets/img/benze.jpg";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -51,7 +47,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 // import { pink } from '@mui/material/colors';
-
 
 
 class BookingDetails extends Component {
@@ -87,6 +82,7 @@ class BookingDetails extends Component {
         this.handleChange = this.handleChange.bind(this)
 
     }
+
     loadData = async () => {
         let res = await CarService.fetchCar();
         if (res.status === 200) {
@@ -167,7 +163,7 @@ class BookingDetails extends Component {
     }
     changeImage = (e) => {
         console.log("change Image")
-        e.src={BMWMz4}
+        e.src = {BMWMz4}
 
     }
 
@@ -225,9 +221,9 @@ class BookingDetails extends Component {
                                             this.setState({formData})
                                         }}
 
-                                        onKeyPress={(ev)=>{
+                                        onKeyPress={(ev) => {
                                             console.log(`pressed keyCode {ev.key}`);
-                                            if (ev.key==='Enter'){
+                                            if (ev.key === 'Enter') {
                                                 this.loadData()
                                                 //DocodeHere
                                                 ev.preventDefault();
@@ -431,62 +427,65 @@ class BookingDetails extends Component {
 
                             <CardActionArea>
                                 <div sx={{maxWidth: 120}}>
+                                    {
+                                        this.state.data.map((row) => (
+                                            <CardContent>
 
-                                        <CardContent>
-
-                                            <Typography variant="body2" color="text.secondary">
-                                                <CarRentalIcon/>
-                                                abcId
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                <DirectionsCarIcon/>
-                                                Premium
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                <PaletteIcon/>
-                                                White
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                <EngineeringIcon/>
-                                                Auto
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                <EvStationIcon/>
-                                                Petrol
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                <AirlineSeatReclineExtraIcon/>
-                                                4
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                <StackedLineChartIcon/>
-                                                priceForTheExtraKm =30.00
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                <PriceCheckIcon/>
-                                                freeMileageForDay = 1000
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                <PriceCheckIcon/>
-                                                freeMileageForMonth =2000
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                <PriceCheckIcon/>
-                                                priceForTheDailyRate =1000.00
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                <PriceCheckIcon/>
-                                                priceForTheMonthlyRate =20000.00
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                <CreditCardIcon/>
-                                                damageWaver = 15000.00
-                                            </Typography>
-
-
-                                        </CardContent>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    <CarRentalIcon/>
+                                                    {row.registrationNumber}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    <DirectionsCarIcon/>
+                                                    {row.carType}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    <PaletteIcon/>
+                                                    {row.color}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    <EngineeringIcon/>
+                                                    {row.transmissionType}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    <EvStationIcon/>
+                                                    {row.fuelType}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    <AirlineSeatReclineExtraIcon/>
+                                                    {row.numberOfPassengers}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    <StackedLineChartIcon/>
+                                                    priceForTheExtraKm ={row.priceForTheExtraKm}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    <PriceCheckIcon/>
+                                                    freeMileageForDay = {row.freeMileageForDay}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    <PriceCheckIcon/>
+                                                    freeMileageForMonth ={row.freeMileageForMonth}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    <PriceCheckIcon/>
+                                                    priceForTheDailyRate ={row.priceForTheDailyRate}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    <PriceCheckIcon/>
+                                                    priceForTheMonthlyRate ={row.priceForTheMonthlyRate}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    <CreditCardIcon/>
+                                                    damageWaver = {row.damageWaver}
+                                                </Typography>
 
 
+                                            </CardContent>
+
+
+                                        ))
+                                    }
 
 
                                 </div>
@@ -529,9 +528,9 @@ class BookingDetails extends Component {
                                                     </InputAdornment>
                                                 ),
                                             }}
-                                            onKeyPress={(ev)=>{
+                                            onKeyPress={(ev) => {
                                                 console.log(`pressed keyCode {ev.key}`);
-                                                if (ev.key==='Enter'){
+                                                if (ev.key === 'Enter') {
 
                                                     //DocodeHere
                                                     ev.preventDefault();
@@ -638,85 +637,6 @@ class BookingDetails extends Component {
                     variant="filled"
 
                 />
-
-
-
-
-
-
-                <Grid container>
-                    <TableContainer component={Paper}>
-                        <Table sx={{minWidth: 650}} aria-label="user table">
-                            <TableHead >
-                                <TableRow>
-                                    <TableCell align="right">Car Id</TableCell>
-                                    <TableCell align="right">Number Of Passengers</TableCell>
-                                    <TableCell align="right">Transmission Type</TableCell>
-                                    <TableCell align="right">Car Color</TableCell>
-                                    <TableCell align="right">Car Registration Number</TableCell>
-                                    <TableCell align="right">Car Fuel Type</TableCell>
-                                    <TableCell align="right">Car Brand</TableCell>
-                                    <TableCell align="right">Car Type</TableCell>
-                                    <TableCell align="right">Car Status</TableCell>
-                                    <TableCell align="right">Car Img</TableCell>
-                                    <TableCell align="right">Price Of Extra Km</TableCell>
-                                    <TableCell align="right">Free Mileage For Day</TableCell>
-                                    <TableCell align="right">Free Mileage For Month</TableCell>
-                                    <TableCell align="right">Price For The Daily Rate</TableCell>
-                                    <TableCell align="right">Price For The Monthly Rate</TableCell>
-                                    <TableCell align="right">Damage Waver</TableCell>
-                                    <TableCell align="right">Run Km</TableCell>
-                                    <TableCell align="right">Action</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {
-                                    this.state.data.map((row) => (
-                                        <TableRow>
-                                            <TableCell align="right">{row.cid}</TableCell>
-                                            <TableCell align="right">{row.numberOfPassengers}</TableCell>
-                                            <TableCell align="right">{row.transmissionType}</TableCell>
-                                            <TableCell align="right">{row.color}</TableCell>
-                                            <TableCell align="right">{row.registrationNumber}</TableCell>
-                                            <TableCell align="right">{row.fuelType}</TableCell>
-                                            <TableCell align="right">{row.brand}</TableCell>
-                                            <TableCell align="right">{row.carType}</TableCell>
-                                            <TableCell align="right">{row.status}</TableCell>
-                                            <TableCell align="right">{row.img}</TableCell>
-                                            <TableCell align="right">{row.priceForTheExtraKm}</TableCell>
-                                            <TableCell align="right">{row.freeMileageForDay}</TableCell>
-                                            <TableCell align="right">{row.freeMileageForMonth}</TableCell>
-                                            <TableCell align="right">{row.priceForTheDailyRate}</TableCell>
-                                            <TableCell align="right">{row.priceForTheMonthlyRate}</TableCell>
-                                            <TableCell align="right">{row.damageWaver}</TableCell>
-                                            <TableCell align="right">{row.runKm}</TableCell>
-                                            <TableCell align="right">
-                                                <Tooltip title="Edit">
-                                                    <IconButton
-
-                                                    >
-                                                        <EditIcon color={"primary"}/>
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </TableCell>
-                                            <TableCell align="right">
-                                                <Tooltip title="Delete">
-                                                    <IconButton
-
-                                                    >
-                                                        <DeleteIcon color={"error"}/>
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))
-                                }
-
-                            </TableBody>
-                        </Table>
-
-                    </TableContainer>
-                </Grid>
             </Fragment>
 
         )
@@ -726,4 +646,3 @@ class BookingDetails extends Component {
 }
 
 export default withStyles(styleSheet)(BookingDetails);
-;

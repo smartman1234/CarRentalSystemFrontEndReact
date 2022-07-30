@@ -13,6 +13,8 @@ import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
+import {styleSheet} from "./style";
+import {withStyles} from "@mui/styles";
 
 class UserTable extends Component{
     constructor(props) {
@@ -61,13 +63,13 @@ class UserTable extends Component{
         const {classes} = this.props;
         return(
          <Fragment>
-             <Typography variant="h2"  sx={{mb: 5}}>
+             <Typography variant="h2"  sx={{mb: 0}} className={classes.columnHeaderTitleContainer}>
                  User
              </Typography>
              <Grid container>
-                 <TableContainer component={Paper}  >
+                 <TableContainer component={Paper}  className={classes.container}>
                      <Table sx={{minWidth: 650}} aria-label="user table">
-                         <TableHead >
+                         <TableHead className={classes.TableHead}>
                              <TableRow>
                                  <TableCell align="right">User Id</TableCell>
                                  <TableCell align="right">User Name</TableCell>
@@ -122,4 +124,4 @@ class UserTable extends Component{
     }
 }
 
-export default UserTable
+export default withStyles(styleSheet)(UserTable)
