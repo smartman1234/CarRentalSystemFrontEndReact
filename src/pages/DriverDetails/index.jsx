@@ -26,6 +26,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import logo from "../../assets/img/carLogo.jpg";
+import CarService from "../../services/CarService";
+import DriverService from "../../services/DriverService";
 
 class DriverDetail extends Component {
     constructor(props) {
@@ -53,8 +55,37 @@ class DriverDetail extends Component {
             btnColor:'primary'
         }
 
+
     }
 
+    // loadData = async () => {
+    //     let res = await DriverService.fetchDriver();
+    //     if (res.status === 200) {
+    //         this.setState({
+    //             data: res.data.data
+    //         })
+    //     }
+    //     console.log(this.state.data)
+    //     console.log("Hello")
+    // }
+    searchDriver = async (did) => {
+        let res = await DriverService.searchDriver(did);
+        console.log(res)
+        if (res.status === 200) {
+            // console.log(res.data.data)
+            if (did===this.state.formData.did){
+                this.setState({
+                    data: res.data.data
+                })
+            }
+
+        }
+    }
+    // componentDidMount() {
+    //     this.searchDriver();
+    //
+    //     console.log(this.state.data)
+    // }
     render() {
         const {classes} = this.props;
         return (
@@ -87,6 +118,7 @@ class DriverDetail extends Component {
                         <Card sx={{maxWidth: 800}} >
                             <CardActionArea>
                                 <div sx={{maxWidth: 120}}>
+
                                     <CardContent sx={{mb: 6}} >
                                         <TextField
                                             id="input-with-icon-textfield"
@@ -107,6 +139,18 @@ class DriverDetail extends Component {
                                                 formData.did = e.target.value
                                                 this.setState({formData})
                                             }}
+
+                                            onKeyPress={(ev) => {
+                                                console.log(`pressed keyCode {ev.key}`);
+                                                if (ev.key === 'Enter') {
+                                                    console.log(this.state.formData.did)
+                                                    this.searchDriver(this.state.formData.did)
+
+                                                    //DocodeHere
+                                                    ev.preventDefault();
+                                                }
+                                            }}
+
                                         />
                                         <TextField
                                             id="input-with-icon-textfield"
@@ -130,7 +174,8 @@ class DriverDetail extends Component {
                                         <TextField
                                             id="input-with-icon-textfield"
                                             label="Password"
-                                            placeholder={"******"}
+                                            // placeholder={"******"}
+                                            type={"password"}
                                             InputProps={{
                                                 startAdornment: (
                                                     <InputAdornment position="start">
@@ -148,8 +193,16 @@ class DriverDetail extends Component {
                                         />
 
                                     </CardContent>
+
+
                                     <Grid sx={{maxWidth: 1750}}>
-                                        <Button variant="contained">Driver Details</Button>
+                                        <Button variant="contained"
+                                                onClick={()=>{
+                                                    this.searchDriver(this.state.formData.did)
+                                                }}
+                                        >Driver Details
+
+                                        </Button>
                                     </Grid>
                                 </div>
 
@@ -158,87 +211,41 @@ class DriverDetail extends Component {
 
                     </Grid>
 
+
                     <Grid item lg={4} md={4} sm={4} xm={4}>
                         <Card sx={{maxWidth: 800}}>
                             <CardActionArea>
                                 <div sx={{maxWidth: 120}}>
                                     <img src={user} alt=""/>
+
+                                    {
+                                        this.state.data.map((row) => (
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div">
-                                            Kamal
+                                            {row.driverName}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
-                                            D00_001
+                                            {row.did}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
-                                            0786787987
+                                            {row.driverContactNo}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
-                                            L00_0001
+                                            {row.driverLicence}
                                         </Typography>
                                     </CardContent>
+
+                                        ))
+                                    }
+
+
                                 </div>
 
                             </CardActionArea>
                         </Card>
 
                     </Grid>
-                    {/*<Grid item lg={5} md={5} sm={5} xm={5}>*/}
-                    {/*    <Card sx={{maxWidth: 800}} >*/}
-                    {/*        <CardActionArea>*/}
-                    {/*            <div sx={{maxWidth: 120}}>*/}
-                    {/*                <CardContent sx={{mb: 10}}>*/}
-                    {/*                    <TextField*/}
-                    {/*                        id="input-with-icon-textfield"*/}
-                    {/*                        label="Driver Id"*/}
-                    {/*                        placeholder={"D00_001"}*/}
-                    {/*                        //sx={{mb: 15}}*/}
-                    {/*                        InputProps={{*/}
-                    {/*                            startAdornment: (*/}
-                    {/*                                <InputAdornment position="start">*/}
-                    {/*                                    <AirlineSeatReclineExtraIcon/>*/}
-                    {/*                                </InputAdornment>*/}
-                    {/*                            ),*/}
-                    {/*                        }}*/}
-                    {/*                        variant="standard"*/}
-                    {/*                    />*/}
-                    {/*                    <TextField*/}
-                    {/*                        id="input-with-icon-textfield"*/}
-                    {/*                        label="Driver Name"*/}
-                    {/*                        placeholder={"Kamal"}*/}
-                    {/*                        InputProps={{*/}
-                    {/*                            startAdornment: (*/}
-                    {/*                                <InputAdornment position="start">*/}
-                    {/*                                    <AirlineSeatReclineExtraIcon/>*/}
-                    {/*                                </InputAdornment>*/}
-                    {/*                            ),*/}
-                    {/*                        }}*/}
-                    {/*                        variant="standard"*/}
-                    {/*                    />*/}
-                    {/*                    <TextField*/}
-                    {/*                        id="input-with-icon-textfield"*/}
-                    {/*                        label="Password"*/}
-                    {/*                        placeholder={"******"}*/}
-                    {/*                        InputProps={{*/}
-                    {/*                            startAdornment: (*/}
-                    {/*                                <InputAdornment position="start">*/}
-                    {/*                                    <AirlineSeatReclineExtraIcon/>*/}
-                    {/*                                </InputAdornment>*/}
-                    {/*                            ),*/}
-                    {/*                        }}*/}
-                    {/*                        variant="standard"*/}
-                    {/*                    />*/}
 
-                    {/*                </CardContent>*/}
-                    {/*                <Grid sx={{maxWidth: 1750}} className={classes.rightForm}>*/}
-                    {/*                    <Button variant="contained">Driver Details</Button>*/}
-                    {/*                </Grid>*/}
-                    {/*            </div>*/}
-
-                    {/*        </CardActionArea>*/}
-                    {/*    </Card>*/}
-
-                    {/*</Grid>*/}
 
                     <Grid item lg={12} md={12} sm={12} xm={12} >
                         <TableContainer component={Paper} className={classes.container} >
@@ -258,18 +265,19 @@ class DriverDetail extends Component {
                                 </TableHead>
                                 <TableBody>
                                     {
+                                        this.state.data.map((row) => (
                                             <TableRow>
-                                                <TableCell align="right"></TableCell>
-                                                <TableCell align="right"></TableCell>
-                                                <TableCell align="right"></TableCell>
-                                                <TableCell align="right"></TableCell>
-                                                <TableCell align="right"></TableCell>
-                                                <TableCell align="right"></TableCell>
-                                                <TableCell align="right"></TableCell>
-                                                <TableCell align="right"></TableCell>
-                                                <TableCell align="right"></TableCell>
+                                                <TableCell align="right">{row.did}</TableCell>
+                                                <TableCell align="right">{row.driverName}</TableCell>
+                                                <TableCell align="right">{row.driverPassword}</TableCell>
+                                                <TableCell align="right">{row.pickUp}</TableCell>
+                                                <TableCell align="right">{row.dropOff}</TableCell>
+                                                <TableCell align="right">{row.pickUpDate}</TableCell>
+                                                <TableCell align="right">{row.dropOffDate}</TableCell>
+                                                <TableCell align="right">{row.pickUpTime}</TableCell>
+                                                <TableCell align="right">{row.dropOffTime}</TableCell>
                                             </TableRow>
-
+                                        ))
                                     }
 
                                 </TableBody>

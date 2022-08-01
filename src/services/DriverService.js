@@ -53,6 +53,18 @@ class DriverService {
         })
         return await promise;
     };
+    searchDriver = async (params) => {
+        const promise = new Promise((resolve, reject) => {
+            axios.get('driver',{params:params}).
+            then((res)=>{
+                return resolve(res)
+            })
+                .catch((err)=>{
+                    return resolve (err)
+                })
+        })
+        return await promise;
+    };
 }
 
 export default new DriverService()

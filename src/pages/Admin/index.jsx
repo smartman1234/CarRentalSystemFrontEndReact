@@ -173,16 +173,16 @@ class Admin extends Component {
         }
     }
 
-    exampleForMap = () => {
-        this.state.data.map((value, index) => {
-            // console.log(value.userName)
-            // console.log(index)
-            console.log(value)
-
-            // this.state.data[index].id="U00_002"
-
-        })
-    }
+    // exampleForMap = () => {
+    //     this.state.data.map((value, index) => {
+    //         // console.log(value.userName)
+    //         // console.log(index)
+    //         console.log(value)
+    //
+    //         // this.state.data[index].id="U00_002"
+    //
+    //     })
+    // }
 
     loadData = async () => {
         let res = await AdminService.fetchAdmin();
@@ -209,12 +209,9 @@ class Admin extends Component {
 
     userMap = () => {
         this.state.data.map((index) => {
-            // console.log(value.userName)
-            // console.log(index)
-            console.log(index)
-            // this.userCount=index;
 
-            // this.state.data[index]
+          console.log("usersssss "+this.state.data[index].uid)
+          this.state.data[index].numberOfPassengers=4
 
         })
     }
@@ -275,7 +272,7 @@ class Admin extends Component {
                                             ),
                                         }}
                                         variant="standard"
-                                        value={this.userMap.userCount}
+                                        value={this.userMap}
                                         //validators={['required','matchRegexp:^(B00_)[0-9]{3,4}$']}
                                     />
                                     <TextField

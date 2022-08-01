@@ -45,7 +45,12 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ImageChanger from "../../components/ImageChange";
+import UsersService from "../../services/UsersService";
 
+
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 // import { pink } from '@mui/material/colors';
 
 
@@ -77,22 +82,24 @@ class BookingDetails extends Component {
 
             file: null,
 
+
+
         }
 
         this.handleChange = this.handleChange.bind(this)
 
     }
 
-    loadData = async () => {
-        let res = await CarService.fetchCar();
-        if (res.status === 200) {
-            this.setState({
-                data: res.data.data
-            })
-        }
-        console.log(this.state.data)
-        console.log("Hello")
-    }
+    // loadData = async () => {
+    //     let res = await CarService.fetchCar();
+    //     if (res.status === 200) {
+    //         this.setState({
+    //             data: res.data.data
+    //         })
+    //     }
+    //     console.log(this.state.data)
+    //     console.log("Hello")
+    // }
 
     handleChange(event) {
         this.state({
@@ -101,10 +108,27 @@ class BookingDetails extends Component {
     }
 
     searchCar = async (cid) => {
-        let res = CarService.searchCar(cid);
+        let res = await CarService.searchCar(cid);
         console.log(res)
         if (res.status === 200) {
-            console.log(res.data.data)
+            // console.log(res.data.formData.cid)
+            if (cid===this.state.formData.cid){
+                this.setState({
+                    data: res.data.data
+                })
+            }
+        }
+    }
+    searchUser = async (uid) => {
+        let res = await UsersService.searchUser(uid);
+        console.log(res)
+        if (res.status === 200) {
+            // console.log(res.data.formData.cid)
+            if (uid===this.state.formData.uid){
+                this.setState({
+                    data: res.data.data
+                })
+            }
         }
     }
 
@@ -135,12 +159,12 @@ class BookingDetails extends Component {
         }
     }
 
-    componentDidMount() {
-        this.searchCar();
-        this.carMap();
-
-        console.log(this.state.data)
-    }
+    // componentDidMount() {
+    //     this.searchCar();
+    //     this.carMap();
+    //
+    //     console.log(this.state.data)
+    // }
 
     carMap = () => {
         this.state.data.map((value, index) => {
@@ -167,12 +191,34 @@ class BookingDetails extends Component {
 
     }
 
+
     render() {
         const {classes} = this.props;
 
+        const itemData = [
+
+            {
+                img: 'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
+                title: 'Sea star',
+            },
+            {
+                img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
+                title: 'Bike',
+            },
+            {
+                img: 'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
+                title: 'Sea star',
+            },
+            {
+                img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
+                title: 'Bike',
+            },
+        ];
         return (
 
+
             <Fragment>
+
                 <Grid container className="pt-7" spacing={2}>
 
                     <Grid item xs={11} sm={11} md={11} lg={11}>
@@ -224,7 +270,9 @@ class BookingDetails extends Component {
                                         onKeyPress={(ev) => {
                                             console.log(`pressed keyCode {ev.key}`);
                                             if (ev.key === 'Enter') {
-                                                this.loadData()
+                                                // this.loadData()
+                                                console.log(this.state.formData.cid)
+                                                this.searchCar(this.state.formData.cid)
                                                 //DocodeHere
                                                 ev.preventDefault();
                                             }
@@ -296,8 +344,8 @@ class BookingDetails extends Component {
                                     <TextField
                                         id="input-with-icon-textfield"
                                         label="Pickup Time"
-                                        placeholder={"08-00-00"}
-                                        type={"time"}
+                                        placeholder={"08:00 AM"}
+                                        // type={"time"}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -359,18 +407,18 @@ class BookingDetails extends Component {
                                         }}
                                         variant="standard"
 
-                                        value={this.state.formData.pickUpDate}
+                                        value={this.state.formData.dropOffDate}
                                         onChange={(e) => {
                                             let formData = this.state.formData
-                                            formData.pickUpDate = e.target.value
+                                            formData.dropOffDate = e.target.value
                                             this.setState({formData})
                                         }}
                                     />
                                     <TextField
                                         id="input-with-icon-textfield"
                                         label="Drop Off Time"
-                                        placeholder={"10-00-00"}
-                                        type={"time"}
+                                        placeholder={"10:00 PM"}
+                                        // type={"time"}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -392,12 +440,33 @@ class BookingDetails extends Component {
                     </Grid>
 
 
+
+
+
                     <Grid item lg={3} md={3} sm={3} xm={3}>
-                        <Card sx={{maxWidth: 1750}}>
+                        <Card sx={{maxWidth: 500}}>
                             <CardActionArea sx={{mb: 9}}>
-                                <div sx={{maxWidth: 120}} onClick={this.changeImage}>
-                                    <img id={"prius"} src={prius} alt=""/>
-                                </div>
+
+                                {/*<div sx={{maxWidth: 120}} onClick={this.changeImage}>*/}
+                                {/*    <img id={"prius"} src={prius} alt=""/>*/}
+                                {/*    <img id={"prius"} src={prius} alt=""/>*/}
+                                {/*    <img id={"prius"} src={prius} alt=""/>*/}
+                                {/*    <img id={"prius"} src={prius} alt=""/>*/}
+                                {/*</div>*/}
+
+
+                                <ImageList sx={{ width: 350, height: 350 }} cols={2} rowHeight={164}>
+                                    {itemData.map((item) => (
+                                        <ImageListItem key={item.img}>
+                                            <img
+                                                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                                                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                                alt={item.title}
+                                                loading="lazy"
+                                            />
+                                        </ImageListItem>
+                                    ))}
+                                </ImageList>
 
                                 <Typography gutterBottom variant="h5" component="div" className={classes.TableHead}>
                                     Toyota
@@ -637,6 +706,7 @@ class BookingDetails extends Component {
                     variant="filled"
 
                 />
+
             </Fragment>
 
         )

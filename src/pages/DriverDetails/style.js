@@ -6,7 +6,7 @@ export const styleSheet={
         borderRadius: 3,
         boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
         color: 'black',
-        height: 50,
+        height: 450,
         padding: '00px',
     },
     columnHeaderTitleContainer: {
@@ -15,7 +15,7 @@ export const styleSheet={
         borderRadius: 3,
         boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
         color: 'white',
-        height: 60,
+        height: 80,
         padding: '0 30px',
     } ,
     TableHead: {
@@ -24,12 +24,8 @@ export const styleSheet={
         borderRadius: 3,
         boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
         color: 'white',
-        height: 60,
+        height: 50,
         padding: '00px',
-        display:'flex',
-        alignItems:'center',
-        justifyContent:'center',
-        textContent:'center'
     }
 
 }

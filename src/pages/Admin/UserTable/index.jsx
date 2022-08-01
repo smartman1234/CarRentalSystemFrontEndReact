@@ -78,7 +78,7 @@ class UserTable extends Component{
                                  <TableCell align="right">User Contact No</TableCell>
                                  <TableCell align="right">User Identity Card Image</TableCell>
                                  <TableCell align="right">User Driving Licence Image</TableCell>
-                                 <TableCell align="right">Action</TableCell>
+                                 {/*<TableCell align="right">Action</TableCell>*/}
                              </TableRow>
                          </TableHead>
                          <TableBody>
@@ -93,22 +93,22 @@ class UserTable extends Component{
                                          <TableCell align="right">{row.userIdentityCardImg}</TableCell>
                                          <TableCell align="right">{row.userDrivingLicenceImg}</TableCell>
                                          <TableCell align="right">
-                                             <Tooltip title="Edit">
-                                                 <IconButton
+                                             {/*<Tooltip title="Edit">*/}
+                                             {/*    <IconButton*/}
 
-                                                 >
-                                                     <EditIcon color={"primary"}/>
-                                                 </IconButton>
-                                             </Tooltip>
+                                             {/*    >*/}
+                                             {/*        <EditIcon color={"primary"}/>*/}
+                                             {/*    </IconButton>*/}
+                                             {/*</Tooltip>*/}
                                          </TableCell>
                                          <TableCell align="right">
-                                             <Tooltip title="Delete">
-                                                 <IconButton
+                                             {/*<Tooltip title="Delete">*/}
+                                             {/*    <IconButton*/}
 
-                                                 >
-                                                     <DeleteIcon color={"error"}/>
-                                                 </IconButton>
-                                             </Tooltip>
+                                             {/*    >*/}
+                                             {/*        <DeleteIcon color={"error"}/>*/}
+                                             {/*    </IconButton>*/}
+                                             {/*</Tooltip>*/}
                                          </TableCell>
                                      </TableRow>
                                  ))
