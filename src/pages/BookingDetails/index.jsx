@@ -34,23 +34,12 @@ import BookingDetailService from "../../services/BookingDetailService";
 import GDSESnackBar from "../../components/common/snackBar";
 import CarService from "../../services/CarService";
 import BMWMz4 from "../../assets/img/BMWz4.jpg"
-import TableContainer from "@mui/material/TableContainer";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import TableBody from "@mui/material/TableBody";
-import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import ImageChanger from "../../components/ImageChange";
 import UsersService from "../../services/UsersService";
 
 
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+
 // import { pink } from '@mui/material/colors';
 
 
@@ -83,7 +72,6 @@ class BookingDetails extends Component {
             file: null,
 
 
-
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -112,7 +100,7 @@ class BookingDetails extends Component {
         console.log(res)
         if (res.status === 200) {
             // console.log(res.data.formData.cid)
-            if (cid===this.state.formData.cid){
+            if (cid === this.state.formData.cid) {
                 this.setState({
                     data: res.data.data
                 })
@@ -124,7 +112,7 @@ class BookingDetails extends Component {
         console.log(res)
         if (res.status === 200) {
             // console.log(res.data.formData.cid)
-            if (uid===this.state.formData.uid){
+            if (uid === this.state.formData.uid) {
                 this.setState({
                     data: res.data.data
                 })
@@ -191,29 +179,51 @@ class BookingDetails extends Component {
 
     }
 
+    checkValidity() {
+        console.log("Login button clicked!")
 
+        console.log(this.state.formData)
+
+        let formData = this.state.formData
+
+        if (formData.uid === this.state.formData.uid && formData.password === this.state.formData.password) {
+            console.log('credential matched!')
+            this.setState({
+                open: true,
+                message: 'User credential matching sucess!',
+                severity: 'success'
+            })
+        } else {
+            console.log('credential didn\'t matche!')
+            this.setState({
+                open: true,
+                message: 'User credential not matching!',
+                severity: 'error'
+            })
+        }
+    }
     render() {
         const {classes} = this.props;
 
-        const itemData = [
-
-            {
-                img: 'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
-                title: 'Sea star',
-            },
-            {
-                img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
-                title: 'Bike',
-            },
-            {
-                img: 'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
-                title: 'Sea star',
-            },
-            {
-                img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
-                title: 'Bike',
-            },
-        ];
+        // const itemData = [
+        //
+        //     {
+        //         img: {prius},
+        //         title: 'Sea star',
+        //     },
+        //     {
+        //         img: {BMWMz4},
+        //         title: 'Bike',
+        //     },
+        //     {
+        //         img: {BMWMz4},
+        //         title: 'Sea star',
+        //     },
+        //     // {
+        //     //     img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
+        //     //     title: 'Bike',
+        //     // },
+        // ];
         return (
 
 
@@ -440,9 +450,6 @@ class BookingDetails extends Component {
                     </Grid>
 
 
-
-
-
                     <Grid item lg={3} md={3} sm={3} xm={3}>
                         <Card sx={{maxWidth: 500}}>
                             <CardActionArea sx={{mb: 9}}>
@@ -455,17 +462,27 @@ class BookingDetails extends Component {
                                 {/*</div>*/}
 
 
-                                <ImageList sx={{ width: 350, height: 350 }} cols={2} rowHeight={164}>
-                                    {itemData.map((item) => (
-                                        <ImageListItem key={item.img}>
-                                            <img
-                                                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                                                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                                alt={item.title}
-                                                loading="lazy"
-                                            />
-                                        </ImageListItem>
-                                    ))}
+                                {/*<ImageList sx={{ width: 350, height: 350 }} cols={2} rowHeight={164}>*/}
+                                {/*    {itemData.map((item) => (*/}
+                                {/*        <ImageListItem key={item.img}>*/}
+                                {/*            <img*/}
+                                {/*                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}*/}
+                                {/*                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}*/}
+                                {/*                alt={item.title}*/}
+                                {/*                loading="lazy"*/}
+                                {/*            />*/}
+                                {/*        </ImageListItem>*/}
+                                {/*    ))}*/}
+                                {/*</ImageList>*/}
+                                <ImageList sx={{width: 350, height: 200}} cols={2} rowHeight={100}>
+                                    <ImageListItem>
+                                        <img src={prius} alt="" loading="lazy"/>
+                                        <img src={prius} alt="" loading="lazy"/>
+                                        <img src={prius} alt="" loading="lazy"/>
+                                        <img src={prius} alt="" loading="lazy"/>
+
+                                    </ImageListItem>
+
                                 </ImageList>
 
                                 <Typography gutterBottom variant="h5" component="div" className={classes.TableHead}>
@@ -586,6 +603,12 @@ class BookingDetails extends Component {
 
 
                                             variant="standard"
+                                            onChange={(e) => {
+                                                console.log(e.target.value)
+                                                let formData = this.state.formData
+                                                formData.userName = e.target.value
+                                                this.setState({ formData })
+                                            }}
                                         />
                                         <TextField
                                             id="input-with-icon-textfield"
@@ -597,10 +620,16 @@ class BookingDetails extends Component {
                                                     </InputAdornment>
                                                 ),
                                             }}
+                                            onChange={(e) => {
+                                                console.log(e.target.value)
+                                                let formData = this.state.formData
+                                                formData.password = e.target.value
+                                                this.setState({ formData })
+                                            }}
                                             onKeyPress={(ev) => {
                                                 console.log(`pressed keyCode {ev.key}`);
                                                 if (ev.key === 'Enter') {
-
+                                                    this.checkValidity()
                                                     //DocodeHere
                                                     ev.preventDefault();
                                                 }

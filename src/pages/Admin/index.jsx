@@ -25,23 +25,18 @@ import AdminService from "../../services/AdminService";
 import {styleSheet} from "./style";
 import {withStyles} from "@mui/styles";
 import {Link} from "react-router-dom";
-import Button from "@mui/material/Button";
 import CardActionArea from "@mui/material/CardActionArea";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import UserTable from "./UserTable";
-import NavBar from "../../components/Home/grid";
-import AppBar from "../../components/common/NavBar";
-
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import UsersService from "../../services/UsersService";
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import logo from "../../assets/img/carLogo.jpg";
+import BookingDetailService from "../../services/BookingDetailService";
+import BookingDetailTable from "./BookingTable";
 
 class Admin extends Component {
     constructor(props) {
@@ -71,9 +66,6 @@ class Admin extends Component {
         }
 
     }
-
-
-
 
 
     deleteAdmin = async (aid) => {
@@ -199,6 +191,11 @@ class Admin extends Component {
         this.userMap();
 
     }
+    loadUser = async () => {
+        let res = await BookingDetailService.fetchBookingDetails();
+        this.bookingMap();
+
+    }
 
     componentDidMount() {
         this.loadData();
@@ -210,8 +207,16 @@ class Admin extends Component {
     userMap = () => {
         this.state.data.map((index) => {
 
-          console.log("usersssss "+this.state.data[index].uid)
-          this.state.data[index].numberOfPassengers=4
+            console.log("usersssss " + this.state.data[index].uid)
+            this.state.data[index].numberOfPassengers = 4
+
+        })
+    }
+    bookingMap = () => {
+        this.state.data.map((index) => {
+
+            console.log("usersssss " + this.state.data[index].uid)
+            this.state.data[index].numberOfPassengers = 4
 
         })
     }
@@ -222,7 +227,7 @@ class Admin extends Component {
         return (
             <Fragment>
 
-                <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-5 bg-body rounded" >
+                <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-3 mb-5 bg-body rounded">
 
                     <Grid item xs={1} sm={1} md={1} lg={1}>
                         <Stack direction="row" spacing={2}>
@@ -246,7 +251,6 @@ class Admin extends Component {
                         <li className={"nav-item"}><Link className={"nav-link"} to={"/user"}>User</Link></li>
                         {/*<li className={"nav-item"}><Link className={"nav-link"} to={"/bookingDetails"}>BookingDetails</Link></li>*/}
                         {/*<li className={"nav-item"}><Link className={"nav-link"} to={"/admin"}>Admin</Link></li>*/}
-
 
 
                     </ul>
@@ -452,7 +456,7 @@ class Admin extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required','matchRegexp:^(A00_)[0-9]{3,4}$']}
+                                validators={['required', 'matchRegexp:^(A00_)[0-9]{3,4}$']}
 
                             />
                         </Grid>
@@ -488,7 +492,7 @@ class Admin extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required','matchRegexp:^[a-zA-Z ]+$']}
+                                validators={['required', 'matchRegexp:^[a-zA-Z ]+$']}
 
                             />
                         </Grid>
@@ -506,7 +510,7 @@ class Admin extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required','matchRegexp:^[a-zA-Z ]+$']}
+                                validators={['required', 'matchRegexp:^[a-zA-Z ]+$']}
                             />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -523,7 +527,7 @@ class Admin extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required',"isEmail"]}
+                                validators={['required', "isEmail"]}
                             />
                         </Grid>
                         <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -540,7 +544,7 @@ class Admin extends Component {
                                     this.setState({formData})
                                 }}
                                 style={{width: '100%'}}
-                                validators={['required','isPositive']}
+                                validators={['required', 'isPositive']}
                             />
                         </Grid>
 
@@ -614,7 +618,6 @@ class Admin extends Component {
                 </Grid>
 
 
-
                 <GDSESnackBar
                     open={this.state.alert}
                     onClose={() => {
@@ -628,6 +631,7 @@ class Admin extends Component {
                 />
 
                 <UserTable/>
+                <BookingDetailTable/>
 
             </Fragment>
 

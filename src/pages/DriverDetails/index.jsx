@@ -57,17 +57,30 @@ class DriverDetail extends Component {
 
 
     }
+    checkValidity() {
+        console.log("Login button clicked!")
 
-    // loadData = async () => {
-    //     let res = await DriverService.fetchDriver();
-    //     if (res.status === 200) {
-    //         this.setState({
-    //             data: res.data.data
-    //         })
-    //     }
-    //     console.log(this.state.data)
-    //     console.log("Hello")
-    // }
+        console.log(this.state.formData)
+
+        let formData = this.state.formData
+
+        if (formData.did === this.state.did && formData.password === this.state.password) {
+            console.log('credential matched!')
+            this.setState({
+                open: true,
+                message: 'User credential matching sucess!',
+                severity: 'success'
+            })
+        } else {
+            console.log('credential didn\'t matche!')
+            this.setState({
+                open: true,
+                message: 'User credential not matching!',
+                severity: 'error'
+            })
+        }
+    }
+
     searchDriver = async (did) => {
         let res = await DriverService.searchDriver(did);
         console.log(res)
@@ -81,11 +94,7 @@ class DriverDetail extends Component {
 
         }
     }
-    // componentDidMount() {
-    //     this.searchDriver();
-    //
-    //     console.log(this.state.data)
-    // }
+
     render() {
         const {classes} = this.props;
         return (
@@ -140,16 +149,6 @@ class DriverDetail extends Component {
                                                 this.setState({formData})
                                             }}
 
-                                            onKeyPress={(ev) => {
-                                                console.log(`pressed keyCode {ev.key}`);
-                                                if (ev.key === 'Enter') {
-                                                    console.log(this.state.formData.did)
-                                                    this.searchDriver(this.state.formData.did)
-
-                                                    //DocodeHere
-                                                    ev.preventDefault();
-                                                }
-                                            }}
 
                                         />
                                         <TextField
