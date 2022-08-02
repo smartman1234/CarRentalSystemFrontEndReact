@@ -37,6 +37,7 @@ import Avatar from "@mui/material/Avatar";
 import logo from "../../assets/img/carLogo.jpg";
 import BookingDetailService from "../../services/BookingDetailService";
 import BookingDetailTable from "./BookingTable";
+import Email from "./Email";
 
 class Admin extends Component {
     constructor(props) {
@@ -632,7 +633,7 @@ class Admin extends Component {
 
                 <UserTable/>
                 <BookingDetailTable/>
-
+                <Email/>
             </Fragment>
 
 

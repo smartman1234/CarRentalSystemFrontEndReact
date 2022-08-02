@@ -10,8 +10,9 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
+// import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import MailIcon from '@mui/icons-material/Mail';
 import Typography from "@mui/material/Typography";
 import {styleSheet} from "./style";
 import {withStyles} from "@mui/styles";
@@ -29,6 +30,7 @@ class BookingDetailTable extends Component{
                 did: '',
                 pickUp: '',
                 dropOff: '',
+                driverNeed: '',
                 pickUpDate: '',
                 dropOffDate: '',
                 pickUpTime: '',
@@ -84,11 +86,13 @@ class BookingDetailTable extends Component{
                                     <TableCell align="right">Driver Id</TableCell>
                                     <TableCell align="right">PickUp</TableCell>
                                     <TableCell align="right">DropOff</TableCell>
+                                    <TableCell align="right">Driver Need</TableCell>
                                     <TableCell align="right">PickUpDate</TableCell>
                                     <TableCell align="right">DropOffDate</TableCell>
                                     <TableCell align="right">PickUpTime</TableCell>
                                     <TableCell align="right">DropOffTime</TableCell>
                                     <TableCell align="right">RentPrice</TableCell>
+                                    <TableCell align="right">Action</TableCell>
                                     {/*<TableCell align="right">Action</TableCell>*/}
                                 </TableRow>
                             </TableHead>
@@ -102,28 +106,23 @@ class BookingDetailTable extends Component{
                                             <TableCell align="right">{row.did}</TableCell>
                                             <TableCell align="right">{row.pickUp}</TableCell>
                                             <TableCell align="right">{row.dropOff}</TableCell>
+                                            <TableCell align="right">{row.driverNeed}</TableCell>
                                             <TableCell align="right">{row.pickUpDate}</TableCell>
                                             <TableCell align="right">{row.dropOffDate}</TableCell>
                                             <TableCell align="right">{row.pickUpTime}</TableCell>
                                             <TableCell align="right">{row.dropOffTime}</TableCell>
                                             <TableCell align="right">{row.rentPrice}</TableCell>
                                             <TableCell align="right">
-                                                {/*<Tooltip title="Edit">*/}
-                                                {/*    <IconButton*/}
-
-                                                {/*    >*/}
-                                                {/*        <EditIcon color={"primary"}/>*/}
-                                                {/*    </IconButton>*/}
-                                                {/*</Tooltip>*/}
-                                            </TableCell>
-                                            <TableCell align="right">
-                                                {/*<Tooltip title="Delete">*/}
-                                                {/*    <IconButton*/}
-
-                                                {/*    >*/}
-                                                {/*        <DeleteIcon color={"error"}/>*/}
-                                                {/*    </IconButton>*/}
-                                                {/*</Tooltip>*/}
+                                                <Tooltip title="MailIcon">
+                                                    <IconButton
+                                                        // onClick={() => {
+                                                        //     console.log("edit icon clicked!")
+                                                        //     this.updateCar(row);
+                                                        // }}
+                                                    >
+                                                        <MailIcon color={"error"}/>
+                                                    </IconButton>
+                                                </Tooltip>
                                             </TableCell>
                                         </TableRow>
                                     ))

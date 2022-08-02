@@ -59,7 +59,8 @@ class BookingDetails extends Component {
                 dropOffDate: '',
                 pickUpTime: '',
                 dropOffTime: '',
-                rentPrice: ''
+                rentPrice: '',
+                driverNeed: '',
             },
             alert: false,
             message: '',
@@ -368,6 +369,26 @@ class BookingDetails extends Component {
                                         onChange={(e) => {
                                             let formData = this.state.formData
                                             formData.pickUpTime = e.target.value
+                                            this.setState({formData})
+                                        }}
+                                    />
+                                    <TextField
+                                        id="input-with-icon-textfield"
+                                        label="Driver Need"
+                                        placeholder={"yes"}
+                                        // type={"time"}
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    {/*<AccessTimeIcon/>*/}
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        variant="standard"
+                                        value={this.state.formData.driverNeed}
+                                        onChange={(e) => {
+                                            let formData = this.state.formData
+                                            formData.driverNeed = e.target.value
                                             this.setState({formData})
                                         }}
                                     />
