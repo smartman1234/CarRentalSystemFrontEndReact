@@ -38,6 +38,8 @@ import logo from "../../assets/img/carLogo.jpg";
 import BookingDetailService from "../../services/BookingDetailService";
 import BookingDetailTable from "./BookingTable";
 import Email from "./Email";
+import mitsubishiEvo from "../../assets/img/mitsubishiEvo.jpg";
+import {Button, CardActions} from "@mui/material";
 
 class Admin extends Component {
     constructor(props) {
@@ -257,8 +259,8 @@ class Admin extends Component {
                     </ul>
                 </nav>
                 <Grid container className="pt-2" spacing={3}>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <Card sx={{maxWidth: 1200, maxHeight: 350}}>
+                    <Grid item xs={8} sm={8} md={8} lg={8}>
+                        <Card sx={{maxWidth: 1500, maxHeight: 350}}>
                             <CardActionArea>
 
                                 {/*<Typography variant="h5" >Car Manage</Typography>*/}
@@ -431,9 +433,9 @@ class Admin extends Component {
                         </Card>
 
                     </Grid>
-
-
                 </Grid>
+
+
                 <Typography variant="h2" className={classes.columnHeaderTitleContainer}>Admin Manage</Typography>
 
 
@@ -618,7 +620,6 @@ class Admin extends Component {
                     {/*<UserTable/>*/}
                 </Grid>
 
-
                 <GDSESnackBar
                     open={this.state.alert}
                     onClose={() => {
@@ -632,8 +633,17 @@ class Admin extends Component {
                 />
 
                 <UserTable/>
+                <Grid item lg={2} md={2} sm={2} xm={2}>
+                    <Card sx={{maxWidth:350}}>
+                        <CardActionArea>
+                            <CardContent>
+                                <Email/>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Grid>
                 <BookingDetailTable/>
-                <Email/>
+
             </Fragment>
 
 
