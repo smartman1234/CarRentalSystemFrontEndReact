@@ -28,6 +28,9 @@ import GDSEButton from "../../../components/common/button";
 import EditIcon from "@mui/icons-material/Edit";
 import GDSESnackBar from "../../../components/common/snackBar";
 import Email from "../Email";
+import Alert from "@mui/material/Alert";
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from "@mui/material/Stack";
 
 class BookingDetailTable extends Component{
     constructor(props) {
@@ -543,7 +546,18 @@ class BookingDetailTable extends Component{
                     variant="filled"
 
                 />
+                {/*<Stack sx={{ width: '100%' }} spacing={2}>*/}
+                {/*    <Alert severity="warning"*/}
 
+                {/*           open={this.state.alert}*/}
+                {/*           onClose={() => {*/}
+                {/*               this.setState({alert: false})*/}
+                {/*           }}*/}
+                {/*    >*/}
+                {/*        <AlertTitle>Warning</AlertTitle>*/}
+                {/*        This is a warning alert — <strong>check it out!</strong>*/}
+                {/*    </Alert>*/}
+                {/*</Stack>*/}
             </Fragment>
         )
     }
