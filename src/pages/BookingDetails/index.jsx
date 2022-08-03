@@ -166,6 +166,17 @@ class BookingDetails extends Component {
         })
 
     }
+    bookingDetailMap = () => {
+        this.state.data.map((index) => {
+            // console.log(value.userName)
+            // console.log(index)
+
+            // this.state.data[index].id="U00_002"
+            this.state.data[index].bdid="BD00_001"
+
+        })
+
+    }
 
     setImage = (e) => {
         // var imageList=[{BMWMz4},{BMWM5},{Toyota},{benze}];
@@ -203,8 +214,11 @@ class BookingDetails extends Component {
             })
         }
     }
+
     render() {
         const {classes} = this.props;
+        // const uniqueId = () => parseInt(Date.now() * Math.random()).toString();
+        // const uniqueId = () => (1);
 
         // const itemData = [
         //
@@ -251,6 +265,9 @@ class BookingDetails extends Component {
 
                 </Grid>
 
+
+
+
                 <Grid container className="pt-7" spacing={2}>
 
                     <Grid item xs={6} sm={6} md={6} lg={6}>
@@ -292,6 +309,7 @@ class BookingDetails extends Component {
                                     />
                                     <TextField
                                         id="input-with-icon-textfield"
+                                        // id={uniqueId()}
                                         label="Booking Detail Id"
                                         placeholder={"BD00_001"}
                                         //sx={{mb: 15}}
@@ -633,7 +651,7 @@ class BookingDetails extends Component {
                                         />
                                         <TextField
                                             id="input-with-icon-textfield"
-                                            label="Password"
+                                            label="email"
                                             InputProps={{
                                                 startAdornment: (
                                                     <InputAdornment position="start">

@@ -26,7 +26,7 @@ class BookingDetailService{
 
         return await promise;
     }
-    putBookingDetails = async (data) => {
+    putBookingDetailService = async (data) => {
         const promise = new Promise(((resolve, reject) => {
                 axios.put('bookingDetails', data).then((res) => {
                     return resolve(res)

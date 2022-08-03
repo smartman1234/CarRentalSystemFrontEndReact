@@ -258,6 +258,8 @@ class Admin extends Component {
 
                     </ul>
                 </nav>
+
+
                 <Grid container className="pt-2" spacing={3}>
                     <Grid item xs={8} sm={8} md={8} lg={8}>
                         <Card sx={{maxWidth: 1500, maxHeight: 350}}>
@@ -435,6 +437,18 @@ class Admin extends Component {
                     </Grid>
                 </Grid>
 
+                <Grid item lg={2} md={2} sm={2} xm={2}>
+                    <Card sx={{maxWidth:350}}>
+                        <CardActionArea>
+                            <CardContent>
+                                <Email/>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Grid>
+                <BookingDetailTable/>
+
+                <UserTable/>
 
                 <Typography variant="h2" className={classes.columnHeaderTitleContainer}>Admin Manage</Typography>
 
@@ -632,17 +646,8 @@ class Admin extends Component {
 
                 />
 
-                <UserTable/>
-                <Grid item lg={2} md={2} sm={2} xm={2}>
-                    <Card sx={{maxWidth:350}}>
-                        <CardActionArea>
-                            <CardContent>
-                                <Email/>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
-                <BookingDetailTable/>
+
+
 
             </Fragment>
 
