@@ -262,14 +262,13 @@ class Admin extends Component {
 
                 <Grid container className="pt-2" spacing={3}>
                     <Grid item xs={8} sm={8} md={8} lg={8}>
-                        <Card sx={{maxWidth: 1500, maxHeight: 350}}>
+                        <Card sx={{maxWidth: 1500, maxHeight: 500}}>
                             <CardActionArea>
 
                                 {/*<Typography variant="h5" >Car Manage</Typography>*/}
                                 <CardContent>
 
-                                    <TextField
-                                        id="input-with-icon-textfield"
+                                    <Typography
                                         label="Number of registered users"
                                         placeholder={"4"}
                                         sx={{mb: 3}}
@@ -288,7 +287,7 @@ class Admin extends Component {
                                         id="input-with-icon-textfield"
                                         label="Total bookings for the day"
                                         placeholder={"Gall"}
-                                        disabled={'true'}
+                                        // disabled={'true'}
                                         //sx={{mb: 15}}
                                         InputProps={{
                                             startAdornment: (
@@ -312,7 +311,7 @@ class Admin extends Component {
                                         label="Available cars"
                                         //type={"date"}
                                         placeholder={"4"}
-                                        disabled={'true'}
+                                        // disabled={'true'}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -332,7 +331,7 @@ class Admin extends Component {
                                         id="input-with-icon-textfield"
                                         label="Available Driver"
                                         placeholder={"5"}
-                                        disabled={'true'}
+                                        // disabled={'true'}
                                         // type={"time"}
                                         InputProps={{
                                             startAdornment: (
@@ -354,7 +353,7 @@ class Admin extends Component {
                                         label="maintenance Car"
                                         placeholder={"5"}
                                         // type={"time"}
-                                        disabled={'true'}
+                                        // disabled={'true'}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -374,7 +373,7 @@ class Admin extends Component {
                                         id="input-with-icon-textfield"
                                         label="Daily Income"
                                         placeholder={"10000.00"}
-                                        disabled={'true'}
+                                        // disabled={'true'}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -389,7 +388,7 @@ class Admin extends Component {
                                         id="input-with-icon-textfield"
                                         label="Weekly Income"
                                         placeholder={"10000.00"}
-                                        disabled={'true'}
+                                        // disabled={'true'}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -404,7 +403,7 @@ class Admin extends Component {
                                         id="input-with-icon-textfield"
                                         label="Monthly Income"
                                         placeholder={"10000.00"}
-                                        disabled={'true'}
+                                        // disabled={'true'}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -419,7 +418,7 @@ class Admin extends Component {
                                         id="input-with-icon-textfield"
                                         label="Yearly Income"
                                         placeholder={"10000.00"}
-                                        disabled={'true'}
+                                        // disabled={'true'}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -435,17 +434,17 @@ class Admin extends Component {
                         </Card>
 
                     </Grid>
+                    <Grid item lg={4} md={4} sm={4} xm={4}>
+                        <Card sx={{maxWidth:500}}>
+                            <CardActionArea>
+                                <CardContent>
+                                    <Email/>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                    </Grid>
                 </Grid>
 
-                <Grid item lg={2} md={2} sm={2} xm={2}>
-                    <Card sx={{maxWidth:350}}>
-                        <CardActionArea>
-                            <CardContent>
-                                <Email/>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                </Grid>
                 <BookingDetailTable/>
 
                 <UserTable/>

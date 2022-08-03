@@ -23,7 +23,7 @@ import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import AdminService from "../../../services/AdminService";
-import {TextValidator} from "react-material-ui-form-validator";
+import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 import GDSEButton from "../../../components/common/button";
 import EditIcon from "@mui/icons-material/Edit";
 import GDSESnackBar from "../../../components/common/snackBar";
@@ -198,14 +198,20 @@ class BookingDetailTable extends Component{
                 </Typography>
 
                 <Grid container className="pt-2" spacing={3}>
-                    <Grid item xs={8} sm={8} md={8} lg={8}>
-                        <Card sx={{maxWidth: 1500, maxHeight: 350}}>
+                    <Grid item xs={3} sm={3} md={3} lg={3}>
+                        <Card sx={{maxWidth: 1500, maxHeight: 700}}>
                             <CardActionArea>
 
                                 {/*<Typography variant="h5" >Car Manage</Typography>*/}
                                 <CardContent>
+                                    <ValidatorForm
+                                        ref="form"
+                                        className="pt-2"
+                                        onSubmit={this.submitUser}
 
-                                    <TextField
+
+                                    >
+                                    <TextValidator
                                         id="input-with-icon-textfield"
                                         label="Booking Details Id"
                                         placeholder={"BD00_001"}
@@ -224,9 +230,9 @@ class BookingDetailTable extends Component{
                                             formData.bdid = e.target.value
                                             this.setState({formData})
                                         }}
-                                        //validators={['required','matchRegexp:^(B00_)[0-9]{3,4}$']}
+                                        validators={['required','matchRegexp:^(BD00_)[0-9]{3,4}$']}
                                     />
-                                    <TextField
+                                    <TextValidator
                                         id="input-with-icon-textfield"
                                         label="User Id"
                                         placeholder={"U00_001"}
@@ -246,10 +252,12 @@ class BookingDetailTable extends Component{
                                             formData.uid = e.target.value
                                             this.setState({formData})
                                         }}
+                                        validators={['required','matchRegexp:^(U00_)[0-9]{3,4}$']}
+
                                     />
 
 
-                                    <TextField
+                                    <TextValidator
                                         id="input-with-icon-textfield"
                                         label="Car Id"
                                         //type={"date"}
@@ -268,8 +276,10 @@ class BookingDetailTable extends Component{
                                             formData.cid = e.target.value
                                             this.setState({formData})
                                         }}
+                                        validators={['required','matchRegexp:^(C00_)[0-9]{3,4}$']}
+
                                     />
-                                    <TextField
+                                    <TextValidator
                                         id="input-with-icon-textfield"
                                         label="Driver Id"
                                         placeholder={"D00_001"}
@@ -288,8 +298,10 @@ class BookingDetailTable extends Component{
                                             formData.did = e.target.value
                                             this.setState({formData})
                                         }}
+                                        validators={['required','matchRegexp:^(D00_)[0-9]{3,4}$']}
+
                                     />
-                                    <TextField
+                                    <TextValidator
                                         id="input-with-icon-textfield"
                                         label="PickUp"
                                         placeholder={"Gall"}
@@ -308,8 +320,10 @@ class BookingDetailTable extends Component{
                                             formData.pickUp = e.target.value
                                             this.setState({formData})
                                         }}
+                                        validators={['required', 'isString']}
+
                                     />
-                                    <TextField
+                                    <TextValidator
                                         id="input-with-icon-textfield"
                                         label="DropOff"
                                         placeholder={"Colombo"}
@@ -327,8 +341,10 @@ class BookingDetailTable extends Component{
                                             formData.dropOff = e.target.value
                                             this.setState({formData})
                                         }}
+                                        validators={['required', 'isString']}
+
                                     />
-                                    <TextField
+                                    <TextValidator
                                         id="input-with-icon-textfield"
                                         label="DriverNeed"
                                         placeholder={"Yes"}
@@ -346,11 +362,13 @@ class BookingDetailTable extends Component{
                                             formData.driverNeed = e.target.value
                                             this.setState({formData})
                                         }}
+                                        validators={['required', '^(?:Yes|No)$']}
+
                                     />
-                                    <TextField
+                                    <TextValidator
                                         id="input-with-icon-textfield"
                                         label="PickUpDate"
-                                        placeholder={"10000.00"}
+                                       type={"Date"}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -366,10 +384,10 @@ class BookingDetailTable extends Component{
                                             this.setState({formData})
                                         }}
                                     />
-                                    <TextField
+                                    <TextValidator
                                         id="input-with-icon-textfield"
                                         label="DropOffDate"
-                                        placeholder={"10000.00"}
+                                        type={"Date"}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -384,11 +402,13 @@ class BookingDetailTable extends Component{
                                             formData.dropOffDate = e.target.value
                                             this.setState({formData})
                                         }}
+
                                     />
-                                    <TextField
+                                    <TextValidator
                                         id="input-with-icon-textfield"
                                         label="PickUpTime"
                                         placeholder={"10:00 AM"}
+                                        // type={"time"}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -408,6 +428,7 @@ class BookingDetailTable extends Component{
                                         id="input-with-icon-textfield"
                                         label="DropOffTime"
                                         placeholder={"11:00 PM"}
+                                        // type={"time"}
                                         InputProps={{
                                             startAdornment: (
                                                 <InputAdornment position="start">
@@ -423,7 +444,7 @@ class BookingDetailTable extends Component{
                                             this.setState({formData})
                                         }}
                                     />
-                                    <TextField
+                                    <TextValidator
                                         id="input-with-icon-textfield"
                                         label="Rent Price"
                                         placeholder={"1000.00"}
@@ -441,7 +462,10 @@ class BookingDetailTable extends Component{
                                             formData.rentPrice = e.target.value
                                             this.setState({formData})
                                         }}
+                                        validators={['required','isPositive']}
+
                                     />
+                                    </ValidatorForm>
                                 </CardContent>
                             </CardActionArea>
                         </Card>
@@ -452,89 +476,98 @@ class BookingDetailTable extends Component{
                                         variant="contained"/>
                         </Grid>
                     </Grid>
+
+
+                    <Grid item xs={9} sm={9} md={9} lg={9}>
+                        <TableContainer component={Paper}  className={classes.container} sx={{minHeight:700}}>
+                            <Table sx={{minWidth: 700}} aria-label="user table">
+                                <TableHead className={classes.TableHead}>
+                                    <TableRow>
+                                        <TableCell align="right"></TableCell>
+                                        <TableCell align="right"></TableCell>
+                                        <TableCell align="right"></TableCell>
+                                        <TableCell align="right">Booking Details Id</TableCell>
+                                        <TableCell align="right">User Id</TableCell>
+                                        <TableCell align="right">Car Id</TableCell>
+                                        <TableCell align="right">Driver Id</TableCell>
+                                        <TableCell align="right">PickUp</TableCell>
+                                        <TableCell align="right">DropOff</TableCell>
+                                        <TableCell align="right">Driver Need</TableCell>
+                                        <TableCell align="right">PickUpDate</TableCell>
+                                        <TableCell align="right">DropOffDate</TableCell>
+                                        <TableCell align="right">PickUpTime</TableCell>
+                                        <TableCell align="right">DropOffTime</TableCell>
+                                        <TableCell align="right">RentPrice</TableCell>
+
+                                        {/*<TableCell align="right">Action</TableCell>*/}
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {
+                                        this.state.data.map((row) => (
+                                            <TableRow>
+                                                <TableCell align="right">
+                                                    <Tooltip title="Edit">
+                                                        <IconButton
+                                                            onClick={() => {
+                                                                console.log("edit icon clicked!")
+                                                                this.updateBookingDetails(row);
+                                                            }}
+                                                        >
+                                                            <EditIcon color={"secondory"}/>
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </TableCell>
+                                                <TableCell align="right">
+                                                    <Tooltip title="Delete">
+                                                        <IconButton
+                                                            onClick={() => {
+                                                                console.log("delete icon clicked!")
+                                                                this.deleteBookingDetails(row.bdid);
+                                                            }}
+                                                        >
+                                                            <DeleteIcon color={"error"}/>
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </TableCell>
+
+                                                <TableCell align="right">
+                                                    <Tooltip title="MailIcon">
+                                                        <IconButton
+                                                            // onClick={() => {
+                                                            //     console.log("edit icon clicked!")
+                                                            //     this.updateCar(row);
+                                                            // }}
+                                                        >
+                                                            <MailIcon color={"success"}/>
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                </TableCell>
+
+                                                <TableCell align="right">{row.bdid}</TableCell>
+                                                <TableCell align="right">{row.uid}</TableCell>
+                                                <TableCell align="right">{row.cid}</TableCell>
+                                                <TableCell align="right">{row.did}</TableCell>
+                                                <TableCell align="right">{row.pickUp}</TableCell>
+                                                <TableCell align="right">{row.dropOff}</TableCell>
+                                                <TableCell align="right">{row.driverNeed}</TableCell>
+                                                <TableCell align="right">{row.pickUpDate}</TableCell>
+                                                <TableCell align="right">{row.dropOffDate}</TableCell>
+                                                <TableCell align="right">{row.pickUpTime}</TableCell>
+                                                <TableCell align="right">{row.dropOffTime}</TableCell>
+                                                <TableCell align="right">{row.rentPrice}</TableCell>
+
+                                            </TableRow>
+                                        ))
+                                    }
+
+                                </TableBody>
+                            </Table>
+
+                        </TableContainer>
                     </Grid>
-                <Grid container>
-                    <TableContainer component={Paper}  className={classes.container}>
-                        <Table sx={{minWidth: 650}} aria-label="user table">
-                            <TableHead className={classes.TableHead}>
-                                <TableRow>
-                                    <TableCell align="right">Booking Details Id</TableCell>
-                                    <TableCell align="right">User Id</TableCell>
-                                    <TableCell align="right">Car Id</TableCell>
-                                    <TableCell align="right">Driver Id</TableCell>
-                                    <TableCell align="right">PickUp</TableCell>
-                                    <TableCell align="right">DropOff</TableCell>
-                                    <TableCell align="right">Driver Need</TableCell>
-                                    <TableCell align="right">PickUpDate</TableCell>
-                                    <TableCell align="right">DropOffDate</TableCell>
-                                    <TableCell align="right">PickUpTime</TableCell>
-                                    <TableCell align="right">DropOffTime</TableCell>
-                                    <TableCell align="right">RentPrice</TableCell>
-                                    <TableCell align="right">Action</TableCell>
-                                    {/*<TableCell align="right">Action</TableCell>*/}
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {
-                                    this.state.data.map((row) => (
-                                        <TableRow>
-                                            <TableCell align="right">{row.bdid}</TableCell>
-                                            <TableCell align="right">{row.uid}</TableCell>
-                                            <TableCell align="right">{row.cid}</TableCell>
-                                            <TableCell align="right">{row.did}</TableCell>
-                                            <TableCell align="right">{row.pickUp}</TableCell>
-                                            <TableCell align="right">{row.dropOff}</TableCell>
-                                            <TableCell align="right">{row.driverNeed}</TableCell>
-                                            <TableCell align="right">{row.pickUpDate}</TableCell>
-                                            <TableCell align="right">{row.dropOffDate}</TableCell>
-                                            <TableCell align="right">{row.pickUpTime}</TableCell>
-                                            <TableCell align="right">{row.dropOffTime}</TableCell>
-                                            <TableCell align="right">{row.rentPrice}</TableCell>
-                                            <TableCell align="right">
-                                                <Tooltip title="Edit">
-                                                    <IconButton
-                                                        onClick={() => {
-                                                            console.log("edit icon clicked!")
-                                                            this.updateBookingDetails(row);
-                                                        }}
-                                                    >
-                                                        <EditIcon color={"primary"}/>
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </TableCell>
-                                            <TableCell align="right">
-                                                <Tooltip title="Delete">
-                                                    <IconButton
-                                                        onClick={() => {
-                                                            console.log("delete icon clicked!")
-                                                            this.deleteBookingDetails(row.bdid);
-                                                        }}
-                                                    >
-                                                        <DeleteIcon color={"error"}/>
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </TableCell>
-                                            <TableCell align="right">
-                                                <Tooltip title="MailIcon">
-                                                    <IconButton
-                                                        // onClick={() => {
-                                                        //     console.log("edit icon clicked!")
-                                                        //     this.updateCar(row);
-                                                        // }}
-                                                    >
-                                                        <MailIcon color={"error"}/>
-                                                    </IconButton>
-                                                </Tooltip>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))
-                                }
+                    </Grid>
 
-                            </TableBody>
-                        </Table>
-
-                    </TableContainer>
-                </Grid>
                 <GDSESnackBar
                     open={this.state.alert}
                     onClose={() => {

@@ -22,6 +22,7 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import GDSEButton from "../../../components/common/button";
 import GDSESnackBar from "../../../components/common/snackBar";
+import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 
 class UserTable extends Component{
     constructor(props) {
@@ -172,14 +173,20 @@ class UserTable extends Component{
 
 
              <Grid container className="pt-2" spacing={3}>
-                 <Grid item xs={8} sm={8} md={8} lg={8}>
-                     <Card sx={{maxWidth: 1500, maxHeight: 350}}>
+                 <Grid item xs={4} sm={4} md={4} lg={4}>
+                     <Card sx={{maxWidth: 1500, maxHeight: 700}}>
                          <CardActionArea>
 
                              {/*<Typography variant="h5" >Car Manage</Typography>*/}
                              <CardContent>
+                                 <ValidatorForm
+                                     ref="form"
+                                     className="pt-2"
+                                     onSubmit={this.submitUser}
 
-                                 <TextField
+
+                                 >
+                                 <TextValidator
                                      id="input-with-icon-textfield"
                                      label="User Id"
                                      placeholder={"U00_001"}
@@ -198,9 +205,11 @@ class UserTable extends Component{
                                          formData.uid = e.target.value
                                          this.setState({formData})
                                      }}
+                                     validators={['required','matchRegexp:^(U00_)[0-9]{3,4}$']}
+
                                      //validators={['required','matchRegexp:^(B00_)[0-9]{3,4}$']}
                                  />
-                                 <TextField
+                                 <TextValidator
                                      id="input-with-icon-textfield"
                                      label="UserName"
                                      placeholder={"amal"}
@@ -220,10 +229,12 @@ class UserTable extends Component{
                                          formData.userName = e.target.value
                                          this.setState({formData})
                                      }}
+                                     validators={['required', 'matchRegexp:^[a-zA-Z ]+$']}
+
                                  />
 
 
-                                 <TextField
+                                 <TextValidator
                                      id="input-with-icon-textfield"
                                      label="userEmail"
                                      //type={"date"}
@@ -242,8 +253,10 @@ class UserTable extends Component{
                                          formData.userEmail = e.target.value
                                          this.setState({formData})
                                      }}
+                                     validators={['required', 'isEmail']}
+
                                  />
-                                 <TextField
+                                 <TextValidator
                                      id="input-with-icon-textfield"
                                      label="User Address"
                                      placeholder={"D00_001"}
@@ -262,8 +275,10 @@ class UserTable extends Component{
                                          formData.userAddress = e.target.value
                                          this.setState({formData})
                                      }}
+                                     validators={['required', 'isString']}
+
                                  />
-                                 <TextField
+                                 <TextValidator
                                      id="input-with-icon-textfield"
                                      label="User ContactNo"
                                      placeholder={"0778787890"}
@@ -282,8 +297,10 @@ class UserTable extends Component{
                                          formData.userContactNo = e.target.value
                                          this.setState({formData})
                                      }}
+                                     validators={['required', 'isPositive']}
+
                                  />
-                                 <TextField
+                                 <TextValidator
                                      id="input-with-icon-textfield"
                                      label="DropOff"
                                      placeholder={"idImage"}
@@ -301,8 +318,10 @@ class UserTable extends Component{
                                          formData.userIdentityCardImg = e.target.value
                                          this.setState({formData})
                                      }}
+                                     validators={['required',]}
+
                                  />
-                                 <TextField
+                                 <TextValidator
                                      id="input-with-icon-textfield"
                                      label="LicenceImg"
                                      placeholder={"Yes"}
@@ -320,79 +339,86 @@ class UserTable extends Component{
                                          formData.userDrivingLicenceImg = e.target.value
                                          this.setState({formData})
                                      }}
+                                     validators={['required',]}
+
                                  />
+                                 </ValidatorForm>
+                                 <Grid container style={{marginTop: '10px'}} direction="row" justifyContent="flex-end"
+                                       alignItems="center">
+                                     <GDSEButton label={this.state.btnLabel} onClick={this.submitUser} size="small"
+                                                 color={this.state.btnColor}
+                                                 variant="contained"/>
+                                 </Grid>
                              </CardContent>
                          </CardActionArea>
+
                      </Card>
-                     <Grid container style={{marginTop: '10px'}} direction="row" justifyContent="flex-end"
-                           alignItems="center">
-                         <GDSEButton label={this.state.btnLabel} onClick={this.submitUser} size="small"
-                                     color={this.state.btnColor}
-                                     variant="contained"/>
-                     </Grid>
+
                  </Grid>
+
+                 <Grid  item xs={8} sm={8} md={8} lg={8}>
+                     <TableContainer component={Paper}  className={classes.container}>
+                         <Table sx={{minWidth: 650}} aria-label="user table">
+                             <TableHead className={classes.TableHead}>
+                                 <TableRow>
+                                     <TableCell align="right">User Id</TableCell>
+                                     <TableCell align="right">User Name</TableCell>
+                                     <TableCell align="right">User Email</TableCell>
+                                     <TableCell align="right">User Address</TableCell>
+                                     <TableCell align="right">User Contact No</TableCell>
+                                     <TableCell align="right">User Id</TableCell>
+                                     <TableCell align="right">User DL</TableCell>
+                                     {/*<TableCell align="right">Action</TableCell>*/}
+                                 </TableRow>
+                             </TableHead>
+                             <TableBody>
+                                 {
+                                     this.state.data.map((row) => (
+                                         <TableRow>
+                                             <TableCell align="right">{row.uid}</TableCell>
+                                             <TableCell align="right">{row.userName}</TableCell>
+                                             <TableCell align="right">{row.userEmail}</TableCell>
+                                             <TableCell align="right">{row.userAddress}</TableCell>
+                                             <TableCell align="right">{row.userContactNo}</TableCell>
+                                             <TableCell align="right">{row.userIdentityCardImg}</TableCell>
+                                             <TableCell align="right">{row.userDrivingLicenceImg}</TableCell>
+                                             <TableCell align="right">
+                                                 <Tooltip title="Edit">
+                                                     <IconButton
+                                                         onClick={() => {
+                                                             console.log("edit icon clicked!")
+                                                             this.updateUser(row);
+                                                         }}
+                                                     >
+                                                         <EditIcon color={"primary"}/>
+                                                     </IconButton>
+                                                 </Tooltip>
+                                             </TableCell>
+                                             <TableCell align="right">
+                                                 <Tooltip title="Delete">
+                                                     <IconButton
+                                                         onClick={() => {
+                                                             console.log("delete icon clicked!")
+                                                             this.deleteUser(row.uid);
+                                                         }}
+                                                     >
+                                                         <DeleteIcon color={"error"}/>
+                                                     </IconButton>
+                                                 </Tooltip>
+                                             </TableCell>
+                                         </TableRow>
+                                     ))
+                                 }
+
+                             </TableBody>
+                         </Table>
+
+                     </TableContainer>
+                 </Grid>
+
              </Grid>
 
 
-             <Grid container>
-                 <TableContainer component={Paper}  className={classes.container}>
-                     <Table sx={{minWidth: 650}} aria-label="user table">
-                         <TableHead className={classes.TableHead}>
-                             <TableRow>
-                                 <TableCell align="right">User Id</TableCell>
-                                 <TableCell align="right">User Name</TableCell>
-                                 <TableCell align="right">User Email</TableCell>
-                                 <TableCell align="right">User Address</TableCell>
-                                 <TableCell align="right">User Contact No</TableCell>
-                                 <TableCell align="right">User Id</TableCell>
-                                 <TableCell align="right">User DL</TableCell>
-                                 {/*<TableCell align="right">Action</TableCell>*/}
-                             </TableRow>
-                         </TableHead>
-                         <TableBody>
-                             {
-                                 this.state.data.map((row) => (
-                                     <TableRow>
-                                         <TableCell align="right">{row.uid}</TableCell>
-                                         <TableCell align="right">{row.userName}</TableCell>
-                                         <TableCell align="right">{row.userEmail}</TableCell>
-                                         <TableCell align="right">{row.userAddress}</TableCell>
-                                         <TableCell align="right">{row.userContactNo}</TableCell>
-                                         <TableCell align="right">{row.userIdentityCardImg}</TableCell>
-                                         <TableCell align="right">{row.userDrivingLicenceImg}</TableCell>
-                                         <TableCell align="right">
-                                             <Tooltip title="Edit">
-                                                 <IconButton
-                                                     onClick={() => {
-                                                         console.log("edit icon clicked!")
-                                                         this.updateUser(row);
-                                                     }}
-                                                 >
-                                                     <EditIcon color={"primary"}/>
-                                                 </IconButton>
-                                             </Tooltip>
-                                         </TableCell>
-                                         <TableCell align="right">
-                                             <Tooltip title="Delete">
-                                                 <IconButton
-                                                     onClick={() => {
-                                                         console.log("delete icon clicked!")
-                                                         this.deleteUser(row.uid);
-                                                     }}
-                                                 >
-                                                     <DeleteIcon color={"error"}/>
-                                                 </IconButton>
-                                             </Tooltip>
-                                         </TableCell>
-                                     </TableRow>
-                                 ))
-                             }
-
-                         </TableBody>
-                     </Table>
-
-                 </TableContainer>
-             </Grid>
 
              <GDSESnackBar
                  open={this.state.alert}

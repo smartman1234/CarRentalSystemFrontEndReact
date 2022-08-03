@@ -4,28 +4,13 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import GDSEButton from "../../components/common/button";
 
-import { styleSheet } from "./style";
-import { withStyles } from "@mui/styles";
+import {styleSheet} from "./style";
+import {withStyles} from "@mui/styles";
 
 import UsersService from "../../services/UsersService";
 
 import GDSESnackBar from "../../components/common/snackBar";
-
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-
-import EditIcon from '@mui/icons-material/Edit';
 import {Link} from "react-router-dom";
-import BookingDetails from "../BookingDetails";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
@@ -51,38 +36,39 @@ class User extends Component {
             severity: '',
 
             data: [],
-            btnLabel:'Save',
-            btnColor:"primary"
+            btnLabel: 'Save',
+            btnColor: "primary"
 
 
         }
     }
-    deleteUser=async (uid)=>{
-        let params={
-            uid:uid
+
+    deleteUser = async (uid) => {
+        let params = {
+            uid: uid
         }
-       let res=await UsersService.deleteUser(params);
-       if (res.status===200){
-           this.setState({
-               alert: true,
-               message: res.data.message,
-               severity: "success"
-           })
-           this.loadData();
-       }else {
-           this.setState({
-               alert: true,
-               message: res.response.data.message,
-               severity: "error"
-           });
-       }
+        let res = await UsersService.deleteUser(params);
+        if (res.status === 200) {
+            this.setState({
+                alert: true,
+                message: res.data.message,
+                severity: "success"
+            })
+            this.loadData();
+        } else {
+            this.setState({
+                alert: true,
+                message: res.response.data.message,
+                severity: "error"
+            });
+        }
     }
 
     updateUser = (data) => {
         console.log(data);
         this.setState({
-            btnLabel:"update",
-            btnColor:"success",
+            btnLabel: "update",
+            btnColor: "success",
             formData: {
                 uid: data.uid,
                 userName: data.userName,
@@ -113,7 +99,7 @@ class User extends Component {
 
     submitUser = async () => {
         let formData = this.state.formData;
-        if (this.state.btnLabel==="Save"){
+        if (this.state.btnLabel === "Save") {
             let res = await UsersService.postUser(formData);
             console.log(res);
 
@@ -131,21 +117,21 @@ class User extends Component {
                     message: res.response.data.message,
                     severity: "error"
                 });
-        }
+            }
 
-        }else {
-            let res=await UsersService.putUser(formData);
-            if (res.status===200){
+        } else {
+            let res = await UsersService.putUser(formData);
+            if (res.status === 200) {
                 this.setState({
                     alert: true,
                     message: res.data.message,
                     severity: "success",
-                    btnLabel:"Save",
-                    btnColor:"primary"
+                    btnLabel: "Save",
+                    btnColor: "primary"
                 });
                 this.clearFields();
                 this.loadData();
-            }else {
+            } else {
                 this.setState({
                     alert: true,
                     message: res.response.data.message,
@@ -206,150 +192,151 @@ class User extends Component {
                     </Grid>
 
 
-                </Grid>                <ValidatorForm
-                    ref="form"
-                    className="pt-2"
-                    onSubmit={this.submitUser}
+                </Grid>
+                <ValidatorForm
+                ref="form"
+                className="pt-2"
+                onSubmit={this.submitUser}
 
 
-                >
-                    <Grid container className="pt-2" spacing={3}>
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="body2">User Id</Typography>
-                            <TextValidator
-                                id="outlinedbasic"
-                                placeholder="U00_001"
-                                variant="outlined"
-                                size="small"
-                                value={this.state.formData.uid}
-                                onChange={(e) => {
-                                    let formData = this.state.formData
-                                    formData.uid = e.target.value
-                                    this.setState({formData})
-                                }}
-                                style={{width: '100%'}}
-                                validators={['required','matchRegexp:^(U00_)[0-9]{3,4}$']}
+            >
+                <Grid container className="pt-2" spacing={3}>
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Typography variant="body2">User Id</Typography>
+                        <TextValidator
+                            id="outlinedbasic"
+                            placeholder="U00_001"
+                            variant="outlined"
+                            size="small"
+                            value={this.state.formData.uid}
+                            onChange={(e) => {
+                                let formData = this.state.formData
+                                formData.uid = e.target.value
+                                this.setState({formData})
+                            }}
+                            style={{width: '100%'}}
+                            validators={['required', 'matchRegexp:^(U00_)[0-9]{3,4}$']}
 
-                            />
-                        </Grid>
-
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="subtitle1">User Name</Typography>
-                            <TextValidator
-                                id="outlinedbasic"
-                                placeholder="User Name"
-                                variant="outlined"
-                                size="small"
-                                value={this.state.formData.userName}
-                                onChange={(e) => {
-                                    let formData = this.state.formData
-                                    formData.userName = e.target.value
-                                    this.setState({formData})
-                                }}
-                                style={{width: '100%'}}
-                                validators={['required','matchRegexp:^[a-zA-Z ]+$']}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="subtitle1">userEmail</Typography>
-                            <TextValidator
-                                id="outlinedbasic"
-                                placeholder="user@gmail.com"
-                                variant="outlined"
-                                size="small"
-                                value={this.state.formData.userEmail}
-                                onChange={(e) => {
-                                    let formData = this.state.formData
-                                    formData.userEmail = e.target.value
-                                    this.setState({formData})
-                                }}
-                                style={{width: '100%'}}
-                                validators={['required','isEmail']}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="subtitle1">userAddress</Typography>
-                            <TextValidator
-                                id="outlinedbasic"
-                                placeholder="userAddress"
-                                variant="outlined"
-                                size="small"
-                                value={this.state.formData.userAddress}
-                                onChange={(e) => {
-                                    let formData = this.state.formData
-                                    formData.userAddress = e.target.value
-                                    this.setState({formData})
-                                }}
-                                style={{width: '100%'}}
-                                validators={['required','isString']}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="subtitle1">userContactNo</Typography>
-                            <TextValidator
-                                id="outlinedbasic"
-                                placeholder="userContactNo"
-                                variant="outlined"
-                                size="small"
-                                value={this.state.formData.userContactNo}
-                                onChange={(e) => {
-                                    let formData = this.state.formData
-                                    formData.userContactNo = e.target.value
-                                    this.setState({formData})
-                                }}
-                                style={{width: '100%'}}
-                                validators={['required','isPositive']}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="subtitle1">userIdentityCardImg</Typography>
-                            <TextValidator
-                                id="outlinedbasic"
-                                placeholder="userIdentityCardImg"
-                                variant="outlined"
-                                size="small"
-                                // type={"file"}
-                                value={this.state.formData.userIdentityCardImg}
-                                onChange={(e) => {
-                                    let formData = this.state.formData
-                                    formData.userIdentityCardImg = e.target.value
-                                    this.setState({formData})
-                                }}
-                                style={{width: '100%'}}
-                                validators={['required',]}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={6} lg={6}>
-                            <Typography variant="subtitle1">userDrivingLicenceImg</Typography>
-                            <TextValidator
-                                id="outlinedbasic"
-                                placeholder="userDrivingLicenceImg"
-                                variant="outlined"
-                                size="small"
-                                value={this.state.formData.userDrivingLicenceImg}
-                                onChange={(e) => {
-                                    let formData = this.state.formData
-                                    formData.userDrivingLicenceImg = e.target.value
-                                    this.setState({formData})
-                                }}
-                                style={{width: '100%'}}
-                                validators={['required',]}
-                            />
-                        </Grid>
-                        <Grid container style={{marginTop: '10px'}} direction="row" justifyContent="flex-end"
-                              alignItems="center">
-                            <GDSEButton label={this.state.btnLabel} type="submit" size="small" color={this.state.btnColor}
-                                        variant="contained"/>
-
-
-                            <Link to={"/bookingDetails"}>
-                                <Button variant="contained" color="warning">Book Car</Button>
-                            </Link>
-                        </Grid>
-
-
+                        />
                     </Grid>
-                </ValidatorForm>
+
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Typography variant="subtitle1">User Name</Typography>
+                        <TextValidator
+                            id="outlinedbasic"
+                            placeholder="User Name"
+                            variant="outlined"
+                            size="small"
+                            value={this.state.formData.userName}
+                            onChange={(e) => {
+                                let formData = this.state.formData
+                                formData.userName = e.target.value
+                                this.setState({formData})
+                            }}
+                            style={{width: '100%'}}
+                            validators={['required', 'matchRegexp:^[a-zA-Z ]+$']}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Typography variant="subtitle1">userEmail</Typography>
+                        <TextValidator
+                            id="outlinedbasic"
+                            placeholder="user@gmail.com"
+                            variant="outlined"
+                            size="small"
+                            value={this.state.formData.userEmail}
+                            onChange={(e) => {
+                                let formData = this.state.formData
+                                formData.userEmail = e.target.value
+                                this.setState({formData})
+                            }}
+                            style={{width: '100%'}}
+                            validators={['required', 'isEmail']}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Typography variant="subtitle1">userAddress</Typography>
+                        <TextValidator
+                            id="outlinedbasic"
+                            placeholder="userAddress"
+                            variant="outlined"
+                            size="small"
+                            value={this.state.formData.userAddress}
+                            onChange={(e) => {
+                                let formData = this.state.formData
+                                formData.userAddress = e.target.value
+                                this.setState({formData})
+                            }}
+                            style={{width: '100%'}}
+                            validators={['required', 'isString']}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Typography variant="subtitle1">userContactNo</Typography>
+                        <TextValidator
+                            id="outlinedbasic"
+                            placeholder="userContactNo"
+                            variant="outlined"
+                            size="small"
+                            value={this.state.formData.userContactNo}
+                            onChange={(e) => {
+                                let formData = this.state.formData
+                                formData.userContactNo = e.target.value
+                                this.setState({formData})
+                            }}
+                            style={{width: '100%'}}
+                            validators={['required', 'isPositive']}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Typography variant="subtitle1">userIdentityCardImg</Typography>
+                        <TextValidator
+                            id="outlinedbasic"
+                            placeholder="userIdentityCardImg"
+                            variant="outlined"
+                            size="small"
+                            // type={"file"}
+                            value={this.state.formData.userIdentityCardImg}
+                            onChange={(e) => {
+                                let formData = this.state.formData
+                                formData.userIdentityCardImg = e.target.value
+                                this.setState({formData})
+                            }}
+                            style={{width: '100%'}}
+                            validators={['required',]}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <Typography variant="subtitle1">userDrivingLicenceImg</Typography>
+                        <TextValidator
+                            id="outlinedbasic"
+                            placeholder="userDrivingLicenceImg"
+                            variant="outlined"
+                            size="small"
+                            value={this.state.formData.userDrivingLicenceImg}
+                            onChange={(e) => {
+                                let formData = this.state.formData
+                                formData.userDrivingLicenceImg = e.target.value
+                                this.setState({formData})
+                            }}
+                            style={{width: '100%'}}
+                            validators={['required',]}
+                        />
+                    </Grid>
+                    <Grid container style={{marginTop: '10px'}} direction="row" justifyContent="flex-end"
+                          alignItems="center">
+                        <GDSEButton label={this.state.btnLabel} type="submit" size="small" color={this.state.btnColor}
+                                    variant="contained"/>
+
+
+                        <Link to={"/bookingDetails"}>
+                            <Button variant="contained" color="warning">Book Car</Button>
+                        </Link>
+                    </Grid>
+
+
+                </Grid>
+            </ValidatorForm>
 
                 {/*<Grid container>*/}
                 {/*    <TableContainer component={Paper}  className={classes.container}>*/}
@@ -429,4 +416,4 @@ class User extends Component {
     }
 }
 
-export default  withStyles(styleSheet) (User);
+export default withStyles(styleSheet)(User);
