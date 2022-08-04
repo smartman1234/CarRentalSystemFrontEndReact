@@ -211,10 +211,9 @@ class Payment extends Component {
                         </Stack>
 
                     </Grid>
-                    <UserPayment/>
 
                 </Grid>
-
+                <UserPayment/>
                 <ValidatorForm
                     ref="form"
                     className="pt-2"
@@ -417,6 +416,7 @@ class Payment extends Component {
 
                             />
                         </Grid>
+
                         <Grid container style={{marginTop: '10px'}} direction="row" justifyContent="flex-end"
                               alignItems="center">
                             <GDSEButton label={this.state.btnLabel} type="submit" size="small" color={this.state.btnColor}
@@ -432,6 +432,7 @@ class Payment extends Component {
 
 
                 <Grid container>
+
                     <TableContainer component={Paper} className={classes.container}>
                         <Table sx={{minWidth: 650}} aria-label="user table">
                             <TableHead className={classes.TableHead}>

@@ -73,7 +73,7 @@ class UserPayment extends Component{
             <Fragment>
                 <Grid  container className="pt-2" spacing={3}>
                     <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <Card sx={{minWidth: 900, minHeight: 250}} style={{backgroundColor:'green'}}>
+                        <Card sx={{minWidth: 600, minHeight: 250}} style={{backgroundColor:'green'}}>
                             <CardActionArea>
                                 <CardContent>
                                     <Typography>
