@@ -1,5 +1,4 @@
 import React, {Component, Fragment} from "react";
-import UsersService from "../../../services/UsersService";
 import Grid from "@mui/material/Grid";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
@@ -22,17 +21,12 @@ import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import AdminService from "../../../services/AdminService";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 import GDSEButton from "../../../components/common/button";
 import EditIcon from "@mui/icons-material/Edit";
 import GDSESnackBar from "../../../components/common/snackBar";
-import Email from "../Email";
-import Alert from "@mui/material/Alert";
-import AlertTitle from '@mui/material/AlertTitle';
-import Stack from "@mui/material/Stack";
 
-class BookingDetailTable extends Component{
+class BookingDetailTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -40,6 +34,9 @@ class BookingDetailTable extends Component{
             formData: {
                 bdid: '',
                 uid: '',
+                userName: '',
+                userEmail: '',
+                userAccountNo:'',
                 cid: '',
                 did: '',
                 pickUp: '',
@@ -64,6 +61,7 @@ class BookingDetailTable extends Component{
 
         }
     }
+
     deleteBookingDetails = async (bdid) => {
         let params = {
             bdid: bdid
@@ -91,8 +89,11 @@ class BookingDetailTable extends Component{
             btnLabel: "update",
             btnColor: "success",
             formData: {
-                bdid:data.bdid,
+                bdid: data.bdid,
                 uid: data.uid,
+                userName: data.userName,
+                userEmail: data.userEmail,
+                userAccountNo:data.userAccountNo,
                 cid: data.cid,
                 did: data.did,
                 pickUp: data.pickUp,
@@ -112,6 +113,9 @@ class BookingDetailTable extends Component{
             formData: {
                 bdid: '',
                 uid: '',
+                userName: '',
+                userEmail: '',
+                userAccountNo:'',
                 cid: '',
                 did: '',
                 pickUp: '',
@@ -191,15 +195,15 @@ class BookingDetailTable extends Component{
 
     render() {
         const {classes} = this.props;
-        return(
+        return (
             <Fragment>
-                <Typography variant="h2"  sx={{mb: 0}} className={classes.columnHeaderTitleContainer}>
-                 Booking Details
+                <Typography variant="h2" sx={{mb: 0}} className={classes.columnHeaderTitleContainer}>
+                    Booking Details
                 </Typography>
 
                 <Grid container className="pt-2" spacing={3}>
                     <Grid item xs={3} sm={3} md={3} lg={3}>
-                        <Card sx={{maxWidth: 1500, maxHeight: 700}}>
+                        <Card sx={{maxWidth: 1500, maxHeight: 800}}>
                             <CardActionArea>
 
                                 {/*<Typography variant="h5" >Car Manage</Typography>*/}
@@ -211,275 +215,343 @@ class BookingDetailTable extends Component{
 
 
                                     >
-                                    <TextValidator
-                                        id="input-with-icon-textfield"
-                                        label="Booking Details Id"
-                                        placeholder={"BD00_001"}
-                                        sx={{mb: 3}}
-                                        // disabled={'true'}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="standard"
-                                        value={this.state.formData.bdid}
-                                        onChange={(e) => {
-                                            let formData = this.state.formData
-                                            formData.bdid = e.target.value
-                                            this.setState({formData})
-                                        }}
-                                        validators={['required','matchRegexp:^(BD00_)[0-9]{3,4}$']}
-                                    />
-                                    <TextValidator
-                                        id="input-with-icon-textfield"
-                                        label="User Id"
-                                        placeholder={"U00_001"}
-                                        //sx={{mb: 15}}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    {/*<LocationOnIcon/>*/}
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="standard"
+                                        <TextValidator
+                                            id="input-with-icon-textfield"
+                                            label="Booking Details Id"
+                                            placeholder={"BD00_001"}
+                                            // sx={{mb: 3}}
+                                            // disabled={'true'}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                            value={this.state.formData.bdid}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.bdid = e.target.value
+                                                this.setState({formData})
+                                            }}
+                                            validators={['required', 'matchRegexp:^(BD00_)[0-9]{3,4}$']}
+                                        />
+                                        <TextValidator
+                                            id="input-with-icon-textfield"
+                                            label="User Id"
+                                            placeholder={"U00_001"}
+                                            //sx={{mb: 15}}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        {/*<LocationOnIcon/>*/}
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
 
-                                        value={this.state.formData.uid}
-                                        onChange={(e) => {
-                                            let formData = this.state.formData
-                                            formData.uid = e.target.value
-                                            this.setState({formData})
-                                        }}
-                                        validators={['required','matchRegexp:^(U00_)[0-9]{3,4}$']}
+                                            value={this.state.formData.uid}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.uid = e.target.value
+                                                this.setState({formData})
+                                            }}
+                                            validators={['required', 'matchRegexp:^(U00_)[0-9]{3,4}$']}
 
-                                    />
+                                        />
+                                        <TextValidator
+                                            id="input-with-icon-textfield"
+                                            label="User Name"
+                                            placeholder={"Amal"}
+                                            //sx={{mb: 15}}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        {/*<LocationOnIcon/>*/}
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+
+                                            value={this.state.formData.userName}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.userName = e.target.value
+                                                this.setState({formData})
+                                            }}
+                                            validators={['required', 'isString']}
+
+                                        />
+                                        <TextValidator
+                                            id="input-with-icon-textfield"
+                                            label="User Email"
+                                            placeholder={"amal@gmail.com"}
+                                            //sx={{mb: 15}}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        {/*<LocationOnIcon/>*/}
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+
+                                            value={this.state.formData.userEmail}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.userEmail = e.target.value
+                                                this.setState({formData})
+                                            }}
+                                            validators={['required', 'isEmail']}
+
+                                        />
 
 
-                                    <TextValidator
-                                        id="input-with-icon-textfield"
-                                        label="Car Id"
-                                        //type={"date"}
-                                        placeholder={"C00_001"}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    {/*<TodayIcon/>*/}
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="standard"
-                                        value={this.state.formData.cid}
-                                        onChange={(e) => {
-                                            let formData = this.state.formData
-                                            formData.cid = e.target.value
-                                            this.setState({formData})
-                                        }}
-                                        validators={['required','matchRegexp:^(C00_)[0-9]{3,4}$']}
+                                        <TextValidator
+                                            id="input-with-icon-textfield"
+                                            label="Car Id"
+                                            //type={"date"}
+                                            placeholder={"C00_001"}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        {/*<TodayIcon/>*/}
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                            value={this.state.formData.cid}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.cid = e.target.value
+                                                this.setState({formData})
+                                            }}
+                                            validators={['required', 'matchRegexp:^(C00_)[0-9]{3,4}$']}
 
-                                    />
-                                    <TextValidator
-                                        id="input-with-icon-textfield"
-                                        label="Driver Id"
-                                        placeholder={"D00_001"}
-                                        // type={"time"}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    {/*<AccessTimeIcon/>*/}
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="standard"
-                                        value={this.state.formData.did}
-                                        onChange={(e) => {
-                                            let formData = this.state.formData
-                                            formData.did = e.target.value
-                                            this.setState({formData})
-                                        }}
-                                        validators={['required','matchRegexp:^(D00_)[0-9]{3,4}$']}
+                                        />
+                                        <TextValidator
+                                            id="input-with-icon-textfield"
+                                            label="Driver Id"
+                                            placeholder={"D00_001"}
+                                            // type={"time"}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        {/*<AccessTimeIcon/>*/}
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                            value={this.state.formData.did}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.did = e.target.value
+                                                this.setState({formData})
+                                            }}
+                                            validators={['required', 'matchRegexp:^(D00_)[0-9]{3,4}$']}
 
-                                    />
-                                    <TextValidator
-                                        id="input-with-icon-textfield"
-                                        label="PickUp"
-                                        placeholder={"Gall"}
-                                        // type={"time"}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    {/*<AccessTimeIcon/>*/}
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="standard"
-                                        value={this.state.formData.pickUp}
-                                        onChange={(e) => {
-                                            let formData = this.state.formData
-                                            formData.pickUp = e.target.value
-                                            this.setState({formData})
-                                        }}
-                                        validators={['required', 'isString']}
+                                        />
+                                        <TextValidator
+                                            id="input-with-icon-textfield"
+                                            label="PickUp"
+                                            placeholder={"Gall"}
+                                            // type={"time"}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        {/*<AccessTimeIcon/>*/}
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                            value={this.state.formData.pickUp}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.pickUp = e.target.value
+                                                this.setState({formData})
+                                            }}
+                                            validators={['required', 'isString']}
 
-                                    />
-                                    <TextValidator
-                                        id="input-with-icon-textfield"
-                                        label="DropOff"
-                                        placeholder={"Colombo"}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    {/*<AccessTimeIcon/>*/}
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="standard"
-                                        value={this.state.formData.dropOff}
-                                        onChange={(e) => {
-                                            let formData = this.state.formData
-                                            formData.dropOff = e.target.value
-                                            this.setState({formData})
-                                        }}
-                                        validators={['required', 'isString']}
+                                        />
+                                        <TextValidator
+                                            id="input-with-icon-textfield"
+                                            label="DropOff"
+                                            placeholder={"Colombo"}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        {/*<AccessTimeIcon/>*/}
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                            value={this.state.formData.dropOff}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.dropOff = e.target.value
+                                                this.setState({formData})
+                                            }}
+                                            validators={['required', 'isString']}
 
-                                    />
-                                    <TextValidator
-                                        id="input-with-icon-textfield"
-                                        label="DriverNeed"
-                                        placeholder={"Yes"}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    {/*<AccessTimeIcon/>*/}
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="standard"
-                                        value={this.state.formData.driverNeed}
-                                        onChange={(e) => {
-                                            let formData = this.state.formData
-                                            formData.driverNeed = e.target.value
-                                            this.setState({formData})
-                                        }}
-                                        validators={['required', '^(?:Yes|No)$']}
+                                        />
+                                        <TextValidator
+                                            id="input-with-icon-textfield"
+                                            label="DriverNeed"
+                                            placeholder={"Yes"}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        {/*<AccessTimeIcon/>*/}
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                            value={this.state.formData.driverNeed}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.driverNeed = e.target.value
+                                                this.setState({formData})
+                                            }}
+                                            validators={['required', '^(?:Yes|No)$']}
 
-                                    />
-                                    <TextValidator
-                                        id="input-with-icon-textfield"
-                                        label="PickUpDate"
-                                       type={"Date"}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    {/*<AccessTimeIcon/>*/}
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="standard"
-                                        value={this.state.formData.pickUpDate}
-                                        onChange={(e) => {
-                                            let formData = this.state.formData
-                                            formData.pickUpDate = e.target.value
-                                            this.setState({formData})
-                                        }}
-                                    />
-                                    <TextValidator
-                                        id="input-with-icon-textfield"
-                                        label="DropOffDate"
-                                        type={"Date"}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    {/*<AccessTimeIcon/>*/}
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="standard"
-                                        value={this.state.formData.dropOffDate}
-                                        onChange={(e) => {
-                                            let formData = this.state.formData
-                                            formData.dropOffDate = e.target.value
-                                            this.setState({formData})
-                                        }}
+                                        />
+                                        <TextValidator
+                                            id="input-with-icon-textfield"
+                                            label="PickUpDate"
+                                            type={"Date"}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        {/*<AccessTimeIcon/>*/}
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                            value={this.state.formData.pickUpDate}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.pickUpDate = e.target.value
+                                                this.setState({formData})
+                                            }}
+                                        />
+                                        <TextValidator
+                                            id="input-with-icon-textfield"
+                                            label="DropOffDate"
+                                            type={"Date"}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        {/*<AccessTimeIcon/>*/}
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                            value={this.state.formData.dropOffDate}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.dropOffDate = e.target.value
+                                                this.setState({formData})
+                                            }}
 
-                                    />
-                                    <TextValidator
-                                        id="input-with-icon-textfield"
-                                        label="PickUpTime"
-                                        placeholder={"10:00 AM"}
-                                        // type={"time"}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    {/*<AccessTimeIcon/>*/}
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="standard"
-                                        value={this.state.formData.pickUpTime}
-                                        onChange={(e) => {
-                                            let formData = this.state.formData
-                                            formData.pickUpTime = e.target.value
-                                            this.setState({formData})
-                                        }}
-                                    />
-                                    <TextField
-                                        id="input-with-icon-textfield"
-                                        label="DropOffTime"
-                                        placeholder={"11:00 PM"}
-                                        // type={"time"}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    {/*<AccessTimeIcon/>*/}
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="standard"
-                                        value={this.state.formData.dropOffTime}
-                                        onChange={(e) => {
-                                            let formData = this.state.formData
-                                            formData.dropOffTime = e.target.value
-                                            this.setState({formData})
-                                        }}
-                                    />
-                                    <TextValidator
-                                        id="input-with-icon-textfield"
-                                        label="Rent Price"
-                                        placeholder={"1000.00"}
-                                        InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start">
-                                                    {/*<AccessTimeIcon/>*/}
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        variant="standard"
-                                        value={this.state.formData.rentPrice}
-                                        onChange={(e) => {
-                                            let formData = this.state.formData
-                                            formData.rentPrice = e.target.value
-                                            this.setState({formData})
-                                        }}
-                                        validators={['required','isPositive']}
+                                        />
+                                        <TextValidator
+                                            id="input-with-icon-textfield"
+                                            label="PickUpTime"
+                                            placeholder={"10:00 AM"}
+                                            // type={"time"}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        {/*<AccessTimeIcon/>*/}
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                            value={this.state.formData.pickUpTime}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.pickUpTime = e.target.value
+                                                this.setState({formData})
+                                            }}
+                                        />
+                                        <TextField
+                                            id="input-with-icon-textfield"
+                                            label="DropOffTime"
+                                            placeholder={"11:00 PM"}
+                                            // type={"time"}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        {/*<AccessTimeIcon/>*/}
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                            value={this.state.formData.dropOffTime}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.dropOffTime = e.target.value
+                                                this.setState({formData})
+                                            }}
+                                        />
+                                        <TextValidator
+                                            id="input-with-icon-textfield"
+                                            label="Rent Price"
+                                            placeholder={"1000.00"}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        {/*<AccessTimeIcon/>*/}
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                            value={this.state.formData.rentPrice}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.rentPrice = e.target.value
+                                                this.setState({formData})
+                                            }}
+                                            validators={['required', 'isPositive']}
 
-                                    />
+                                        />
+                                        <TextValidator
+                                            id="input-with-icon-textfield"
+                                            label="Account No"
+                                            // placeholder={"1000.00"}
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        {/*<AccessTimeIcon/>*/}
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                            value={this.state.formData.userAccountNo}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.userAccountNo = e.target.value
+                                                this.setState({formData})
+                                            }}
+                                            validators={['required',]}
+
+                                        />
                                     </ValidatorForm>
+                                    <Grid container style={{marginTop: '10px'}} direction="row" justifyContent="flex-end"
+                                          alignItems="center">
+                                        <GDSEButton label={this.state.btnLabel} onClick={this.submitBookingDetails} size="small"
+                                                    color={this.state.btnColor}
+                                                    variant="contained"/>
+                                    </Grid>
                                 </CardContent>
                             </CardActionArea>
                         </Card>
-                        <Grid container style={{marginTop: '10px'}} direction="row" justifyContent="flex-end"
-                              alignItems="center">
-                            <GDSEButton label={this.state.btnLabel} onClick={this.submitBookingDetails} size="small"
-                                        color={this.state.btnColor}
-                                        variant="contained"/>
-                        </Grid>
+
                     </Grid>
 
 
                     <Grid item xs={9} sm={9} md={9} lg={9}>
-                        <TableContainer component={Paper}  className={classes.container} sx={{minHeight:700}}>
+                        <TableContainer component={Paper} className={classes.container} sx={{minHeight: 700}}>
                             <Table sx={{minWidth: 700}} aria-label="user table">
                                 <TableHead className={classes.TableHead}>
                                     <TableRow>
@@ -488,6 +560,9 @@ class BookingDetailTable extends Component{
                                         <TableCell align="right"></TableCell>
                                         <TableCell align="right">Booking Details Id</TableCell>
                                         <TableCell align="right">User Id</TableCell>
+                                        <TableCell align="right">User Name</TableCell>
+                                        <TableCell align="right">User Email</TableCell>
+                                        <TableCell align="right">User Account No</TableCell>
                                         <TableCell align="right">Car Id</TableCell>
                                         <TableCell align="right">Driver Id</TableCell>
                                         <TableCell align="right">PickUp</TableCell>
@@ -546,6 +621,9 @@ class BookingDetailTable extends Component{
 
                                                 <TableCell align="right">{row.bdid}</TableCell>
                                                 <TableCell align="right">{row.uid}</TableCell>
+                                                <TableCell align="right">{row.userName}</TableCell>
+                                                <TableCell align="right">{row.userEmail}</TableCell>
+                                                <TableCell align="right">{row.userAccountNo}</TableCell>
                                                 <TableCell align="right">{row.cid}</TableCell>
                                                 <TableCell align="right">{row.did}</TableCell>
                                                 <TableCell align="right">{row.pickUp}</TableCell>
@@ -566,7 +644,7 @@ class BookingDetailTable extends Component{
 
                         </TableContainer>
                     </Grid>
-                    </Grid>
+                </Grid>
 
                 <GDSESnackBar
                     open={this.state.alert}

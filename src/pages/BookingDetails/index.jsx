@@ -39,7 +39,13 @@ import UsersService from "../../services/UsersService";
 
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-
+import TableBody from "@mui/material/TableBody";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import TableCell from "@mui/material/TableCell";
+import TouchAppIcon from '@mui/icons-material/TouchApp';
+import Car from "../Car";
 // import { pink } from '@mui/material/colors';
 
 
@@ -51,6 +57,9 @@ class BookingDetails extends Component {
             formData: {
                 bdid: '',
                 uid: '',
+                userName: '',
+                userEmail: '',
+                userAccountNo:'',
                 cid: '',
                 did: '',
                 pickUp: '',
@@ -79,16 +88,6 @@ class BookingDetails extends Component {
 
     }
 
-    // loadData = async () => {
-    //     let res = await CarService.fetchCar();
-    //     if (res.status === 200) {
-    //         this.setState({
-    //             data: res.data.data
-    //         })
-    //     }
-    //     console.log(this.state.data)
-    //     console.log("Hello")
-    // }
 
     handleChange(event) {
         this.state({
@@ -100,7 +99,6 @@ class BookingDetails extends Component {
         let res = await CarService.searchCar(cid);
         console.log(res)
         if (res.status === 200) {
-            // console.log(res.data.formData.cid)
             if (cid === this.state.formData.cid) {
                 this.setState({
                     data: res.data.data
@@ -108,6 +106,30 @@ class BookingDetails extends Component {
             }
         }
     }
+
+    // searchCar = async (cid) => {
+    //     let params = {
+    //         cid: cid
+    //     }
+    //     let res = await CarService.searchCar(params);
+    //     console.log( res.data.data)
+    //     if (res.status === 200) {
+    //         this.setState({
+    //             alert: true,
+    //             message: res.data.message,
+    //             severity: "success",
+    //             data:res.response.data.data,
+    //         })
+    //         console.log(res.response.data)
+    //     } else {
+    //         this.setState({
+    //             alert: true,
+    //             message: res.response.data.message,
+    //             severity: "error"
+    //         });
+    //     }
+    // }
+
     searchUser = async (uid) => {
         let res = await UsersService.searchUser(uid);
         console.log(res)
@@ -172,7 +194,7 @@ class BookingDetails extends Component {
             // console.log(index)
 
             // this.state.data[index].id="U00_002"
-            this.state.data[index].bdid="BD00_001"
+            this.state.data[index].bdid = "BD00_001"
 
         })
 
@@ -266,15 +288,12 @@ class BookingDetails extends Component {
                 </Grid>
 
 
-
-
                 <Grid container className="pt-7" spacing={2}>
 
                     <Grid item xs={6} sm={6} md={6} lg={6}>
                         <Card sx={{maxWidth: 750, maxHeight: 350}}>
                             <CardActionArea>
 
-                                {/*<Typography variant="h5" >Car Manage</Typography>*/}
                                 <CardContent>
                                     <TextField
                                         id="input-with-icon-textfield"
@@ -298,15 +317,25 @@ class BookingDetails extends Component {
                                         onKeyPress={(ev) => {
                                             console.log(`pressed keyCode {ev.key}`);
                                             if (ev.key === 'Enter') {
-                                                // this.loadData()
-                                                console.log(this.state.formData.cid)
-                                                this.searchCar(this.state.formData.cid)
+                                                this.searchCar(this.state.formData.cid);
                                                 //DocodeHere
                                                 ev.preventDefault();
+
+
                                             }
                                         }}
                                         //validators={['required','matchRegexp:^(B00_)[0-9]{3,4}$']}
                                     />
+                                    <Tooltip title="Click">
+                                        <IconButton
+                                            onClick={() => {
+                                                console.log("search icon clicked!")
+                                                this.searchCar(this.state.formData.bdid);
+                                            }}
+                                        >
+                                            <TouchAppIcon color={"success"}/>
+                                        </IconButton>
+                                    </Tooltip>
                                     <TextField
                                         id="input-with-icon-textfield"
                                         // id={uniqueId()}
@@ -642,11 +671,11 @@ class BookingDetails extends Component {
 
 
                                             variant="standard"
+                                            value={this.state.formData.userName}
                                             onChange={(e) => {
-                                                console.log(e.target.value)
                                                 let formData = this.state.formData
                                                 formData.userName = e.target.value
-                                                this.setState({ formData })
+                                                this.setState({formData})
                                             }}
                                         />
                                         <TextField
@@ -659,11 +688,11 @@ class BookingDetails extends Component {
                                                     </InputAdornment>
                                                 ),
                                             }}
+                                            value={this.state.formData.userEmail}
                                             onChange={(e) => {
-                                                console.log(e.target.value)
                                                 let formData = this.state.formData
-                                                formData.password = e.target.value
-                                                this.setState({ formData })
+                                                formData.userEmail = e.target.value
+                                                this.setState({formData})
                                             }}
                                             onKeyPress={(ev) => {
                                                 console.log(`pressed keyCode {ev.key}`);
@@ -718,11 +747,35 @@ class BookingDetails extends Component {
                                             InputProps={{
                                                 startAdornment: (
                                                     <InputAdornment position="start">
+                                                        {/*<AccessTimeIcon/>*/}
+                                                    </InputAdornment>
+                                                ),
+                                            }}
+                                            variant="standard"
+                                            value={this.state.formData.userAccountNo}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.userAccountNo = e.target.value
+                                                this.setState({formData})
+                                            }}
+                                        />
+                                        <TextField
+                                            id="input-with-icon-textfield"
+                                            label="rent Price"
+                                            InputProps={{
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
                                                         <CreateIcon/>
                                                     </InputAdornment>
                                                 ),
                                             }}
                                             variant="standard"
+                                            value={this.state.formData.rentPrice}
+                                            onChange={(e) => {
+                                                let formData = this.state.formData
+                                                formData.rentPrice = e.target.value
+                                                this.setState({formData})
+                                            }}
                                         />
 
                                         <Grid sx={{maxWidth: 1750}}>
