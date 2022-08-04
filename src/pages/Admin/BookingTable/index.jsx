@@ -25,6 +25,7 @@ import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 import GDSEButton from "../../../components/common/button";
 import EditIcon from "@mui/icons-material/Edit";
 import GDSESnackBar from "../../../components/common/snackBar";
+import DriverService from "../../../services/DriverService";
 
 class BookingDetailTable extends Component {
     constructor(props) {
@@ -185,6 +186,26 @@ class BookingDetailTable extends Component {
         console.log(this.state.data)
         this.exampleForMap();
     }
+    // drierChange = async (did) => {
+    //     let formData = this.state.formData.driverStatus;
+    //     let res = await DriverService.putDriver(formData);
+    //     if (res.status === 200) {
+    //         this.setState({
+    //             alert: true,
+    //             message: res.data.message,
+    //             severity: "success",
+    //             btnLabel: "Save",
+    //             btnColor: "primary"
+    //         });
+    //         this.loadData();
+    //     } else {
+    //         this.setState({
+    //             alert: true,
+    //             message: res.response.data.message,
+    //             severity: "error"
+    //         });
+    //     }
+    // }
 
     componentDidMount() {
         this.loadData();
@@ -347,6 +368,16 @@ class BookingDetailTable extends Component {
                                                 let formData = this.state.formData
                                                 formData.did = e.target.value
                                                 this.setState({formData})
+                                            }}
+
+                                            onKeyPress={(ev) => {
+                                                console.log(`pressed keyCode {ev.key}`);
+                                                if (ev.key === 'Enter') {
+                                                    this.drierChange(this.state.formData.did);
+                                                    ev.preventDefault();
+
+
+                                                }
                                             }}
                                             validators={['required', 'matchRegexp:^(D00_)[0-9]{3,4}$']}
 

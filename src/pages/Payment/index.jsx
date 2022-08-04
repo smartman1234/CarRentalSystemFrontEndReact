@@ -22,6 +22,7 @@ import { withStyles } from "@mui/styles";
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import logo from "../../assets/img/carLogo.jpg";
+import UserPayment from "./UserPayment";
 
 class Payment extends Component {
     constructor(props) {
@@ -190,6 +191,8 @@ class Payment extends Component {
         const {classes} = this.props;
         return (
             <Fragment>
+
+
                 <Grid container className="pt-7" spacing={2}>
 
                     <Grid item xs={11} sm={11} md={11} lg={11}>
@@ -197,6 +200,7 @@ class Payment extends Component {
                            Payment Manage
                         </Typography>
                     </Grid>
+
                     <Grid item xs={1} sm={1} md={1} lg={1}>
                         <Stack direction="row" spacing={2}>
                             <Avatar
@@ -207,7 +211,7 @@ class Payment extends Component {
                         </Stack>
 
                     </Grid>
-
+                    <UserPayment/>
 
                 </Grid>
 

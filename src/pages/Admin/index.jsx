@@ -40,6 +40,7 @@ import BookingDetailTable from "./BookingTable";
 import Email from "./Email";
 import mitsubishiEvo from "../../assets/img/mitsubishiEvo.jpg";
 import {Button, CardActions} from "@mui/material";
+import DriverTable from "./AvailableDriver";
 
 class Admin extends Component {
     constructor(props) {
@@ -262,7 +263,7 @@ class Admin extends Component {
 
                 <Grid container className="pt-2" spacing={3}>
                     <Grid item xs={8} sm={8} md={8} lg={8}>
-                        <Card sx={{maxWidth: 1500, maxHeight: 500}}>
+                        <Card sx={{maxWidth: 1500, minHeight: 400}}>
                             <CardActionArea>
 
                                 {/*<Typography variant="h5" >Car Manage</Typography>*/}
@@ -430,7 +431,9 @@ class Admin extends Component {
 
                                     />
                                 </CardContent>
+
                             </CardActionArea>
+                            <DriverTable/>
                         </Card>
 
                     </Grid>
@@ -441,9 +444,12 @@ class Admin extends Component {
                                     <Email/>
                                 </CardContent>
                             </CardActionArea>
+
+
                         </Card>
                     </Grid>
                 </Grid>
+
 
                 <BookingDetailTable/>
 
